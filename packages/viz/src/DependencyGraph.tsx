@@ -66,6 +66,8 @@ export function DependencyGraph({
   const [hideTests, setHideTests] = useState(false);
   const [focusDepth, setFocusDepth] = useState<number>(1);
   const [showInsights, setShowInsights] = useState(false);
+  const [spacing, setSpacing] = useState<number>(1.6);
+  const [labelMode, setLabelMode] = useState<'smart' | 'all' | 'off'>('smart');
 
   // Interactive selection state
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
@@ -175,26 +177,70 @@ export function DependencyGraph({
   const simLinksRef = useRef<SimLink[]>([]);
   const simulationRef = useRef<d3Force.Simulation<SimNode, SimLink> | null>(null);
 
+  // Auto-fit bounds into viewport with padding
+  const autoFit = useCallback((padding = 60) => {
+    const canvas = canvasRef.current;
+    const nodes = simNodesRef.current;
+    if (!canvas || nodes.length === 0) return;
+
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+
+    for (const n of nodes) {
+      if (n.x === undefined || n.y === undefined) continue;
+      const r = n.radius + 30;
+      minX = Math.min(minX, n.x - r);
+      maxX = Math.max(maxX, n.x + r);
+      minY = Math.min(minY, n.y - r);
+      maxY = Math.max(maxY, n.y + r);
+    }
+
+    if (!isFinite(minX) || maxX <= minX || maxY <= minY) return;
+
+    const width = canvas.clientWidth;
+    const clientHeight = canvas.clientHeight;
+    const graphWidth = maxX - minX;
+    const graphHeight = maxY - minY;
+
+    const scaleX = (width - padding * 2) / graphWidth;
+    const scaleY = (clientHeight - padding * 2) / graphHeight;
+    const k = Math.max(0.2, Math.min(1.4, Math.min(scaleX, scaleY)));
+
+    const midX = (minX + maxX) / 2;
+    const midY = (minY + maxY) / 2;
+
+    transformRef.current = {
+      x: width / 2 - midX * k,
+      y: clientHeight / 2 - midY * k,
+      k,
+    };
+  }, []);
+
   // Initialize and run D3 Force simulation
   useEffect(() => {
     const width = containerRef.current?.clientWidth || 900;
     const currentHeight = height;
 
-    // Reset center transform
-    transformRef.current = { x: width / 2, y: currentHeight / 2, k: 0.9 };
+    // Center transform
+    transformRef.current = { x: width / 2, y: currentHeight / 2, k: 0.85 };
 
-    const nodes: SimNode[] = filteredNodes.map((n) => {
+    // Distribute initial positions on a phyllotaxis spiral so nodes start with plenty of space
+    const nodes: SimNode[] = filteredNodes.map((n, i) => {
       const inCycle = cycleMap.has(n.id);
       const radius = Math.max(
-        4,
-        Math.min(18, 3.5 * Math.sqrt((n.fanIn || 0) + (n.fanOut || 0) + 1)),
+        6,
+        Math.min(20, 3.8 * Math.sqrt((n.fanIn || 0) + (n.fanOut || 0) + 1)),
       );
+      const angle = i * 2.39996; // Golden angle
+      const spreadDist = Math.sqrt(i + 1) * 45 * spacing;
       return {
         ...n,
         radius,
         inCycle,
-        x: (Math.random() - 0.5) * width * 0.6,
-        y: (Math.random() - 0.5) * currentHeight * 0.6,
+        x: Math.cos(angle) * spreadDist,
+        y: Math.sin(angle) * spreadDist,
       };
     });
 
@@ -224,7 +270,8 @@ export function DependencyGraph({
         c.y /= c.count;
       }
 
-      const strength = 0.04;
+      // Gentle folder cluster force (0.005) - keeps folder groups nearby without crushing into balls
+      const strength = 0.005;
       for (const n of nodes) {
         const c = folderCentroids.get(n.folder);
         if (c && n.x !== undefined && n.y !== undefined) {
@@ -234,7 +281,10 @@ export function DependencyGraph({
       }
     };
 
-    const manyBodyStrength = nodes.length > 500 ? -40 : -80;
+    // Spacious physics parameters
+    const linkDistance = Math.max(70, 95 * spacing);
+    const chargeStrength = Math.min(-140, -260 * spacing);
+    const collisionMargin = (labelMode === 'all' ? 24 : 16) * spacing;
 
     const sim = d3Force
       .forceSimulation<SimNode>(nodes)
@@ -243,18 +293,27 @@ export function DependencyGraph({
         d3Force
           .forceLink<SimNode, SimLink>(links)
           .id((d) => d.id)
-          .distance(35),
+          .distance(linkDistance),
       )
-      .force('charge', d3Force.forceManyBody().strength(manyBodyStrength))
+      .force(
+        'charge',
+        d3Force
+          .forceManyBody<SimNode>()
+          .strength(chargeStrength)
+          .distanceMax(700 * spacing),
+      )
       .force(
         'collision',
-        d3Force.forceCollide<SimNode>().radius((d) => d.radius + 3),
+        d3Force
+          .forceCollide<SimNode>()
+          .radius((d) => d.radius + collisionMargin)
+          .iterations(2),
       )
-      .force('x', d3Force.forceX(0).strength(0.06))
-      .force('y', d3Force.forceY(0).strength(0.06))
+      .force('x', d3Force.forceX(0).strength(0.012))
+      .force('y', d3Force.forceY(0).strength(0.012))
       .force('folderCluster', folderCenterForce)
-      .alphaDecay(0.035)
-      .alphaMin(0.02);
+      .alphaDecay(0.028)
+      .alphaMin(0.015);
 
     simulationRef.current = sim;
 
@@ -262,8 +321,13 @@ export function DependencyGraph({
     if (!canvas) return;
 
     let animId: number;
+    let ticks = 0;
     const render = () => {
       drawCanvas();
+      ticks++;
+      if (ticks === 45) {
+        autoFit();
+      }
       if (sim.alpha() >= sim.alphaMin()) {
         animId = requestAnimationFrame(render);
       }
@@ -279,7 +343,7 @@ export function DependencyGraph({
       sim.stop();
       cancelAnimationFrame(animId);
     };
-  }, [filteredNodes, filteredEdges, cycleMap, height]);
+  }, [filteredNodes, filteredEdges, cycleMap, height, spacing, labelMode, autoFit]);
 
   // Main Canvas drawing function
   const drawCanvas = useCallback(() => {
@@ -461,13 +525,48 @@ export function DependencyGraph({
           ctx.stroke();
         }
 
-        // Label on larger nodes or when selected/hovered/zoomed in
-        if (isHovered || isSelected || k > 1.4 || node.radius >= 10) {
-          const fileName = node.id.split('/').pop() || node.id;
-          ctx.fillStyle = isSelected ? '#0072b2' : '#222222';
-          ctx.font = `${isSelected ? 'bold ' : ''}${Math.max(8, 10 / k)}px monospace`;
+        // Smart/All/Off label rendering
+        let shouldDrawLabel = false;
+        if (labelMode === 'all') {
+          shouldDrawLabel = true;
+        } else if (labelMode === 'smart') {
+          shouldDrawLabel =
+            isHovered ||
+            isSelected ||
+            isFocused ||
+            node.inCycle ||
+            node.fanIn > 0 ||
+            node.fanOut > 0 ||
+            k >= 0.75;
+        }
+
+        if (shouldDrawLabel && !dimmed) {
+          const rawName = node.id.split('/').pop() || node.id;
+          const fileName =
+            rawName.length > 20 && !isHovered && !isSelected
+              ? `${rawName.slice(0, 17)}...`
+              : rawName;
+
+          const fontSize = Math.max(9, Math.min(13, 11 / k));
+          ctx.font = `${isSelected || isHovered ? '600 ' : '400 '}${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace`;
           ctx.textAlign = 'center';
-          ctx.fillText(fileName, node.x, node.y + node.radius + 11 / k);
+          ctx.textBaseline = 'top';
+
+          const textY = node.y + node.radius + 3 / k;
+
+          // High-contrast text halo for readability over any hull or link
+          ctx.lineWidth = 3.5 / k;
+          ctx.lineJoin = 'round';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.strokeText(fileName, node.x, textY);
+
+          // Text fill
+          ctx.fillStyle = isSelected
+            ? '#0072b2'
+            : node.inCycle
+              ? '#b91c1c'
+              : '#0f172a';
+          ctx.fillText(fileName, node.x, textY);
         }
       }
       ctx.restore();
@@ -484,6 +583,7 @@ export function DependencyGraph({
     activeCycleIndex,
     searchQuery,
     data.stats.cycles,
+    labelMode,
   ]);
 
   // Redraw when state updates
@@ -704,8 +804,50 @@ export function DependencyGraph({
           </button>
         </div>
 
-        {/* Right Controls: Color mode, view toggle, insights */}
-        <div className="flex items-center space-x-2">
+        {/* Right Controls: Spacing, Labels, Color mode, view toggle, insights */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Spacing Selector */}
+          <div className="flex items-center border border-line rounded-control bg-surface p-0.5" title="Spread graph nodes">
+            <span className="text-[10px] text-ink-muted px-1.5 font-medium">Spread:</span>
+            {[
+              { label: '1x', val: 1.0 },
+              { label: '1.5x', val: 1.6 },
+              { label: '2.2x', val: 2.2 },
+            ].map((s) => (
+              <button
+                key={s.label}
+                type="button"
+                onClick={() => setSpacing(s.val)}
+                className={`px-1.5 py-0.5 rounded-xs text-[11px] font-mono transition-colors ${
+                  spacing === s.val ? 'bg-paper text-ink font-bold shadow-xs' : 'text-ink-muted hover:text-ink'
+                }`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Labels Mode Selector */}
+          <div className="flex items-center border border-line rounded-control bg-surface p-0.5" title="Toggle node labels">
+            <span className="text-[10px] text-ink-muted px-1.5 font-medium">Labels:</span>
+            {[
+              { id: 'smart', label: 'Smart' },
+              { id: 'all', label: 'All' },
+              { id: 'off', label: 'Off' },
+            ].map((l) => (
+              <button
+                key={l.id}
+                type="button"
+                onClick={() => setLabelMode(l.id as 'smart' | 'all' | 'off')}
+                className={`px-1.5 py-0.5 rounded-xs text-[11px] transition-colors ${
+                  labelMode === l.id ? 'bg-paper text-ink font-semibold shadow-xs' : 'text-ink-muted hover:text-ink'
+                }`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
+
           {/* Color Mode */}
           <div className="flex items-center border border-line rounded-control bg-surface p-0.5">
             <button
@@ -873,6 +1015,14 @@ export function DependencyGraph({
                 title="Reset view"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => autoFit(60)}
+                className="px-1.5 py-0.5 rounded-xs hover:bg-paper text-ink font-mono text-[11px] font-semibold transition-colors"
+                title="Fit all nodes to screen"
+              >
+                Fit
               </button>
             </div>
 
