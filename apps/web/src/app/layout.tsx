@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Repo Analyzer',
+  title: 'Repometric',
   description: 'Deterministic health score, repo map, and dependency graph for public repositories',
 };
 

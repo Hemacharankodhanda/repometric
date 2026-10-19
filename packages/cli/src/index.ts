@@ -7,7 +7,7 @@ export function createProgram(): Command {
   const program = new Command();
 
   program
-    .name('repo-analyzer')
+    .name('repometric')
     .description('Analyze GitHub repositories for health, structure, and dependencies')
     .version(CORE_VERSION)
     .argument('[target]', 'owner/repo, a GitHub URL, or a local path such as .')
@@ -21,7 +21,7 @@ export function createProgram(): Command {
         program.help();
         return;
       }
-      console.log(`Analyzing ${target}... (core v${CORE_VERSION})`);
+      console.log(`Analyzing ${target}... (Repometric core v${CORE_VERSION})`);
       if (options.json) {
         console.log(JSON.stringify({ target, status: 'scaffold' }));
       }
@@ -31,6 +31,10 @@ export function createProgram(): Command {
 }
 
 // Only parse when executed directly
-if (process.argv[1]?.endsWith('repo-analyzer') || process.argv[1]?.endsWith('index.js')) {
+if (
+  process.argv[1]?.endsWith('repometric') ||
+  process.argv[1]?.endsWith('repo-analyzer') ||
+  process.argv[1]?.endsWith('index.js')
+) {
   createProgram().parse(process.argv);
 }

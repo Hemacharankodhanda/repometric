@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "bin": {
+    "repometric": "./dist/index.js",
     "repo-analyzer": "./dist/index.js"
   },
   "main": "./dist/index.js",
