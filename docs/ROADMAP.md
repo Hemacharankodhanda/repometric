@@ -13,7 +13,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
 
 ## Phase 1: core scoring (week 1)
 - [x] **T1.1 Contracts.** Create `packages/core/src/types.ts` exactly as in `ARCHITECTURE.md`. AC: exported from the package index; typecheck passes.
-- [ ] **T1.2 GitHub client.** Implement the REST and GraphQL client producing a `RepoSnapshot`, with ETag support, rate-limit handling and typed errors (`ARCHITECTURE.md` section 6).
+- [x] **T1.2 GitHub client.** Implement the REST and GraphQL client producing a `RepoSnapshot`, with ETag support, rate-limit handling and typed errors (`ARCHITECTURE.md` section 6).
   AC: unit tests with MSW cover success, 404, private repo, rate limit and truncated tree.
 - [ ] **T1.3 Scoring framework.** Config file, `Signal` interface, normalization and grading from `SCORING_SPEC.md` section 1.
   AC: tests for `na`, `no_data` and renormalization when a category is excluded.

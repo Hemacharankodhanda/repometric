@@ -17,6 +17,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
+    "msw": "^3.0.3",
     "typescript": "^5.6.3",
     "vitest": "^2.1.4"
   }

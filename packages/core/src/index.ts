@@ -7,3 +7,6 @@ export function getCoreVersion(): string {
 export * from './types';
 export * from './mocks';
 export * from './hierarchy';
+export * from './errors';
+export * from './github/languages';
+export * from './github/client';
