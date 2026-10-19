@@ -12,7 +12,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
   AC: a demo page shows every token in both themes; contrast of text tokens verified at 4.5:1 or better.
 - [x] **T0.5 Playful component kit.** Build the `Tilly` mascot (all moods in `DESIGN_SYSTEM.md` section 5), `StickerBadge`, `ChunkyButton`, `RepoInput`, `Stepper`, `EmptyState`, `ErrorState`, `Toast`, and the hard-shadow card, using shadcn/ui primitives restyled with tokens and the `motion` library.
   AC: a `/kit` dev page shows every component and Tilly mood in light and dark; reduced motion disables animation; keyboard focus is visible everywhere.
-- [ ] **T0.6 Landing page.** Implement every section of `UX_SPEC.md` section 1 with the specified copy, using mock data for the interactive previews (labelled "sample").
+- [x] **T0.6 Landing page.** Implement every section of `UX_SPEC.md` section 1 with the specified copy, using mock data for the interactive previews (labelled "sample").
   AC: passes the 5-second test; no horizontal scroll at 375 px; Lighthouse accessibility 95+ and performance 90+; interactive previews are lazy-loaded.
 - [ ] **T0.7 App shell and flows on mock data.** Analysis screen with the stepper, report page header, summary card with score count-up and verdict, tabs, Overview, Fixes (with local "Mark done"), share menu, empty and error states, first-run tour, and the Open Graph score card, per `UX_SPEC.md` section 2.
   AC: every state in `UX_SPEC.md` section 2.6 is reachable on a dev page; confetti fires once for a 90+ score and not under reduced motion; share card renders at 1200x630.
