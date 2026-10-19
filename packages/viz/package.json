@@ -1,5 +1,5 @@
 {
-  "name": "@repo-analyzer/viz",
+  "name": "@repometric/viz",
   "version": "0.1.0",
   "type": "module",
   "main": "./src/index.tsx",
@@ -17,7 +17,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@repo-analyzer/core": "workspace:*"
+    "@repometric/core": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.3.1 || ^19.0.0",

@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@12.14.0",
   "scripts": {
-    "dev": "pnpm --filter @repo-analyzer/web dev",
+    "dev": "pnpm --filter @repometric/web dev",
     "build": "pnpm -r build",
     "lint": "eslint .",
     "typecheck": "pnpm -r typecheck",

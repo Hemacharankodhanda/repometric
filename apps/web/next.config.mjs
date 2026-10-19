@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@repo-analyzer/core', '@repo-analyzer/viz'],
+  transpilePackages: ['@repometric/core', '@repometric/viz'],
 };
 
 export default nextConfig;

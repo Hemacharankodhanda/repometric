@@ -1,5 +1,5 @@
 {
-  "name": "@repo-analyzer/cli",
+  "name": "@repometric/cli",
   "version": "0.1.0",
   "type": "module",
   "bin": {
@@ -20,7 +20,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@repo-analyzer/core": "workspace:*",
+    "@repometric/core": "workspace:*",
     "commander": "^12.1.0"
   },
   "devDependencies": {

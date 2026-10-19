@@ -1,5 +1,5 @@
 import React from 'react';
-import { CORE_VERSION } from '@repo-analyzer/core';
+import { CORE_VERSION } from '@repometric/core';
 
 export interface VisualizerStubProps {
   label?: string;

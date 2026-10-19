@@ -1,5 +1,5 @@
 {
-  "name": "@repo-analyzer/web",
+  "name": "@repometric/web",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,8 +11,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@repo-analyzer/core": "workspace:*",
-    "@repo-analyzer/viz": "workspace:*",
+    "@repometric/core": "workspace:*",
+    "@repometric/viz": "workspace:*",
     "next": "^14.2.18",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

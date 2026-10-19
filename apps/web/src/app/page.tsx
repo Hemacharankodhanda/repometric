@@ -1,6 +1,6 @@
 import React from 'react';
-import { CORE_VERSION } from '@repo-analyzer/core';
-import { VisualizerStub } from '@repo-analyzer/viz';
+import { CORE_VERSION } from '@repometric/core';
+import { VisualizerStub } from '@repometric/viz';
 
 export default function HomePage() {
   return (

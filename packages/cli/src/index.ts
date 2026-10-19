@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { CORE_VERSION } from '@repo-analyzer/core';
+import { CORE_VERSION } from '@repometric/core';
 
 export function createProgram(): Command {
   const program = new Command();
