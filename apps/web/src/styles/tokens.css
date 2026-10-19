@@ -1,22 +1,34 @@
 /* Design tokens: see docs/DESIGN_SYSTEM.md. Components use these variables only. */
 
 :root {
-  --paper: #e9eef0;
-  --surface: #f5f8f9;
-  --fog: #c9d3d8;
-  --ink: #14213d;
-  --ink-muted: #4a5872;
-  --line: color-mix(in srgb, var(--ink) 15%, transparent);
+  --paper: #fffbf0;
+  --paper-2: #f4efe2;
+  --card: #ffffff;
+  --ink: #1b1b3a;
+  --ink-muted: #5a5a7a;
 
-  --teal: #2a7f87;
-  --teal-text: #1f6068;
-  --danger: #d6352f;
-  --danger-text: #b02620;
-  --moss: #5e8c4a;
-  --moss-text: #3f6b2e;
-  --focus: #2a7f87;
+  --primary: #5b5bff;
+  --on-primary: #ffffff;
+  --primary-text: #3a3ad6;
 
-  /* Data palettes */
+  --lime: #c6f432;
+  --sun: #ffd23f;
+  --coral: #ff6b57;
+  --coral-text: #c2362a;
+  --sky: #7fd6ff;
+  --on-fill: #1b1b3a; /* text on lime, sun, coral, sky */
+
+  --border: 2px solid var(--ink);
+  --shadow-sm: 2px 2px 0 var(--ink);
+  --shadow-md: 4px 4px 0 var(--ink);
+  --shadow-lg: 6px 6px 0 var(--ink);
+
+  --radius-tile: 3px;
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-pill: 999px;
+
+  /* Data palettes (color-blind safe) */
   --lang-1: #e69f00;
   --lang-2: #56b4e9;
   --lang-3: #009e73;
@@ -32,15 +44,10 @@
   --seq-4: #2c7fb8;
   --seq-5: #253494;
 
-  /* Shape */
-  --radius-tile: 2px;
-  --radius-control: 6px;
-  --radius-panel: 12px;
-
   /* Type */
-  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-body: 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --text-xs: 0.8rem;
   --text-sm: 1rem;
@@ -48,45 +55,56 @@
   --text-lg: 1.563rem;
   --text-xl: 1.953rem;
   --text-2xl: 2.441rem;
-  --text-score: 3.815rem;
+  --text-hero: clamp(2.5rem, 6vw, 4.5rem);
+  --text-score: clamp(4rem, 10vw, 6rem);
+
+  /* Motion */
+  --press-ms: 120ms;
 }
 
-:root[data-theme='dark'] {
-  --paper: #0f1a26;
-  --surface: #16263a;
-  --fog: #223244;
-  --ink: #e6edf0;
-  --ink-muted: #9fb0bf;
+:root[data-theme="dark"] {
+  --paper: #14142b;
+  --paper-2: #1b1b38;
+  --card: #1f1f3d;
+  --ink: #f5f3ff;
+  --ink-muted: #b4b4d6;
 
-  --teal: #4fb3bc;
-  --teal-text: #7fd0d7;
-  --danger: #ff6b5e;
-  --danger-text: #ff8f85;
-  --moss: #8dbb78;
-  --moss-text: #a8d192;
-  --focus: #4fb3bc;
+  --primary: #7c7cff;
+  --on-primary: #14142b;
+  --primary-text: #a9a9ff;
+
+  --coral: #ff7f6e;
+  --coral-text: #ff9c8f;
+  --on-fill: #14142b;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --paper: #0f1a26;
-    --surface: #16263a;
-    --fog: #223244;
-    --ink: #e6edf0;
-    --ink-muted: #9fb0bf;
+  :root:not([data-theme="light"]) {
+    --paper: #14142b;
+    --paper-2: #1b1b38;
+    --card: #1f1f3d;
+    --ink: #f5f3ff;
+    --ink-muted: #b4b4d6;
 
-    --teal: #4fb3bc;
-    --teal-text: #7fd0d7;
-    --danger: #ff6b5e;
-    --danger-text: #ff8f85;
-    --moss: #8dbb78;
-    --moss-text: #a8d192;
-    --focus: #4fb3bc;
+    --primary: #7c7cff;
+    --on-primary: #14142b;
+    --primary-text: #a9a9ff;
+
+    --coral: #ff7f6e;
+    --coral-text: #ff9c8f;
+    --on-fill: #14142b;
   }
 }
 
+/* Survey-paper dot grid for alternate sections */
+.bg-dots {
+  background-color: var(--paper-2);
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 8%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
 :focus-visible {
-  outline: 2px solid var(--focus);
+  outline: 3px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -95,6 +113,8 @@
   *::before,
   *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

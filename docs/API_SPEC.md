@@ -46,7 +46,7 @@ Request: `{ "analysisId": "uuid", "graph": GraphData }`. Validate with Zod. Reje
 Returns `GraphData`. Header `Cache-Control: public, max-age=31536000, immutable` (the id is immutable).
 
 ### `GET /badge/[owner]/[repo].svg`
-Query: `style=flat` (default) or `flat-square`. Returns an SVG with label `repo health` and value `82/100`, colored by grade (use the status colors from `DESIGN_SYSTEM.md`). Unknown repo returns a grey `not analyzed` badge with status 200. Header `Cache-Control: public, s-maxage=86400, stale-while-revalidate=604800`. On a cache miss call `increment_badge_hit`.
+Query: `style=flat` (default) or `flat-square`. Returns an SVG with label `repo health` and value `82/100`, colored by grade (Excellent `--lime`, Good `--sky`, Needs work `--sun`, At risk `--coral`, from `DESIGN_SYSTEM.md`; use ink text on every fill). Unknown repo returns a grey `not analyzed` badge with status 200. Header `Cache-Control: public, s-maxage=86400, stale-while-revalidate=604800`. On a cache miss call `increment_badge_hit`.
 
 ### `GET /api/cron/keepalive`
 Requires `Authorization: Bearer $CRON_SECRET`. Runs `select 1` against Supabase. Scheduled daily in `vercel.json`.

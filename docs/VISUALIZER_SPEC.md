@@ -19,7 +19,7 @@ The visualizers are the flagship feature. Both live in `packages/viz`, draw on C
 ### Layout and rendering
 - `d3-hierarchy` squarified treemap, `paddingInner 1px`, `paddingTop 16px` for folder header strips, depth-based padding so nesting is readable.
 - Folders draw a header strip with the folder name when width is at least 80 px; files draw a label when width is at least 60 px and height at least 16 px. Skip tiles under 1 px.
-- Tile corner radius 2 px. Folder strips and tile outlines use `--line`.
+- Tile corner radius 3 px (`--radius-tile`). Tiles and folder strips get a 1 to 2 px outline in `--ink` (1 px when tiles are small) so they pop against the card, matching the sticker look in `DESIGN_SYSTEM.md`. Hovered tiles lift 1 to 2 px with a hard `--ink` shadow.
 - Hit-testing: keep a flat array of rects sorted by depth, test from deepest up; use `d3-quadtree` over tile centers for dense maps.
 
 ### Navigation
@@ -35,7 +35,7 @@ The visualizers are the flagship feature. Both live in `packages/viz`, draw on C
 | Language | P0 | Okabe-Ito categorical palette for the 7 most common languages in the repo, neutral grey for the rest |
 | Size | P0 | Sequential scale (YlGnBu, 5 classes) by file size |
 | Import fan-in | P0 | Sequential scale by number of files importing it. Requires the graph; disabled with a tooltip until the graph is ready |
-| Test sibling | P0 | Files with a matching test file in `--moss`; source files without one get a diagonal hatch pattern (not color alone). Match by name (`a.ts` and `a.test.ts`, `a.py` and `test_a.py`) |
+| Test sibling | P0 | Files with a matching test file in `--lime`; source files without one get a diagonal hatch pattern (not color alone). Match by name (`a.ts` and `a.test.ts`, `a.py` and `test_a.py`) |
 | Churn | P1 | Commits in last 90 days. Computed for the 100 largest source files through batched GraphQL `history(path:)` queries; other files render neutral |
 | Top author share | P1 | Same source as churn |
 
@@ -67,7 +67,7 @@ Toggle that outlines files that are in the top 10% by size and top 10% by fan-in
 - Hover a node: dim everything except its direct neighbors, show the hover card.
 - Click: select (shared store). Double-click: focus the neighborhood at `focusDepth` (1 to 3 hops, undirected BFS), with a depth slider and a "show all" button.
 - Filters: folder, extension, "hide tests", "show external packages".
-- Cycles highlighted in `--danger`.
+- Cycles highlighted in `--coral`.
 - Layout modes: force (P0), hierarchical by import depth (P1), radial around the selected node (P2).
 
 ### Insights panel

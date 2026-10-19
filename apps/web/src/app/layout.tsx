@@ -5,7 +5,7 @@ import './globals.css';
 
 const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-heading',
+  variable: '--font-display',
   display: 'swap',
 });
 
@@ -22,8 +22,16 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'RepoMetric',
-  description: 'Deterministic health score, repo map, and dependency graph for public repositories',
+  title: 'RepoMetric: health score and map for any GitHub repo',
+  description:
+    'Paste a GitHub link. Get a 0-100 health score, a to-do list that fixes it, an interactive map of your code, and an architecture diagram. Free, no sign-up.',
+  metadataBase: new URL('https://repometric.dev'),
+  openGraph: {
+    title: 'RepoMetric: health score and map for any GitHub repo',
+    description:
+      'Paste a GitHub link. Get a 0-100 health score, a to-do list that fixes it, an interactive map of your code, and an architecture diagram. Free, no sign-up.',
+    type: 'website',
+  },
 };
 
 const themeScript = `
@@ -49,7 +57,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen bg-paper text-ink font-body antialiased">{children}</body>
+      <body className="min-h-screen bg-paper text-ink font-body antialiased selection:bg-lime selection:text-ink">
+        {children}
+      </body>
     </html>
   );
 }

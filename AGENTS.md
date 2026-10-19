@@ -45,14 +45,14 @@ pnpm db:types            # regenerate Supabase types
 ## How to work
 1. Pick the next unchecked task in `docs/ROADMAP.md`. Do tasks in order, one at a time.
 2. Before writing code, state a plan in 3-6 lines. Ask a question only if a spec is ambiguous or contradicts another; otherwise choose the simplest option and record it in `docs/DECISIONS.md`.
-3. **Specs win over assumptions.** Scoring: `docs/SCORING_SPEC.md`. API and CLI: `docs/API_SPEC.md`. Visualizers: `docs/VISUALIZER_SPEC.md`. Data: `docs/DATA_MODEL.md`. UI look: `docs/DESIGN_SYSTEM.md`. If you must deviate, update the spec in the same change and say why.
+3. **Specs win over assumptions.** Scoring: `docs/SCORING_SPEC.md`. API and CLI: `docs/API_SPEC.md`. Visualizers: `docs/VISUALIZER_SPEC.md`. Data: `docs/DATA_MODEL.md`. UI look: `docs/DESIGN_SYSTEM.md`. Landing page and app flows: `docs/UX_SPEC.md`. If you must deviate, update the spec in the same change and say why.
 4. When a task's acceptance criteria pass, tick its checkbox in `ROADMAP.md`.
 
 ## Code rules
 - `packages/core` is pure and portable: it must run in Node, the browser and web workers. No `fs`, no global `fetch` inside scoring or parsing; data enters through the interfaces in `docs/ARCHITECTURE.md` (`RepoSnapshot`, `RepoDataSource`). Time is passed in (`now`), never read from `Date.now()` inside scoring.
 - No `any`. Prefer small pure functions. Keep files under about 300 lines.
 - Every scoring signal and parser branch has unit tests built on fixtures. No network in unit tests.
-- UI uses tokens from `docs/DESIGN_SYSTEM.md`. No hard-coded hex colors in components. Use sentence case and plain-language copy.
+- UI uses tokens from `docs/DESIGN_SYSTEM.md`. No hard-coded hex colors in components. The look is bright, tactile and playful but clean ("playful field guide"): follow the design system and `docs/UX_SPEC.md` closely, and never fall back to a plain default look. Use sentence case and plain-language copy.
 - Add a dependency only when needed and prefer the stack above. For anything shipped to the browser, check bundle size. Visualizers are lazy-loaded.
 - Commits follow Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, `chore:`), one logical change each.
 - API errors use `{ "error": { "code", "message" } }`. UI error text says what went wrong and how to fix it.
@@ -79,7 +79,8 @@ pnpm db:types            # regenerate Supabase types
 | `docs/DATA_MODEL.md` | Tables and policies (SQL in `supabase/migrations`) |
 | `docs/API_SPEC.md` | HTTP endpoints, errors, CLI |
 | `docs/VISUALIZER_SPEC.md` | Repo Map and Dependency Graph |
-| `docs/DESIGN_SYSTEM.md` | Look, tokens, copy, accessibility |
+| `docs/DESIGN_SYSTEM.md` | Look, tokens, mascot, motion, copy voice, accessibility |
+| `docs/UX_SPEC.md` | Landing page sections and copy, app flows, empty and error states |
 | `docs/ROADMAP.md` | Ordered tasks with acceptance criteria |
 | `docs/DECISIONS.md` | Decisions already made and why |
 | `docs/SETUP.md` | Accounts, env vars, deploy |
