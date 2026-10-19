@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "owner": "studentuser",
+    "name": "homework-project",
+    "defaultBranch": "main",
+    "description": null,
+    "topics": [],
+    "homepage": null,
+    "license": null,
+    "stars": 1,
+    "hasWiki": false,
+    "archived": false
+  },
+  "commitSha": "a1b2c3d4e5f6",
+  "now": "2026-03-01T12:00:00Z",
+  "tree": [
+    { "path": "README.md", "size": 60, "language": "Markdown", "isTest": false },
+    { "path": "main.py", "size": 350, "language": "Python", "isTest": false }
+  ],
+  "readme": "# Homework\nProject for CS101 class.\n",
+  "commits": [
+    { "date": "2026-02-27T10:00:00Z", "authorLogin": "studentuser" },
+    { "date": "2026-02-26T14:00:00Z", "authorLogin": "studentuser" }
+  ],
+  "issues": [],
+  "pulls": [],
+  "releases": [],
+  "sampledSources": [
+    {
+      "path": "main.py",
+      "content": "def main():\n    print('Hello World')\n\nif __name__ == '__main__':\n    main()\n"
+    }
+  ],
+  "manifests": [],
+  "registry": {}
+}

@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "owner": "oldorg",
+    "name": "legacy-tool",
+    "defaultBranch": "master",
+    "description": "An abandoned tool from years ago",
+    "topics": ["legacy", "tool"],
+    "homepage": null,
+    "license": "MIT",
+    "stars": 12,
+    "hasWiki": false,
+    "archived": false
+  },
+  "commitSha": "deadbeef1234",
+  "now": "2026-03-01T12:00:00Z",
+  "tree": [
+    { "path": "README.md", "size": 400, "language": "Markdown", "isTest": false },
+    { "path": "package.json", "size": 300, "language": "JSON", "isTest": false },
+    { "path": "src/index.js", "size": 200, "language": "JavaScript", "isTest": false }
+  ],
+  "readme": "# Legacy Tool\n\nThis is an old repository that was abandoned long ago.\n\n## Usage\n\n```bash\nnode src/index.js\n```\n",
+  "commits": [
+    { "date": "2024-01-10T10:00:00Z", "authorLogin": "ghost" }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "author": "user1",
+      "createdAt": "2024-02-01T10:00:00Z",
+      "updatedAt": "2024-02-01T10:00:00Z",
+      "state": "open",
+      "firstResponseAt": null
+    },
+    {
+      "number": 2,
+      "author": "user2",
+      "createdAt": "2024-03-01T10:00:00Z",
+      "updatedAt": "2024-03-01T10:00:00Z",
+      "state": "open",
+      "firstResponseAt": null
+    }
+  ],
+  "pulls": [],
+  "releases": [],
+  "sampledSources": [
+    {
+      "path": "src/index.js",
+      "content": "console.log('legacy');\n"
+    }
+  ],
+  "manifests": [
+    {
+      "ecosystem": "npm",
+      "path": "package.json",
+      "dependencies": {
+        "express": "^3.0.0"
+      },
+      "devDependencies": {},
+      "hasLockfile": false
+    }
+  ],
+  "registry": {
+    "npm:express": { "latest": "5.0.0", "deprecated": false }
+  }
+}

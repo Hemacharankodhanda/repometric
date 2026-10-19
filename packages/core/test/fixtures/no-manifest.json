@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "owner": "docsauthor",
+    "name": "spec-guidelines",
+    "defaultBranch": "main",
+    "description": "Open architectural specification guidelines without software dependencies.",
+    "topics": ["spec", "architecture", "guidelines"],
+    "homepage": "https://spec.org",
+    "license": "CC-BY-4.0",
+    "stars": 88,
+    "hasWiki": false,
+    "archived": false
+  },
+  "commitSha": "f00ba1234567",
+  "now": "2026-03-01T12:00:00Z",
+  "tree": [
+    { "path": "README.md", "size": 1200, "language": "Markdown", "isTest": false },
+    { "path": "LICENSE", "size": 800, "language": null, "isTest": false },
+    { "path": ".gitignore", "size": 100, "language": null, "isTest": false },
+    { "path": ".github/workflows/ci.yml", "size": 300, "language": "YAML", "isTest": false },
+    { "path": "docs/spec.md", "size": 5000, "language": "Markdown", "isTest": false },
+    { "path": "tests/validate.sh", "size": 400, "language": "Shell", "isTest": true },
+    { "path": "tests/check_links.sh", "size": 400, "language": "Shell", "isTest": true },
+    { "path": "tests/format_test.sh", "size": 400, "language": "Shell", "isTest": true }
+  ],
+  "readme": "# Specification Guidelines\n\nComprehensive architectural guidelines and conventions for modern open web protocols and deterministic client systems.\n\n## Getting Started\n\n```bash\ncurl -fsSL https://spec.org/install.sh | sh\n```\n\n## How to use\n\n```bash\nspec-check --strict\n```\n\n## Visual Overview\n\n![Protocol diagram](https://spec.org/diagram.svg)\n\n## License\n\nLicensed under Creative Commons CC-BY-4.0.\n",
+  "commits": [
+    { "date": "2026-02-28T12:00:00Z", "authorLogin": "alice" },
+    { "date": "2026-02-20T12:00:00Z", "authorLogin": "bob" },
+    { "date": "2026-02-10T12:00:00Z", "authorLogin": "charlie" },
+    { "date": "2026-01-30T12:00:00Z", "authorLogin": "alice" }
+  ],
+  "issues": [],
+  "pulls": [],
+  "releases": [
+    { "publishedAt": "2026-02-15T12:00:00Z" }
+  ],
+  "sampledSources": [],
+  "manifests": [],
+  "registry": {}
+}

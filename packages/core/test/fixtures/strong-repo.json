@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "owner": "facebook",
+    "name": "react",
+    "defaultBranch": "main",
+    "description": "The library for web and native user interfaces.",
+    "topics": ["react", "ui", "frontend", "declarative"],
+    "homepage": "https://react.dev",
+    "license": "MIT",
+    "stars": 228000,
+    "hasWiki": false,
+    "archived": false
+  },
+  "commitSha": "7f9c2d1e4b3a8c5f0e9d6b2a1c4e7f8a9b0c1d2e",
+  "now": "2026-03-01T12:00:00Z",
+  "tree": [
+    { "path": "README.md", "size": 3500, "language": "Markdown", "isTest": false },
+    { "path": "LICENSE", "size": 1100, "language": null, "isTest": false },
+    { "path": ".gitignore", "size": 300, "language": null, "isTest": false },
+    { "path": "package.json", "size": 1200, "language": "JSON", "isTest": false },
+    { "path": "package-lock.json", "size": 25000, "language": "JSON", "isTest": false },
+    { "path": ".eslintrc.js", "size": 400, "language": "JavaScript", "isTest": false },
+    { "path": ".github/workflows/ci.yml", "size": 800, "language": "YAML", "isTest": false },
+    { "path": "docs/intro.md", "size": 1500, "language": "Markdown", "isTest": false },
+    { "path": "CONTRIBUTING.md", "size": 1200, "language": "Markdown", "isTest": false },
+    { "path": "CODE_OF_CONDUCT.md", "size": 900, "language": "Markdown", "isTest": false },
+    { "path": ".github/pull_request_template.md", "size": 500, "language": "Markdown", "isTest": false },
+    { "path": "packages/react/src/React.js", "size": 4500, "language": "JavaScript", "isTest": false },
+    { "path": "packages/react/src/__tests__/React-test.js", "size": 6000, "language": "JavaScript", "isTest": true },
+    { "path": "packages/react-dom/src/__tests__/ReactDOM-test.js", "size": 8000, "language": "JavaScript", "isTest": true },
+    { "path": "packages/scheduler/src/__tests__/Scheduler-test.js", "size": 4000, "language": "JavaScript", "isTest": true }
+  ],
+  "readme": "# React\n\nReact is a world-class JavaScript library for building modern, resilient, declarative user interfaces on the web and native mobile platforms.\n\n## Installation and Setup\n\n```bash\nnpm install react react-dom\n```\n\n## Usage and Examples\n\n```javascript\nimport React from 'react';\nfunction App() { return <h1>Hello World</h1>; }\n```\n\n## Visual Overview\n\n![React Architecture](https://react.dev/images/architecture.png)\n\n## License\n\nReact is licensed under the permissive MIT license. See LICENSE file for details.\n",
+  "commits": [
+    { "date": "2026-02-28T10:00:00Z", "authorLogin": "gaearon" },
+    { "date": "2026-02-25T14:30:00Z", "authorLogin": "acdlite" },
+    { "date": "2026-02-20T11:00:00Z", "authorLogin": "sebmarkbage" },
+    { "date": "2026-02-15T09:00:00Z", "authorLogin": "sophiebits" },
+    { "date": "2026-02-10T16:00:00Z", "authorLogin": "zpao" },
+    { "date": "2026-02-05T12:00:00Z", "authorLogin": "bvaughn" },
+    { "date": "2026-01-25T15:00:00Z", "authorLogin": "gaearon" },
+    { "date": "2026-01-20T10:00:00Z", "authorLogin": "acdlite" },
+    { "date": "2026-01-15T12:00:00Z", "authorLogin": "sebmarkbage" },
+    { "date": "2026-01-10T11:00:00Z", "authorLogin": "sophiebits" },
+    { "date": "2026-01-05T14:00:00Z", "authorLogin": "zpao" },
+    { "date": "2025-12-28T16:00:00Z", "authorLogin": "bvaughn" },
+    { "date": "2025-12-20T10:00:00Z", "authorLogin": "gaearon" },
+    { "date": "2025-12-15T11:00:00Z", "authorLogin": "acdlite" },
+    { "date": "2025-12-10T13:00:00Z", "authorLogin": "sebmarkbage" },
+    { "date": "2025-12-05T15:00:00Z", "authorLogin": "sophiebits" },
+    { "date": "2025-12-01T09:00:00Z", "authorLogin": "zpao" },
+    { "date": "2025-11-25T14:00:00Z", "authorLogin": "bvaughn" },
+    { "date": "2025-11-20T12:00:00Z", "authorLogin": "gaearon" },
+    { "date": "2025-11-15T16:00:00Z", "authorLogin": "acdlite" },
+    { "date": "2025-11-10T10:00:00Z", "authorLogin": "sebmarkbage" },
+    { "date": "2025-11-05T11:00:00Z", "authorLogin": "sophiebits" },
+    { "date": "2025-11-01T15:00:00Z", "authorLogin": "zpao" },
+    { "date": "2025-10-25T13:00:00Z", "authorLogin": "bvaughn" },
+    { "date": "2025-10-20T09:00:00Z", "authorLogin": "gaearon" },
+    { "date": "2025-10-15T10:00:00Z", "authorLogin": "acdlite" },
+    { "date": "2025-10-10T14:00:00Z", "authorLogin": "sebmarkbage" },
+    { "date": "2025-10-05T16:00:00Z", "authorLogin": "sophiebits" },
+    { "date": "2025-10-01T11:00:00Z", "authorLogin": "zpao" },
+    { "date": "2025-09-25T12:00:00Z", "authorLogin": "bvaughn" },
+    { "date": "2025-09-20T15:00:00Z", "authorLogin": "gaearon" }
+  ],
+  "issues": [
+    {
+      "number": 101,
+      "author": "externaldev",
+      "createdAt": "2026-02-15T10:00:00Z",
+      "updatedAt": "2026-02-15T12:00:00Z",
+      "state": "closed",
+      "firstResponseAt": "2026-02-15T11:30:00Z"
+    },
+    {
+      "number": 102,
+      "author": "contributor99",
+      "createdAt": "2026-02-20T14:00:00Z",
+      "updatedAt": "2026-02-21T09:00:00Z",
+      "state": "open",
+      "firstResponseAt": "2026-02-20T15:00:00Z"
+    }
+  ],
+  "pulls": [
+    {
+      "number": 201,
+      "author": "externaldev",
+      "createdAt": "2026-02-10T10:00:00Z",
+      "closedAt": "2026-02-12T14:00:00Z",
+      "merged": true,
+      "firstResponseAt": "2026-02-10T12:00:00Z"
+    },
+    {
+      "number": 202,
+      "author": "contributor99",
+      "createdAt": "2026-02-18T09:00:00Z",
+      "closedAt": "2026-02-19T11:00:00Z",
+      "merged": true,
+      "firstResponseAt": "2026-02-18T10:00:00Z"
+    }
+  ],
+  "releases": [
+    { "publishedAt": "2026-01-15T12:00:00Z" },
+    { "publishedAt": "2025-09-10T12:00:00Z" },
+    { "publishedAt": "2025-05-01T12:00:00Z" }
+  ],
+  "sampledSources": [
+    {
+      "path": "packages/react/src/React.js",
+      "content": "// Core React implementation\n// Exports primary symbols\nconst React = {};\n/* Multi-line documentation */\nexport default React;\nconst version = '19.0.0';\nconst isValidElement = true;\nconst Children = {};\nconst Component = function() {};\nconst PureComponent = function() {};\n"
+    }
+  ],
+  "manifests": [
+    {
+      "ecosystem": "npm",
+      "path": "package.json",
+      "dependencies": {
+        "loose-envify": "^1.4.0"
+      },
+      "devDependencies": {
+        "prettier": "^3.0.0"
+      },
+      "hasLockfile": true
+    }
+  ],
+  "registry": {
+    "npm:loose-envify": { "latest": "1.4.0", "deprecated": false },
+    "npm:prettier": { "latest": "3.2.5", "deprecated": false }
+  }
+}
