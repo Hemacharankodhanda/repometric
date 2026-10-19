@@ -11,3 +11,4 @@ export * from './errors';
 export * from './github/languages';
 export * from './github/client';
 export * from './scoring';
+export * from './dependencies';

@@ -112,45 +112,12 @@ interface GitHubReleaseResponse {
   created_at: string;
   tag_name: string;
 }
-
-function parsePackageJson(content: string | null): {
-  dependencies: Record<string, string>;
-  devDependencies: Record<string, string>;
-} {
-  if (!content) return { dependencies: {}, devDependencies: {} };
-  try {
-    const parsed = JSON.parse(content);
-    return {
-      dependencies:
-        typeof parsed.dependencies === 'object' && parsed.dependencies !== null
-          ? parsed.dependencies
-          : {},
-      devDependencies:
-        typeof parsed.devDependencies === 'object' && parsed.devDependencies !== null
-          ? parsed.devDependencies
-          : {},
-    };
-  } catch {
-    return { dependencies: {}, devDependencies: {} };
-  }
-}
-
-function parseRequirementsTxt(content: string | null): {
-  dependencies: Record<string, string>;
-  devDependencies: Record<string, string>;
-} {
-  if (!content) return { dependencies: {}, devDependencies: {} };
-  const dependencies: Record<string, string> = {};
-  for (const line of content.split('\n')) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('-')) continue;
-    const match = trimmed.match(/^([a-zA-Z0-9_.-]+)(.*)$/);
-    if (match) {
-      dependencies[match[1]] = match[2]?.trim() || '*';
-    }
-  }
-  return { dependencies, devDependencies: {} };
-}
+import {
+  lookupDependencies,
+  parsePackageJson,
+  parsePyprojectToml,
+  parseRequirementsTxt,
+} from '../dependencies';
 
 export class GitHubClient {
   private readonly options: GitHubClientOptions;
@@ -372,6 +339,15 @@ export class GitHubClient {
           devDependencies: parsed.devDependencies,
           hasLockfile: hasNpmLock,
         });
+      } else if (m.path.endsWith('pyproject.toml')) {
+        const parsed = parsePyprojectToml(content);
+        manifests.push({
+          ecosystem: 'pypi',
+          path: m.path,
+          dependencies: parsed.dependencies,
+          devDependencies: parsed.devDependencies,
+          hasLockfile: hasPyLock,
+        });
       } else {
         const parsed = parseRequirementsTxt(content);
         manifests.push({
@@ -379,7 +355,7 @@ export class GitHubClient {
           path: m.path,
           dependencies: parsed.dependencies,
           devDependencies: parsed.devDependencies,
-          hasLockfile: hasPyLock,
+          hasLockfile: hasPyLock || Boolean(parsed.isPinnedLockfile),
         });
       }
     }
@@ -444,6 +420,22 @@ export class GitHubClient {
       }
     }
 
+    // 9. Lookup package registries (up to 50 direct dependencies, concurrency 8)
+    const lookupItems: { name: string; ecosystem: 'npm' | 'pypi' }[] = [];
+    for (const m of manifests) {
+      for (const name of Object.keys(m.dependencies)) {
+        lookupItems.push({ name, ecosystem: m.ecosystem });
+      }
+      for (const name of Object.keys(m.devDependencies)) {
+        lookupItems.push({ name, ecosystem: m.ecosystem });
+      }
+    }
+    lookupItems.sort((a, b) => a.name.localeCompare(b.name));
+    const registry = await lookupDependencies(lookupItems.slice(0, 50), {
+      fetch: this.fetchFn,
+      concurrency: 8,
+    });
+
     return {
       meta,
       commitSha,
@@ -456,7 +448,7 @@ export class GitHubClient {
       releases,
       sampledSources,
       manifests,
-      registry: {},
+      registry,
       truncatedTree: isTreeTruncated,
     };
   }

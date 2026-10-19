@@ -158,6 +158,18 @@ const server = setupServer(
       headers: { 'Content-Type': 'text/plain' },
     });
   }),
+  // Registry mocks
+  http.get('https://registry.npmjs.org/:pkg', () => {
+    return HttpResponse.json({
+      'dist-tags': { latest: '18.2.0' },
+      versions: { '18.2.0': { version: '18.2.0' } },
+    });
+  }),
+  http.get('https://pypi.org/pypi/:pkg/json', () => {
+    return HttpResponse.json({
+      info: { version: '2.3.0', yanked: false, classifiers: [] },
+    });
+  }),
 
   // 2. 404 Repo
   http.get(`${API_BASE}/repos/test-owner/not-found-repo`, () => {
