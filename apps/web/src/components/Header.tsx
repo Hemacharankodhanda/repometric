@@ -30,7 +30,7 @@ export function Header({ children }: { children?: React.ReactNode }) {
 
   return (
     <header className="sticky top-0 z-40 border-b-2 border-ink bg-card/95 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-2 sm:gap-4">
         {/* Wordmark with small Tilly */}
         <Link href="/" className="flex items-center space-x-2.5 group">
           <Tilly mood="idle" size={32} className="transition-transform group-hover:scale-110" />
@@ -69,7 +69,7 @@ export function Header({ children }: { children?: React.ReactNode }) {
         </nav>
 
         {/* Right Tools */}
-        <div className="flex items-center space-x-3 shrink-0">
+        <div className="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
           <ThemeToggle />
           <ChunkyButton
             variant="primary"

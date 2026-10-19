@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen bg-paper text-ink font-body antialiased selection:bg-lime selection:text-ink">
+      <body className="min-h-screen bg-paper text-ink font-body antialiased selection:bg-lime selection:text-ink overflow-x-clip">
         {children}
       </body>
     </html>

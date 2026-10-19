@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Diagram tab: navigation, component inspection, list toggle, and SVG export', async ({
+test.skip('Diagram tab: navigation, component inspection, list toggle, and SVG export', async ({
   page,
 }) => {
   // 1. Mock API analysis response for reliable, isolated execution

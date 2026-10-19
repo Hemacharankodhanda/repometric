@@ -226,40 +226,40 @@ export function DemoDependencyGraph() {
         </span>
       </div>
 
-      <div className="h-44 rounded-control border-2 border-ink bg-paper-2 p-3 flex items-center justify-around relative">
+      <div className="h-44 rounded-control border-2 border-ink bg-paper-2 p-2 sm:p-3 flex items-center justify-between gap-1 sm:gap-2 overflow-x-auto relative">
         {/* Nodes */}
         <button
           type="button"
           onClick={() => setSelectedNode('page.tsx')}
-          className={`px-3 py-2 rounded-control border-2 border-ink font-mono text-xs font-bold transition-transform ${
-            selectedNode === 'page.tsx' ? 'bg-primary text-on-primary scale-110 shadow-[3px_3px_0_var(--ink)]' : 'bg-card text-ink'
+          className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-control border-2 border-ink font-mono text-[10px] sm:text-xs font-bold transition-transform shrink-0 ${
+            selectedNode === 'page.tsx' ? 'bg-primary text-on-primary scale-105 shadow-[2px_2px_0_var(--ink)]' : 'bg-card text-ink'
           }`}
         >
-          app/page.tsx
+          page.tsx
         </button>
 
-        <ChevronRight className="w-4 h-4 text-ink-muted" />
+        <ChevronRight className="w-3.5 h-3.5 text-ink-muted shrink-0" />
 
         <button
           type="button"
           onClick={() => setSelectedNode('core.ts')}
-          className={`px-3 py-2 rounded-control border-2 border-ink font-mono text-xs font-bold transition-transform ${
-            selectedNode === 'core.ts' ? 'bg-sun text-ink scale-110 shadow-[3px_3px_0_var(--ink)]' : 'bg-card text-ink'
+          className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-control border-2 border-ink font-mono text-[10px] sm:text-xs font-bold transition-transform shrink-0 ${
+            selectedNode === 'core.ts' ? 'bg-sun text-ink scale-105 shadow-[2px_2px_0_var(--ink)]' : 'bg-card text-ink'
           }`}
         >
-          src/core.ts (Hub)
+          core.ts (Hub)
         </button>
 
-        <ChevronRight className="w-4 h-4 text-ink-muted" />
+        <ChevronRight className="w-3.5 h-3.5 text-ink-muted shrink-0" />
 
         <button
           type="button"
           onClick={() => setSelectedNode('utils.ts')}
-          className={`px-3 py-2 rounded-control border-2 border-ink font-mono text-xs font-bold transition-transform ${
-            selectedNode === 'utils.ts' ? 'bg-sky text-ink scale-110 shadow-[3px_3px_0_var(--ink)]' : 'bg-card text-ink'
+          className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-control border-2 border-ink font-mono text-[10px] sm:text-xs font-bold transition-transform shrink-0 ${
+            selectedNode === 'utils.ts' ? 'bg-sky text-ink scale-105 shadow-[2px_2px_0_var(--ink)]' : 'bg-card text-ink'
           }`}
         >
-          lib/utils.ts
+          utils.ts
         </button>
       </div>
 
