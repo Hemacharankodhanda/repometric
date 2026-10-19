@@ -13,3 +13,4 @@ export * from './github/client';
 export * from './scoring';
 export * from './dependencies';
 export * from './graph';
+export * from './diagram';

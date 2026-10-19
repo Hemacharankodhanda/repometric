@@ -633,6 +633,12 @@ export const mockGraph: GraphData = {
     { name: 'd3-force', importedBy: 2 },
     { name: 'zustand', importedBy: 4 },
   ],
+  externalEdges: [
+    { source: 'src/App.tsx', target: 'react' },
+    { source: 'src/components/visualizers/RepoMap.tsx', target: 'd3-hierarchy' },
+    { source: 'src/components/visualizers/DependencyGraph.tsx', target: 'd3-force' },
+    { source: 'src/store/selectionStore.ts', target: 'zustand' },
+  ],
   stats: {
     nodeCount: nodes.length,
     edgeCount: edges.length,

@@ -125,6 +125,7 @@ export interface GraphData {
   nodes: GraphNode[];
   edges: GraphEdge[];
   externals?: { name: string; importedBy: number }[];
+  externalEdges?: { source: string; target: string }[];
   stats: {
     nodeCount: number;
     edgeCount: number;

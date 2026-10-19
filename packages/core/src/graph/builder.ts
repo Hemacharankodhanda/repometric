@@ -55,6 +55,7 @@ export async function buildGraphData(
   const filesToParse = candidateFiles.slice(0, maxFiles);
 
   const edges: GraphEdge[] = [];
+  const externalEdges: { source: string; target: string }[] = [];
   const seenEdges = new Set<string>();
   const externalsMap = new Map<string, number>();
   let unresolvedCount = 0;
@@ -100,6 +101,7 @@ export async function buildGraphData(
         addEdge(file.path, resolved.target, raw.kind);
       } else if (resolved.external) {
         externalsMap.set(resolved.external, (externalsMap.get(resolved.external) || 0) + 1);
+        externalEdges.push({ source: file.path, target: resolved.external });
       } else {
         unresolvedCount++;
       }
@@ -235,6 +237,7 @@ export async function buildGraphData(
     nodes,
     edges: finalEdges,
     externals,
+    externalEdges,
     stats: {
       nodeCount: nodes.length,
       edgeCount: finalEdges.length,
