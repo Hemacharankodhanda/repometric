@@ -24,7 +24,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
   AC: golden snapshot tests for `strong-repo`, `student-repo`, `abandoned-repo`, `solo-minimal`, `no-manifest`; property tests pass.
 
 ## Phase 2: remaining scoring, API and report UI (week 2)
-- [ ] **T2.1 Maintenance signals** and **T2.2 Community signals.** AC: tests per boundary; bot and owner exclusion tested.
+- [x] **T2.1 Maintenance signals** and **T2.2 Community signals.** AC: tests per boundary; bot and owner exclusion tested.
 - [ ] **T2.3 Dependency signals.** Manifest parsing for `package.json` and `requirements.txt`/`pyproject.toml`; npm and PyPI lookups with concurrency 8.
   AC: range-to-major parsing tested; deprecated flag read from the registry response; `na` when no manifest.
 - [ ] **T2.4 Persistence and `POST /api/analyze`.** Cache by `(repo, sha)`, rate limiting through `rate_state`, error mapping from `API_SPEC.md`.
