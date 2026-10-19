@@ -20,5 +20,8 @@
     "msw": "^3.0.3",
     "typescript": "^5.6.3",
     "vitest": "^2.1.4"
+  },
+  "dependencies": {
+    "es-module-lexer": "^3.0.4"
   }
 }

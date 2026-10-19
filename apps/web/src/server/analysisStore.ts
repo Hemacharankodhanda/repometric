@@ -1,6 +1,6 @@
 import 'server-only';
 
-import type { AnalysisReport, FileNode } from '@repometric/core';
+import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
 import type { Json } from '../types/database.types';
 import { getServiceClient, normalizeRepo } from './db';
 
@@ -15,6 +15,7 @@ export interface StoredAnalysis {
   report: AnalysisReport;
   files: FileNode[];
   graphStatus: 'ready' | 'missing' | 'unsupported';
+  graphData?: GraphData;
   createdAt: string;
 }
 
@@ -231,6 +232,7 @@ export async function saveAnalysis(
   report: AnalysisReport,
   files: FileNode[],
   graphStatus: 'ready' | 'missing' | 'unsupported',
+  graphData?: GraphData,
 ): Promise<StoredAnalysis> {
   const norm = normalizeRepo(owner, name);
   const now = new Date().toISOString();
@@ -247,6 +249,7 @@ export async function saveAnalysis(
     report,
     files,
     graphStatus,
+    graphData,
     createdAt: now,
   };
 

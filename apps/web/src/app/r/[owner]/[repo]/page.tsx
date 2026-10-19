@@ -13,7 +13,7 @@ import {
   ChevronRight,
   Loader2,
 } from 'lucide-react';
-import type { AnalysisReport, FileNode } from '@repometric/core';
+import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
 import { Header } from '../../../../components/Header';
 import { RepoInput } from '../../../../components/RepoInput';
 import { ScoreRail } from '../../../../components/ScoreRail';
@@ -22,7 +22,7 @@ import { FixItem } from '../../../../components/FixItem';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../../../components/ui/Tabs';
 import { Button } from '../../../../components/ui/Button';
 
-// Lazy-load RepoMap for visualizer budget
+// Lazy-load RepoMap and DependencyGraph for visualizer budget
 const RepoMap = dynamic(() => import('@repometric/viz').then((mod) => mod.RepoMap), {
   ssr: false,
   loading: () => (
@@ -32,10 +32,25 @@ const RepoMap = dynamic(() => import('@repometric/viz').then((mod) => mod.RepoMa
   ),
 });
 
+const DependencyGraph = dynamic(
+  () => import('@repometric/viz').then((mod) => mod.DependencyGraph),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[580px] rounded-panel border border-line bg-surface/50 animate-pulse flex items-center justify-center text-xs text-ink-muted">
+        Loading interactive dependency graph...
+      </div>
+    ),
+  },
+);
+
 interface AnalysisResponse {
   cached: boolean;
   analysis: AnalysisReport & { id?: string };
-  graph: { status: 'ready' | 'missing' | 'unsupported' };
+  graph: {
+    status: 'ready' | 'missing' | 'unsupported';
+    data?: GraphData;
+  };
   files: FileNode[];
   error?: { code: string; message: string };
 }
@@ -151,7 +166,10 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                     </TabsTrigger>
                     <TabsTrigger value="graph" className="flex items-center space-x-1.5">
                       <Network className="w-3.5 h-3.5" />
-                      <span>Graph</span>
+                      <span>
+                        Graph
+                        {data?.graph?.data?.nodes?.length ? ` (${data.graph.data.nodes.length} nodes)` : ''}
+                      </span>
                     </TabsTrigger>
                     <TabsTrigger value="report" className="flex items-center space-x-1.5">
                       <FileText className="w-3.5 h-3.5" />
@@ -191,25 +209,29 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
                 {/* Tab 2: Dependency Graph */}
                 <TabsContent value="graph" className="mt-0 focus-visible:outline-none">
-                  <div className="w-full h-[580px] rounded-panel border border-line bg-surface p-8 flex flex-col items-center justify-center text-center space-y-3">
-                    <div className="w-12 h-12 rounded-full bg-fog/20 flex items-center justify-center text-teal mb-2">
-                      <Network className="w-6 h-6" />
+                  {data?.graph?.data && data.graph.data.nodes.length > 0 ? (
+                    <DependencyGraph data={data.graph.data} height={620} />
+                  ) : (
+                    <div className="w-full h-[580px] rounded-panel border border-line bg-surface p-8 flex flex-col items-center justify-center text-center space-y-3">
+                      <div className="w-12 h-12 rounded-full bg-fog/20 flex items-center justify-center text-teal mb-2">
+                        <Network className="w-6 h-6" />
+                      </div>
+                      <h3 className="text-lg font-heading font-semibold text-ink">
+                        No module imports detected
+                      </h3>
+                      <p className="max-w-md text-xs text-ink-muted leading-relaxed">
+                        No JavaScript, TypeScript, or Python imports were identified in this repository snapshot. The Repo Map treemap is available to explore all {files.length} files.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab('map')}
+                        className="mt-2 text-xs font-medium text-teal hover:underline inline-flex items-center space-x-1"
+                      >
+                        <span>Explore Repo Map treemap</span>
+                        <ChevronRight className="w-3 h-3" />
+                      </button>
                     </div>
-                    <h3 className="text-lg font-heading font-semibold text-ink">
-                      Dependency graph
-                    </h3>
-                    <p className="max-w-md text-xs text-ink-muted leading-relaxed">
-                      {files.length} files detected in repository tree. The interactive force-directed graph (Phase 3) maps imports and circular dependencies for JavaScript, TypeScript, and Python files.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('map')}
-                      className="mt-2 text-xs font-medium text-teal hover:underline inline-flex items-center space-x-1"
-                    >
-                      <span>Explore Repo Map treemap</span>
-                      <ChevronRight className="w-3 h-3" />
-                    </button>
-                  </div>
+                  )}
                 </TabsContent>
 
                 {/* Tab 3: Detailed Health Report */}

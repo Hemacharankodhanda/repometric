@@ -37,12 +37,12 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
 ## Phase 3: visualizers (week 3, flagship)
 - [x] **T3.1 Hierarchy and Repo Map renderer.** `buildHierarchy`, squarified treemap on Canvas, folder zoom with breadcrumbs, hover card, legend, language and size color modes, search.
   AC: 5,000 tiles pan at 60 fps on a mid laptop (record in the PR); labels follow the size rules in the spec.
-- [ ] **T3.2 JS/TS import parser and resolver.** `es-module-lexer`, extension and index resolution, tsconfig `paths`.
+- [x] **T3.2 JS/TS import parser and resolver.** `es-module-lexer`, extension and index resolution, tsconfig `paths`.
   AC: fixtures for relative, parent, alias, index, dynamic and re-export imports.
-- [ ] **T3.3 Python import parser and resolver.** AC: fixtures for absolute, relative and package imports.
-- [ ] **T3.4 Graph builder.** Nodes, edges, fan-in and fan-out, cycles (Tarjan), orphans, collapse-to-folders, caps and `truncated`.
+- [x] **T3.3 Python import parser and resolver.** AC: fixtures for absolute, relative and package imports.
+- [x] **T3.4 Graph builder.** Nodes, edges, fan-in and fan-out, cycles (Tarjan), orphans, collapse-to-folders, caps and `truncated`.
   AC: tests for a known cyclic fixture and for the 2,000-node collapse threshold.
-- [ ] **T3.5 Dependency Graph renderer.** Force layout, cluster force, hover dimming, neighborhood focus with depth slider, filters, insights panel.
+- [x] **T3.5 Dependency Graph renderer.** Force layout, cluster force, hover dimming, neighborhood focus with depth slider, filters, insights panel.
   AC: 2,000 nodes at 60 fps during interaction; cycles render in the danger color.
 - [ ] **T3.6 Linked selection and URL state.** Zustand store, side panel, URL parameters, remaining P0 color modes (fan-in, test sibling with hatch pattern).
   AC: Playwright test: select a file on the Map, see it highlighted in the Graph, reload and the view is restored.

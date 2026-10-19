@@ -4,6 +4,7 @@ import {
   GitHubClient,
   normalizeRepoTarget,
   scoreSnapshot,
+  buildGraphData,
   PrivateRepoError,
   RateLimitError,
   RepoNotFoundError,
@@ -95,7 +96,7 @@ export async function POST(req: NextRequest) {
             id: cached.id,
             ...cached.report,
           },
-          graph: { status: cached.graphStatus },
+          graph: { status: cached.graphStatus, data: cached.graphData },
           files: cached.files,
         });
       }
@@ -117,8 +118,16 @@ export async function POST(req: NextRequest) {
         !f.isTest,
     );
     const isTooLarge = snapshot.tree.length > 20000;
+
+    // Build real GraphData from files and sampled sources
+    const sourceMap = new Map<string, string>();
+    for (const s of snapshot.sampledSources) {
+      sourceMap.set(s.path, s.content);
+    }
+    const graphData = await buildGraphData(snapshot.tree, sourceMap);
+
     const graphStatus: 'ready' | 'missing' | 'unsupported' =
-      !hasCode || isTooLarge ? 'unsupported' : 'missing';
+      !hasCode || isTooLarge ? 'unsupported' : 'ready';
 
     // Files list for Repo Map (cap at 20,000)
     const files = snapshot.tree.slice(0, 20000);
@@ -132,6 +141,7 @@ export async function POST(req: NextRequest) {
       report,
       files,
       graphStatus,
+      graphData,
     );
 
     return NextResponse.json({
@@ -140,7 +150,7 @@ export async function POST(req: NextRequest) {
         id: stored.id,
         ...report,
       },
-      graph: { status: graphStatus },
+      graph: { status: graphStatus, data: graphData },
       files,
     });
   } catch (err: unknown) {

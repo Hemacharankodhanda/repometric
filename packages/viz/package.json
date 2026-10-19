@@ -18,15 +18,26 @@
   },
   "dependencies": {
     "@repometric/core": "workspace:*",
+    "d3-force": "^3.0.0",
     "d3-hierarchy": "^3.1.2",
-    "lucide-react": "^1.59.0"
+    "d3-polygon": "^3.0.1",
+    "d3-quadtree": "^3.0.1",
+    "d3-scale": "^4.0.2",
+    "d3-zoom": "^3.0.0",
+    "lucide-react": "^1.59.0",
+    "zustand": "^5.0.15"
   },
   "peerDependencies": {
     "react": "^18.3.1 || ^19.0.0",
     "react-dom": "^18.3.1 || ^19.0.0"
   },
   "devDependencies": {
+    "@types/d3-force": "^3.0.10",
     "@types/d3-hierarchy": "^3.1.7",
+    "@types/d3-polygon": "^3.0.2",
+    "@types/d3-quadtree": "^3.0.6",
+    "@types/d3-scale": "^4.0.9",
+    "@types/d3-zoom": "^3.0.9",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "react": "^18.3.1",
