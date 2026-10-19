@@ -19,7 +19,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
   AC: tests for `na`, `no_data` and renormalization when a category is excluded.
 - [x] **T1.4 Activity signals.** AC: every boundary in the spec has a test.
 - [x] **T1.5 Documentation signals.** AC: README heading and fence heuristics tested against sample READMEs; the under-300-characters cap tested.
-- [ ] **T1.6 Hygiene signals.** AC: path-matching tests including the `.env.example` exception.
+- [x] **T1.6 Hygiene signals.** AC: path-matching tests including the `.env.example` exception.
 - [ ] **T1.7 Fix list.** Generate fixes, priorities and projected score per spec section 3.
   AC: golden snapshot tests for `strong-repo`, `student-repo`, `abandoned-repo`, `solo-minimal`, `no-manifest`; property tests pass.
 
