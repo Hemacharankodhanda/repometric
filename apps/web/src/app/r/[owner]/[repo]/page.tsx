@@ -327,12 +327,12 @@ export default function ReportPage({
       />
 
       <Header>
-        <RepoInput defaultValue={`${owner}/${repo}`} />
+        <RepoInput defaultValue={`${owner}/${repo}`} showChips={false} />
       </Header>
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
         {/* 2. Header Strip */}
-        <div className="rounded-card border-2 border-ink bg-card p-4 shadow-[4px_4px_0_var(--ink)] flex flex-wrap items-center justify-between gap-4">
+        <div className="rounded-card border-2 border-ink bg-card bg-paper-dots p-4 shadow-[4px_4px_0_var(--ink)] flex flex-wrap items-center justify-between gap-4">
           {/* Left: owner/repo & short sha */}
           <div className="flex flex-wrap items-center gap-3">
             <a
@@ -465,7 +465,7 @@ export default function ReportPage({
               </div>
 
               {/* Top Fixes Preview Card */}
-              <div className="rounded-card border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)] space-y-4">
+              <div className="rounded-card border-2 border-ink bg-sun/10 p-5 shadow-[4px_4px_0_var(--ink)] space-y-4">
                 <div className="flex items-center justify-between border-b-2 border-ink pb-3">
                   <div>
                     <h3 className="font-display font-extrabold text-base text-ink">
@@ -510,6 +510,7 @@ export default function ReportPage({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   <InsightCard
+                    variant="sky"
                     label="Most depended-on file"
                     value="src/index.ts"
                     subtext="Imported by 28 modules"
@@ -517,20 +518,23 @@ export default function ReportPage({
                     icon={<FileCode className="w-4 h-4 text-primary-text" />}
                   />
                   <InsightCard
+                    variant="lime"
                     label="Circular dependencies"
                     value="0 cycles"
                     subtext="Clean acyclic import tree"
                     badge="Clean"
-                    icon={<Check className="w-4 h-4 text-lime-text" />}
+                    icon={<Check className="w-4 h-4 text-ink" />}
                   />
                   <InsightCard
+                    variant="sun"
                     label="Largest folder"
                     value="src/packages/"
                     subtext="412 KB across 42 files"
                     badge="42% of total"
-                    icon={<Folder className="w-4 h-4 text-sun-text" />}
+                    icon={<Folder className="w-4 h-4 text-ink" />}
                   />
                   <InsightCard
+                    variant="coral"
                     label="Files missing tests"
                     value="3 files"
                     subtext="Missing test sibling in src/"

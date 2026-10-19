@@ -1,5 +1,14 @@
 import type { Config } from 'tailwindcss';
 
+function withOpacity(variableName: string): any {
+  return ({ opacityValue }: { opacityValue?: string }) => {
+    if (opacityValue !== undefined) {
+      return `color-mix(in srgb, var(${variableName}) calc(${opacityValue} * 100%), transparent)`;
+    }
+    return `var(${variableName})`;
+  };
+}
+
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,57 +20,57 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: 'var(--paper)',
-        'paper-2': 'var(--paper-2)',
-        card: 'var(--card)',
-        surface: 'var(--card)', // alias for visualizer card background
-        fog: 'var(--paper-2)',
-        line: 'var(--ink)',
+        paper: withOpacity('--paper'),
+        'paper-2': withOpacity('--paper-2'),
+        card: withOpacity('--card'),
+        surface: withOpacity('--card'), // alias for visualizer card background
+        fog: withOpacity('--paper-2'),
+        line: withOpacity('--ink'),
         ink: {
-          DEFAULT: 'var(--ink)',
-          muted: 'var(--ink-muted)',
+          DEFAULT: withOpacity('--ink'),
+          muted: withOpacity('--ink-muted'),
         },
         primary: {
-          DEFAULT: 'var(--primary)',
-          text: 'var(--primary-text)',
+          DEFAULT: withOpacity('--primary'),
+          text: withOpacity('--primary-text'),
         },
-        'on-primary': 'var(--on-primary)',
-        lime: 'var(--lime)',
-        sun: 'var(--sun)',
+        'on-primary': withOpacity('--on-primary'),
+        lime: withOpacity('--lime'),
+        sun: withOpacity('--sun'),
         coral: {
-          DEFAULT: 'var(--coral)',
-          text: 'var(--coral-text)',
+          DEFAULT: withOpacity('--coral'),
+          text: withOpacity('--coral-text'),
         },
-        sky: 'var(--sky)',
-        'on-fill': 'var(--on-fill)',
+        sky: withOpacity('--sky'),
+        'on-fill': withOpacity('--on-fill'),
         teal: {
-          DEFAULT: 'var(--sky)',
-          text: 'var(--primary-text)',
+          DEFAULT: withOpacity('--sky'),
+          text: withOpacity('--primary-text'),
         },
         danger: {
-          DEFAULT: 'var(--coral)',
-          text: 'var(--coral-text)',
+          DEFAULT: withOpacity('--coral'),
+          text: withOpacity('--coral-text'),
         },
         moss: {
-          DEFAULT: 'var(--lime)',
-          text: 'var(--ink)',
+          DEFAULT: withOpacity('--lime'),
+          text: withOpacity('--ink'),
         },
         lang: {
-          1: 'var(--lang-1)',
-          2: 'var(--lang-2)',
-          3: 'var(--lang-3)',
-          4: 'var(--lang-4)',
-          5: 'var(--lang-5)',
-          6: 'var(--lang-6)',
-          7: 'var(--lang-7)',
-          other: 'var(--lang-other)',
+          1: withOpacity('--lang-1'),
+          2: withOpacity('--lang-2'),
+          3: withOpacity('--lang-3'),
+          4: withOpacity('--lang-4'),
+          5: withOpacity('--lang-5'),
+          6: withOpacity('--lang-6'),
+          7: withOpacity('--lang-7'),
+          other: withOpacity('--lang-other'),
         },
         seq: {
-          1: 'var(--seq-1)',
-          2: 'var(--seq-2)',
-          3: 'var(--seq-3)',
-          4: 'var(--seq-4)',
-          5: 'var(--seq-5)',
+          1: withOpacity('--seq-1'),
+          2: withOpacity('--seq-2'),
+          3: withOpacity('--seq-3'),
+          4: withOpacity('--seq-4'),
+          5: withOpacity('--seq-5'),
         },
       },
       boxShadow: {

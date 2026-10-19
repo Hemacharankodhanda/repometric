@@ -83,16 +83,19 @@ export function ScoreSummary({
 
   return (
     <div
-      className={`rounded-card border-2 border-ink bg-card p-6 sm:p-8 shadow-[4px_4px_0_var(--ink)] flex flex-col md:flex-row items-center md:items-start justify-between gap-6 ${className}`}
+      className={`rounded-card border-2 border-ink bg-card bg-paper-dots p-6 sm:p-8 shadow-[6px_6px_0_var(--ink)] flex flex-col md:flex-row items-center md:items-start justify-between gap-6 relative overflow-hidden ${className}`}
     >
-      <div className="flex-1 space-y-4 text-center md:text-left">
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-          <span className="font-display font-extrabold text-score text-ink tracking-tight leading-none">
-            {displayScore}
-          </span>
+      <div className="flex-1 space-y-4 text-center md:text-left z-10">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
+          <div className="px-5 py-2 rounded-control border-2 border-ink bg-paper shadow-[3px_3px_0_var(--ink)] flex items-baseline gap-2">
+            <span className="font-display font-extrabold text-score text-ink tracking-tight leading-none">
+              {displayScore}
+            </span>
+            <span className="text-sm font-mono font-bold text-ink-muted">/100</span>
+          </div>
           <div className="flex flex-col items-start space-y-1">
             <span className="text-xs font-bold text-ink-muted uppercase tracking-wider">
-              Health score
+              Health grade
             </span>
             <StickerBadge variant={gradeVariant} size="lg" rotate="right">
               {gradeLabel}

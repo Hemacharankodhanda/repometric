@@ -7,9 +7,18 @@ export interface InsightCardProps {
   subtext?: string;
   icon?: React.ReactNode;
   badge?: string;
-  variant?: 'card' | 'paper-2' | 'lime' | 'sun' | 'sky';
+  variant?: 'card' | 'paper-2' | 'lime' | 'sun' | 'sky' | 'coral';
   className?: string;
 }
+
+const VARIANT_BG: Record<string, string> = {
+  card: 'bg-card',
+  'paper-2': 'bg-paper-2',
+  lime: 'bg-lime/20',
+  sun: 'bg-sun/20',
+  sky: 'bg-sky/20',
+  coral: 'bg-coral/20',
+};
 
 export function InsightCard({
   label,
@@ -17,10 +26,12 @@ export function InsightCard({
   subtext,
   icon,
   badge,
+  variant = 'card',
   className = '',
 }: InsightCardProps) {
+  const bgClass = VARIANT_BG[variant] || 'bg-card';
   return (
-    <Card hoverLift className={`p-5 flex flex-col justify-between space-y-3 ${className}`}>
+    <Card hoverLift className={`p-5 flex flex-col justify-between space-y-3 ${bgClass} ${className}`}>
       <div className="flex items-center justify-between">
         <span className="text-xs font-bold text-ink-muted uppercase tracking-wider">
           {label}

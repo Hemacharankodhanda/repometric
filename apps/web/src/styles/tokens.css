@@ -73,6 +73,9 @@
   --on-primary: #14142b;
   --primary-text: #a9a9ff;
 
+  --lime: #c6f432;
+  --sun: #ffd23f;
+  --sky: #7fd6ff;
   --coral: #ff7f6e;
   --coral-text: #ff9c8f;
   --on-fill: #14142b;
@@ -90,6 +93,9 @@
     --on-primary: #14142b;
     --primary-text: #a9a9ff;
 
+    --lime: #c6f432;
+    --sun: #ffd23f;
+    --sky: #7fd6ff;
     --coral: #ff7f6e;
     --coral-text: #ff9c8f;
     --on-fill: #14142b;
@@ -101,6 +107,11 @@
   background-color: var(--paper-2);
   background-image: radial-gradient(color-mix(in srgb, var(--ink) 8%, transparent) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+.bg-paper-dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 :focus-visible {

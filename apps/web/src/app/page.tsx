@@ -5,7 +5,6 @@ import { RepoInput } from '../components/RepoInput';
 import { HeroPreview } from '../components/HeroPreview';
 import { Tilly } from '../components/Tilly';
 import { StickerBadge } from '../components/StickerBadge';
-import { Card } from '../components/Card';
 import {
   DemoScoreReceipts,
   DemoFixList,
@@ -41,13 +40,16 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* 1.2 Hero */}
-        <section className="relative overflow-hidden px-4 pt-12 pb-16 sm:pt-20 sm:pb-24 border-b-2 border-ink bg-paper">
+        <section className="relative overflow-hidden px-4 pt-12 pb-16 sm:pt-20 sm:pb-24 border-b-2 border-ink bg-paper bg-paper-dots">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             {/* Left Column: Heading, Subline, Input */}
             <div className="lg:col-span-7 space-y-6 text-center sm:text-left">
-              <div className="inline-flex items-center space-x-2">
+              <div className="inline-flex items-center space-x-2 flex-wrap gap-y-2">
                 <StickerBadge variant="sun" size="sm" rotate="left">
                   Zero LLM • Deterministic Field Guide
+                </StickerBadge>
+                <StickerBadge variant="lime" size="sm" rotate="right">
+                  ✦ 100% Free & Open Source
                 </StickerBadge>
               </div>
 
@@ -58,7 +60,7 @@ export default function HomePage() {
                   {/* Lime marker underlay swipe */}
                   <span
                     aria-hidden="true"
-                    className="absolute -bottom-1 left-0 right-0 h-4 sm:h-5 bg-lime -rotate-1 -z-0 rounded-[4px] border border-ink/30"
+                    className="absolute -bottom-1 left-0 right-0 h-4 sm:h-5 bg-lime -rotate-1 -z-0 rounded-[4px] border border-ink/30 shadow-[2px_2px_0_var(--ink)]"
                   />
                 </span>
               </h1>
@@ -104,7 +106,7 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Step 1 */}
-              <Card hoverLift className="flex flex-col justify-between space-y-4">
+              <div className="p-6 rounded-card border-2 border-ink bg-sun/15 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-full border-2 border-ink bg-sun flex items-center justify-center font-display font-extrabold text-lg text-ink shadow-[2px_2px_0_var(--ink)]">
                     1
@@ -114,13 +116,13 @@ export default function HomePage() {
                     Any public GitHub repo. No sign-up, no OAuth, and no credit card required.
                   </p>
                 </div>
-                <div className="p-3 rounded-control border-2 border-ink bg-paper font-mono text-xs text-ink truncate shadow-[1px_1px_0_var(--ink)]">
+                <div className="p-3 rounded-control border-2 border-ink bg-card font-mono text-xs text-ink truncate shadow-[2px_2px_0_var(--ink)]">
                   github.com/expressjs/express
                 </div>
-              </Card>
+              </div>
 
               {/* Step 2 */}
-              <Card hoverLift className="flex flex-col justify-between space-y-4">
+              <div className="p-6 rounded-card border-2 border-ink bg-lime/20 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-full border-2 border-ink bg-lime flex items-center justify-center font-display font-extrabold text-lg text-ink shadow-[2px_2px_0_var(--ink)]">
                     2
@@ -130,14 +132,14 @@ export default function HomePage() {
                     Commits, issues, files and imports. Nothing is cloned or run on our servers.
                   </p>
                 </div>
-                <div className="flex items-center space-x-2 text-xs font-semibold text-ink bg-paper p-2.5 rounded-control border-2 border-ink shadow-[1px_1px_0_var(--ink)]">
+                <div className="flex items-center space-x-2 text-xs font-semibold text-ink bg-card p-2.5 rounded-control border-2 border-ink shadow-[2px_2px_0_var(--ink)]">
                   <CheckCircle2 className="w-4 h-4 text-lime stroke-[3]" />
                   <span>Public AST & REST metadata</span>
                 </div>
-              </Card>
+              </div>
 
               {/* Step 3 */}
-              <Card hoverLift className="flex flex-col justify-between space-y-4">
+              <div className="p-6 rounded-card border-2 border-ink bg-sky/20 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-full border-2 border-ink bg-sky flex items-center justify-center font-display font-extrabold text-lg text-ink shadow-[2px_2px_0_var(--ink)]">
                     3
@@ -147,11 +149,11 @@ export default function HomePage() {
                     A 0–100 health score, a prioritized fix list, and interactive visualizers of your code.
                   </p>
                 </div>
-                <div className="flex items-center justify-between text-xs font-bold text-ink bg-paper p-2.5 rounded-control border-2 border-ink shadow-[1px_1px_0_var(--ink)]">
+                <div className="flex items-center justify-between text-xs font-bold text-ink bg-card p-2.5 rounded-control border-2 border-ink shadow-[2px_2px_0_var(--ink)]">
                   <span>Score + Map + Diagram</span>
-                  <span className="font-mono text-primary-text">~10s</span>
+                  <span className="font-mono text-primary-text font-extrabold">~10s</span>
                 </div>
-              </Card>
+              </div>
             </div>
           </div>
         </section>
@@ -173,7 +175,9 @@ export default function HomePage() {
           {/* Block 1: Score with receipts */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-3">
-              <span className="font-mono text-xs font-bold text-primary-text uppercase">Deliverable 01</span>
+              <StickerBadge variant="primary" size="sm" rotate="none">
+                Deliverable 01
+              </StickerBadge>
               <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight">
                 A score with receipts
               </h3>
@@ -192,7 +196,9 @@ export default function HomePage() {
               <DemoFixList />
             </div>
             <div className="lg:col-span-5 space-y-3 order-1 lg:order-2">
-              <span className="font-mono text-xs font-bold text-primary-text uppercase">Deliverable 02</span>
+              <StickerBadge variant="sun" size="sm" rotate="none">
+                Deliverable 02
+              </StickerBadge>
               <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight">
                 A to-do list, sorted by payoff
               </h3>
@@ -205,7 +211,9 @@ export default function HomePage() {
           {/* Block 3: Whole repo at a glance (Treemap) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-3">
-              <span className="font-mono text-xs font-bold text-primary-text uppercase">Deliverable 03</span>
+              <StickerBadge variant="lime" size="sm" rotate="none">
+                Deliverable 03
+              </StickerBadge>
               <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight">
                 See the whole repo at a glance
               </h3>
@@ -224,7 +232,9 @@ export default function HomePage() {
               <DemoDependencyGraph />
             </div>
             <div className="lg:col-span-5 space-y-3 order-1 lg:order-2">
-              <span className="font-mono text-xs font-bold text-primary-text uppercase">Deliverable 04</span>
+              <StickerBadge variant="sky" size="sm" rotate="none">
+                Deliverable 04
+              </StickerBadge>
               <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight">
                 Who depends on whom
               </h3>
@@ -237,7 +247,9 @@ export default function HomePage() {
           {/* Block 5: Architecture drawn for you */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-3">
-              <span className="font-mono text-xs font-bold text-primary-text uppercase">Deliverable 05</span>
+              <StickerBadge variant="coral" size="sm" rotate="none">
+                Deliverable 05
+              </StickerBadge>
               <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight">
                 The architecture, drawn for you
               </h3>
@@ -251,10 +263,12 @@ export default function HomePage() {
           </div>
 
           {/* Block 6: Show it off (small block) */}
-          <div className="p-6 rounded-card border-2 border-ink bg-paper-2 shadow-[4px_4px_0_var(--ink)]">
+          <div className="p-6 sm:p-8 rounded-card border-2 border-ink bg-lime/15 shadow-[6px_6px_0_var(--ink)]">
             <div className="max-w-2xl mx-auto space-y-4">
-              <div className="text-center space-y-1">
-                <span className="font-mono text-xs font-bold text-primary-text uppercase">Deliverable 06</span>
+              <div className="text-center space-y-2">
+                <StickerBadge variant="sun" size="sm" rotate="none">
+                  Deliverable 06
+                </StickerBadge>
                 <h3 className="font-display font-extrabold text-2xl text-ink tracking-tight">
                   Show it off
                 </h3>
@@ -284,9 +298,9 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
               {/* Students (Large tile, 7 cols) */}
-              <div className="md:col-span-7 rounded-card border-2 border-ink bg-card p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-0.5 transition-all flex flex-col justify-between space-y-4">
+              <div className="md:col-span-7 rounded-card border-2 border-ink bg-sun/15 p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
-                  <div className="w-10 h-10 rounded-control border-2 border-ink bg-lime flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
+                  <div className="w-10 h-10 rounded-control border-2 border-ink bg-sun flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                     <GraduationCap className="w-5 h-5" />
                   </div>
                   <h3 className="font-display font-bold text-xl text-ink">Students</h3>
@@ -294,13 +308,13 @@ export default function HomePage() {
                     Polish your portfolio repos before placements. Turn vague project directories into production-ready showcases with tests, licenses, and architecture docs.
                   </p>
                 </div>
-                <div className="p-3 rounded-control border border-ink/40 bg-paper-2 text-xs font-mono text-ink">
+                <div className="p-3 rounded-control border-2 border-ink bg-card text-xs font-mono text-ink shadow-[2px_2px_0_var(--ink)]">
                   &ldquo;Took my portfolio repo from 62 to 91 in one weekend.&rdquo;
                 </div>
               </div>
 
               {/* Open-source newcomers (5 cols) */}
-              <div className="md:col-span-5 rounded-card border-2 border-ink bg-card p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-0.5 transition-all flex flex-col justify-between space-y-4">
+              <div className="md:col-span-5 rounded-card border-2 border-ink bg-sky/20 p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <div className="w-10 h-10 rounded-control border-2 border-ink bg-sky flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                     <Compass className="w-5 h-5" />
@@ -310,15 +324,17 @@ export default function HomePage() {
                     Understand a new codebase in minutes before opening your first pull request.
                   </p>
                 </div>
-                <span className="text-xs font-mono font-bold text-primary-text">
-                  Instant visual navigation &rarr;
-                </span>
+                <div className="p-2.5 rounded-control border-2 border-ink bg-card shadow-[2px_2px_0_var(--ink)] inline-block w-fit">
+                  <span className="text-xs font-mono font-bold text-primary-text">
+                    Instant visual navigation &rarr;
+                  </span>
+                </div>
               </div>
 
               {/* Recruiters (5 cols) */}
-              <div className="md:col-span-5 rounded-card border-2 border-ink bg-card p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-0.5 transition-all flex flex-col justify-between space-y-4">
+              <div className="md:col-span-5 rounded-card border-2 border-ink bg-lime/20 p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
-                  <div className="w-10 h-10 rounded-control border-2 border-ink bg-sun flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
+                  <div className="w-10 h-10 rounded-control border-2 border-ink bg-lime flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                     <Briefcase className="w-5 h-5" />
                   </div>
                   <h3 className="font-display font-bold text-xl text-ink">Recruiters & Leads</h3>
@@ -326,13 +342,13 @@ export default function HomePage() {
                     Judge a repo in 30 seconds. Verify genuine engineering hygiene, CI test coverage, and documentation.
                   </p>
                 </div>
-                <div className="text-xs font-mono text-ink-muted">
+                <div className="p-2.5 rounded-control border-2 border-ink bg-card shadow-[2px_2px_0_var(--ink)] inline-block w-fit text-xs font-mono font-bold text-ink">
                   0-100 objective score benchmarks
                 </div>
               </div>
 
               {/* Maintainers (7 cols) */}
-              <div className="md:col-span-7 rounded-card border-2 border-ink bg-card p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-0.5 transition-all flex flex-col justify-between space-y-4">
+              <div className="md:col-span-7 rounded-card border-2 border-ink bg-coral/15 p-6 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <div className="w-10 h-10 rounded-control border-2 border-ink bg-coral flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                     <Wrench className="w-5 h-5" />
@@ -342,7 +358,7 @@ export default function HomePage() {
                     Fail CI when repository health drops. Run `npx repometric --min-score 80` in GitHub Actions to stop hygiene rot.
                   </p>
                 </div>
-                <div className="font-mono text-xs bg-paper-2 p-2.5 rounded-control border border-ink/40 text-ink">
+                <div className="font-mono text-xs bg-card p-2.5 rounded-control border-2 border-ink text-ink shadow-[2px_2px_0_var(--ink)]">
                   repometric --min-score 85 --json
                 </div>
               </div>
@@ -364,18 +380,18 @@ export default function HomePage() {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
               {[
-                { label: 'Activity', desc: 'Cadence & releases', icon: <Activity className="w-4 h-4 text-primary" /> },
-                { label: 'Maintenance', desc: 'Issue resolution', icon: <GitPullRequest className="w-4 h-4 text-lime" /> },
-                { label: 'Community', desc: 'Governance & code', icon: <Users className="w-4 h-4 text-sky" /> },
-                { label: 'Docs', desc: 'README & license', icon: <FileText className="w-4 h-4 text-sun" /> },
-                { label: 'Hygiene', desc: 'CI & git hygiene', icon: <ShieldCheck className="w-4 h-4 text-lime" /> },
-                { label: 'Dependencies', desc: 'Vulnerabilities', icon: <Boxes className="w-4 h-4 text-coral" /> },
+                { label: 'Activity', desc: 'Cadence & releases', bg: 'bg-primary/10 hover:bg-primary/20', iconBg: 'bg-primary/20', icon: <Activity className="w-4 h-4 text-primary-text" /> },
+                { label: 'Maintenance', desc: 'Issue resolution', bg: 'bg-lime/15 hover:bg-lime/25', iconBg: 'bg-lime/30', icon: <GitPullRequest className="w-4 h-4 text-ink" /> },
+                { label: 'Community', desc: 'Governance & code', bg: 'bg-sky/15 hover:bg-sky/25', iconBg: 'bg-sky/30', icon: <Users className="w-4 h-4 text-ink" /> },
+                { label: 'Docs', desc: 'README & license', bg: 'bg-sun/15 hover:bg-sun/25', iconBg: 'bg-sun/30', icon: <FileText className="w-4 h-4 text-ink" /> },
+                { label: 'Hygiene', desc: 'CI & git hygiene', bg: 'bg-lime/20 hover:bg-lime/30', iconBg: 'bg-lime/40', icon: <ShieldCheck className="w-4 h-4 text-ink" /> },
+                { label: 'Dependencies', desc: 'Vulnerabilities', bg: 'bg-coral/15 hover:bg-coral/25', iconBg: 'bg-coral/25', icon: <Boxes className="w-4 h-4 text-coral-text" /> },
               ].map((c) => (
                 <div
                   key={c.label}
-                  className="p-3.5 rounded-control border-2 border-ink bg-card shadow-[2px_2px_0_var(--ink)] text-center space-y-1 hover:-translate-y-0.5 transition-transform"
+                  className={`p-3.5 rounded-control border-2 border-ink ${c.bg} shadow-[3px_3px_0_var(--ink)] text-center space-y-1 hover:-translate-y-1 hover:shadow-[5px_5px_0_var(--ink)] transition-all`}
                 >
-                  <div className="w-7 h-7 mx-auto rounded border border-ink bg-paper-2 flex items-center justify-center">
+                  <div className={`w-8 h-8 mx-auto rounded-control border-2 border-ink ${c.iconBg} flex items-center justify-center shadow-[1px_1px_0_var(--ink)]`}>
                     {c.icon}
                   </div>
                   <div className="font-bold text-xs text-ink">{c.label}</div>
@@ -418,17 +434,17 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {[
-                { owner: 'facebook', repo: 'react', score: 88, grade: 'Good', variant: 'sky' as const, desc: 'Component library hub' },
-                { owner: 'expressjs', repo: 'express', score: 78, grade: 'Good', variant: 'sky' as const, desc: 'Fast, unopinionated web framework' },
-                { owner: 'pallets', repo: 'flask', score: 82, grade: 'Good', variant: 'sky' as const, desc: 'Python micro web framework' },
-                { owner: 'vercel', repo: 'next.js', score: 91, grade: 'Excellent', variant: 'lime' as const, desc: 'React framework for the web' },
-                { owner: 'tailwindlabs', repo: 'tailwindcss', score: 85, grade: 'Good', variant: 'sky' as const, desc: 'Utility-first CSS framework' },
-                { owner: 'torvalds', repo: 'linux', score: 72, grade: 'Needs work', variant: 'sun' as const, desc: 'Linux kernel tree' },
+                { owner: 'facebook', repo: 'react', score: 88, grade: 'Good', variant: 'sky' as const, bg: 'bg-sky/15', desc: 'Component library hub' },
+                { owner: 'expressjs', repo: 'express', score: 78, grade: 'Good', variant: 'sky' as const, bg: 'bg-lime/15', desc: 'Fast, unopinionated web framework' },
+                { owner: 'pallets', repo: 'flask', score: 82, grade: 'Good', variant: 'sky' as const, bg: 'bg-sun/15', desc: 'Python micro web framework' },
+                { owner: 'vercel', repo: 'next.js', score: 91, grade: 'Excellent', variant: 'lime' as const, bg: 'bg-lime/25', desc: 'React framework for the web' },
+                { owner: 'tailwindlabs', repo: 'tailwindcss', score: 85, grade: 'Good', variant: 'sky' as const, bg: 'bg-sky/20', desc: 'Utility-first CSS framework' },
+                { owner: 'torvalds', repo: 'linux', score: 72, grade: 'Needs work', variant: 'sun' as const, bg: 'bg-sun/20', desc: 'Linux kernel tree' },
               ].map((r) => (
                 <Link
                   key={`${r.owner}/${r.repo}`}
                   href={`/r/${r.owner}/${r.repo}`}
-                  className="p-5 rounded-card border-2 border-ink bg-card shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4 group"
+                  className={`p-5 rounded-card border-2 border-ink ${r.bg} shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all flex flex-col justify-between space-y-4 group`}
                 >
                   <div className="space-y-2">
                     <div className="flex items-start justify-between">
@@ -478,7 +494,7 @@ export default function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              <Card hoverLift className="p-5 text-center space-y-2">
+              <div className="p-5 rounded-card border-2 border-ink bg-lime/15 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all text-center space-y-2">
                 <div className="w-10 h-10 mx-auto rounded-control border-2 border-ink bg-lime flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                   <Eye className="w-5 h-5" />
                 </div>
@@ -486,9 +502,9 @@ export default function HomePage() {
                 <p className="text-xs text-ink-muted leading-relaxed">
                   We only request read access to public metadata. No write permissions ever.
                 </p>
-              </Card>
+              </div>
 
-              <Card hoverLift className="p-5 text-center space-y-2">
+              <div className="p-5 rounded-card border-2 border-ink bg-sky/15 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all text-center space-y-2">
                 <div className="w-10 h-10 mx-auto rounded-control border-2 border-ink bg-sky flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                   <Users className="w-5 h-5" />
                 </div>
@@ -496,9 +512,9 @@ export default function HomePage() {
                 <p className="text-xs text-ink-muted leading-relaxed">
                   No risk of exposing confidential or private proprietary code.
                 </p>
-              </Card>
+              </div>
 
-              <Card hoverLift className="p-5 text-center space-y-2">
+              <div className="p-5 rounded-card border-2 border-ink bg-coral/15 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all text-center space-y-2">
                 <div className="w-10 h-10 mx-auto rounded-control border-2 border-ink bg-coral flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                   <Lock className="w-5 h-5" />
                 </div>
@@ -506,9 +522,9 @@ export default function HomePage() {
                 <p className="text-xs text-ink-muted leading-relaxed">
                   Analyzed files are parsed for imports and metadata, never compiled or executed.
                 </p>
-              </Card>
+              </div>
 
-              <Card hoverLift className="p-5 text-center space-y-2">
+              <div className="p-5 rounded-card border-2 border-ink bg-sun/15 shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1 hover:shadow-[6px_6px_0_var(--ink)] transition-all text-center space-y-2">
                 <div className="w-10 h-10 mx-auto rounded-control border-2 border-ink bg-sun flex items-center justify-center text-ink shadow-[2px_2px_0_var(--ink)]">
                   <Database className="w-5 h-5" />
                 </div>
@@ -516,7 +532,7 @@ export default function HomePage() {
                 <p className="text-xs text-ink-muted leading-relaxed">
                   We cache scores, metrics, and import maps. Your raw source is never stored.
                 </p>
-              </Card>
+              </div>
             </div>
           </div>
         </section>
@@ -537,8 +553,18 @@ export default function HomePage() {
         </section>
 
         {/* 1.10 Final Call to Action */}
-        <section className="py-16 sm:py-24 px-4 bg-paper border-b-2 border-ink">
-          <div className="max-w-4xl mx-auto rounded-card border-2 border-ink bg-card p-8 sm:p-12 shadow-[6px_6px_0_var(--ink)] flex flex-col items-center text-center space-y-6">
+        <section className="py-16 sm:py-24 px-4 bg-paper bg-paper-dots border-b-2 border-ink">
+          <div className="max-w-4xl mx-auto rounded-card border-2 border-ink bg-lime/20 p-8 sm:p-12 shadow-[8px_8px_0_var(--ink)] flex flex-col items-center text-center space-y-6 relative overflow-hidden">
+            <div className="absolute top-4 right-4 hidden sm:block">
+              <StickerBadge variant="sun" size="sm" rotate="right">
+                ⚡ Instant Report
+              </StickerBadge>
+            </div>
+            <div className="absolute top-4 left-4 hidden sm:block">
+              <StickerBadge variant="sky" size="sm" rotate="left">
+                ✦ 100% Free
+              </StickerBadge>
+            </div>
             <Tilly mood="happy" size={88} />
             <div className="space-y-2 max-w-lg">
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">

@@ -27,10 +27,10 @@ export function parseRepoInput(input: string): { owner: string; repo: string } |
 }
 
 export const EXAMPLE_REPOS = [
-  { name: 'facebook/react', label: 'react' },
-  { name: 'expressjs/express', label: 'express' },
-  { name: 'pallets/flask', label: 'flask' },
-  { name: 'vercel/next.js', label: 'next.js' },
+  { name: 'facebook/react', label: 'react', bg: 'bg-sky/25 hover:bg-sky' },
+  { name: 'expressjs/express', label: 'express', bg: 'bg-lime/30 hover:bg-lime' },
+  { name: 'pallets/flask', label: 'flask', bg: 'bg-sun/30 hover:bg-sun' },
+  { name: 'vercel/next.js', label: 'next.js', bg: 'bg-coral/25 hover:bg-coral' },
 ];
 
 export interface RepoInputProps {
@@ -53,9 +53,13 @@ export function RepoInput({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const prevDefaultRef = React.useRef(defaultValue);
   React.useEffect(() => {
-    setValue(defaultValue);
-    setLoading(false);
+    if (prevDefaultRef.current !== defaultValue) {
+      prevDefaultRef.current = defaultValue;
+      setValue(defaultValue);
+      setLoading(false);
+    }
   }, [defaultValue]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -133,7 +137,7 @@ export function RepoInput({
               key={ex.name}
               type="button"
               onClick={() => handleChipClick(ex.name)}
-              className="inline-flex items-center px-2.5 py-1 rounded-pill border-2 border-ink bg-paper-2 hover:bg-lime text-ink font-mono text-xs font-medium shadow-[2px_2px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+              className={`inline-flex items-center px-2.5 py-1 rounded-pill border-2 border-ink ${ex.bg} text-ink font-mono text-xs font-bold shadow-[2px_2px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all`}
             >
               {ex.name}
             </button>

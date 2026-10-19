@@ -10,6 +10,7 @@ test('landing page to analysis screen, report page, tabs, and theme toggle', asy
 
   // 1. Open landing page
   await page.goto('/');
+  await page.waitForLoadState('networkidle');
   await expect(page).toHaveTitle(/RepoMetric/);
   await expect(page.locator('h1')).toContainText('Is your repo any good?');
 

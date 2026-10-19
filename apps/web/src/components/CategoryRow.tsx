@@ -17,13 +17,13 @@ import {
 import type { CategoryResult, SignalResult, SignalStatus } from '@repometric/core';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/Popover';
 
-const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  activity: <Activity className="w-4 h-4 text-primary" />,
-  maintenance: <GitPullRequest className="w-4 h-4 text-lime-text text-ink" />,
-  community: <Users className="w-4 h-4 text-sky" />,
-  documentation: <FileText className="w-4 h-4 text-sun" />,
-  hygiene: <ShieldCheck className="w-4 h-4 text-lime" />,
-  dependencies: <Boxes className="w-4 h-4 text-coral" />,
+const CATEGORY_STYLES: Record<string, { bg: string; icon: React.ReactNode }> = {
+  activity: { bg: 'bg-primary/20', icon: <Activity className="w-4 h-4 text-primary-text" /> },
+  maintenance: { bg: 'bg-lime/30', icon: <GitPullRequest className="w-4 h-4 text-ink" /> },
+  community: { bg: 'bg-sky/30', icon: <Users className="w-4 h-4 text-ink" /> },
+  documentation: { bg: 'bg-sun/30', icon: <FileText className="w-4 h-4 text-ink" /> },
+  hygiene: { bg: 'bg-lime/30', icon: <ShieldCheck className="w-4 h-4 text-ink" /> },
+  dependencies: { bg: 'bg-coral/25', icon: <Boxes className="w-4 h-4 text-coral-text" /> },
 };
 
 const CATEGORY_EXPLANATIONS: Record<string, string> = {
@@ -63,8 +63,8 @@ export function CategoryRow({ category }: { category: CategoryResult }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-2">
-              <span className="p-1 rounded-[6px] border-2 border-ink bg-paper-2 shadow-[1px_1px_0_var(--ink)]">
-                {CATEGORY_ICONS[category.id] || <Activity className="w-4 h-4" />}
+              <span className={`p-1.5 rounded-[6px] border-2 border-ink ${CATEGORY_STYLES[category.id]?.bg || 'bg-paper-2'} shadow-[1px_1px_0_var(--ink)]`}>
+                {CATEGORY_STYLES[category.id]?.icon || <Activity className="w-4 h-4" />}
               </span>
               <span className="text-sm sm:text-base font-bold text-ink">{category.label}</span>
 

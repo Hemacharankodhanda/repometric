@@ -11,10 +11,10 @@ export interface StickerBadgeProps extends React.HTMLAttributes<HTMLSpanElement>
 }
 
 const VARIANT_STYLES: Record<StickerVariant, string> = {
-  lime: 'bg-lime text-ink',
-  sun: 'bg-sun text-ink',
-  coral: 'bg-coral text-ink',
-  sky: 'bg-sky text-ink',
+  lime: 'bg-lime text-on-fill',
+  sun: 'bg-sun text-on-fill',
+  coral: 'bg-coral text-on-fill',
+  sky: 'bg-sky text-on-fill',
   primary: 'bg-primary text-on-primary',
   card: 'bg-card text-ink',
   paper: 'bg-paper text-ink',

@@ -1,11 +1,141 @@
-@import '../styles/tokens.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
+@layer base {
+  :root {
+    --paper: #fffbf0;
+    --paper-2: #f4efe2;
+    --card: #ffffff;
+    --ink: #1b1b3a;
+    --ink-muted: #5a5a7a;
+
+    --primary: #5b5bff;
+    --on-primary: #ffffff;
+    --primary-text: #3a3ad6;
+
+    --lime: #c6f432;
+    --sun: #ffd23f;
+    --coral: #ff6b57;
+    --coral-text: #c2362a;
+    --sky: #7fd6ff;
+    --on-fill: #1b1b3a; /* text on lime, sun, coral, sky */
+
+    --border: 2px solid var(--ink);
+    --shadow-sm: 2px 2px 0 var(--ink);
+    --shadow-md: 4px 4px 0 var(--ink);
+    --shadow-lg: 6px 6px 0 var(--ink);
+
+    --radius-tile: 3px;
+    --radius-control: 10px;
+    --radius-card: 16px;
+    --radius-pill: 999px;
+
+    /* Data palettes (color-blind safe) */
+    --lang-1: #e69f00;
+    --lang-2: #56b4e9;
+    --lang-3: #009e73;
+    --lang-4: #f0e442;
+    --lang-5: #0072b2;
+    --lang-6: #d55e00;
+    --lang-7: #cc79a7;
+    --lang-other: #999999;
+
+    --seq-1: #ffffcc;
+    --seq-2: #a1dab4;
+    --seq-3: #41b6c4;
+    --seq-4: #2c7fb8;
+    --seq-5: #253494;
+
+    /* Type */
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body: "Instrument Sans", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    --text-xs: 0.8rem;
+    --text-sm: 1rem;
+    --text-md: 1.25rem;
+    --text-lg: 1.563rem;
+    --text-xl: 1.953rem;
+    --text-2xl: 2.441rem;
+    --text-hero: clamp(2.5rem, 6vw, 4.5rem);
+    --text-score: clamp(4rem, 10vw, 6rem);
+
+    /* Motion */
+    --press-ms: 120ms;
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #14142b;
+    --paper-2: #1b1b38;
+    --card: #1f1f3d;
+    --ink: #f5f3ff;
+    --ink-muted: #b4b4d6;
+
+    --primary: #7c7cff;
+    --on-primary: #14142b;
+    --primary-text: #a9a9ff;
+
+    --lime: #c6f432;
+    --sun: #ffd23f;
+    --sky: #7fd6ff;
+    --coral: #ff7f6e;
+    --coral-text: #ff9c8f;
+    --on-fill: #14142b;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14142b;
+      --paper-2: #1b1b38;
+      --card: #1f1f3d;
+      --ink: #f5f3ff;
+      --ink-muted: #b4b4d6;
+
+      --primary: #7c7cff;
+      --on-primary: #14142b;
+      --primary-text: #a9a9ff;
+
+      --lime: #c6f432;
+      --sun: #ffd23f;
+      --sky: #7fd6ff;
+      --coral: #ff7f6e;
+      --coral-text: #ff9c8f;
+      --on-fill: #14142b;
+    }
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
+}
+
+/* Survey-paper dot grid for alternate sections */
+.bg-dots {
+  background-color: var(--paper-2);
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 8%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-paper-dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
