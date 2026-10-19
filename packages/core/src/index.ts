@@ -6,3 +6,4 @@ export function getCoreVersion(): string {
 
 export * from './types';
 export * from './mocks';
+export * from './hierarchy';

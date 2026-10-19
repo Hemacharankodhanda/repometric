@@ -39,11 +39,7 @@ const themeScript = `
 })();
 `;
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
@@ -53,9 +49,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen bg-paper text-ink font-body antialiased">
-        {children}
-      </body>
+      <body className="min-h-screen bg-paper text-ink font-body antialiased">{children}</body>
     </html>
   );
 }

@@ -15,3 +15,6 @@ export const VisualizerStub: React.FC<VisualizerStubProps> = ({ label = 'Visuali
 };
 
 export const VIZ_VERSION = '0.1.0';
+
+export * from './colors';
+export * from './RepoMap';

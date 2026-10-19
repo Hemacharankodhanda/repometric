@@ -1,10 +1,5 @@
 export type CategoryId =
-  | 'activity'
-  | 'maintenance'
-  | 'community'
-  | 'documentation'
-  | 'hygiene'
-  | 'dependencies';
+  'activity' | 'maintenance' | 'community' | 'documentation' | 'hygiene' | 'dependencies';
 
 export type Grade = 'excellent' | 'good' | 'needs-work' | 'at-risk';
 export type SignalStatus = 'pass' | 'partial' | 'fail' | 'na' | 'no_data';

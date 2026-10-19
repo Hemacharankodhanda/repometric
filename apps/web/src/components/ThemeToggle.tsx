@@ -49,9 +49,7 @@ export function ThemeToggle() {
         aria-label="Light theme"
         onClick={() => changeTheme('light')}
         className={`p-1.5 rounded-control transition-colors ${
-          theme === 'light'
-            ? 'bg-paper text-ink font-medium shadow-xs'
-            : 'hover:text-ink'
+          theme === 'light' ? 'bg-paper text-ink font-medium shadow-xs' : 'hover:text-ink'
         }`}
       >
         <Sun className="w-3.5 h-3.5" />
@@ -63,9 +61,7 @@ export function ThemeToggle() {
         aria-label="System theme"
         onClick={() => changeTheme('system')}
         className={`p-1.5 rounded-control transition-colors ${
-          theme === 'system'
-            ? 'bg-paper text-ink font-medium shadow-xs'
-            : 'hover:text-ink'
+          theme === 'system' ? 'bg-paper text-ink font-medium shadow-xs' : 'hover:text-ink'
         }`}
       >
         <Laptop className="w-3.5 h-3.5" />
@@ -77,9 +73,7 @@ export function ThemeToggle() {
         aria-label="Dark theme"
         onClick={() => changeTheme('dark')}
         className={`p-1.5 rounded-control transition-colors ${
-          theme === 'dark'
-            ? 'bg-paper text-ink font-medium shadow-xs'
-            : 'hover:text-ink'
+          theme === 'dark' ? 'bg-paper text-ink font-medium shadow-xs' : 'hover:text-ink'
         }`}
       >
         <Moon className="w-3.5 h-3.5" />

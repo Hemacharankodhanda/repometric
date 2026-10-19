@@ -9,6 +9,8 @@ out
 build
 coverage
 *.tsbuildinfo
+test-results
+playwright-report
 
 # Environment variables
 .env

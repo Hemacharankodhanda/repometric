@@ -35,7 +35,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
   AC: link preview shows the score; methodology lists every signal and weight.
 
 ## Phase 3: visualizers (week 3, flagship)
-- [ ] **T3.1 Hierarchy and Repo Map renderer.** `buildHierarchy`, squarified treemap on Canvas, folder zoom with breadcrumbs, hover card, legend, language and size color modes, search.
+- [x] **T3.1 Hierarchy and Repo Map renderer.** `buildHierarchy`, squarified treemap on Canvas, folder zoom with breadcrumbs, hover card, legend, language and size color modes, search.
   AC: 5,000 tiles pan at 60 fps on a mid laptop (record in the PR); labels follow the size rules in the spec.
 - [ ] **T3.2 JS/TS import parser and resolver.** `es-module-lexer`, extension and index resolution, tsconfig `paths`.
   AC: fixtures for relative, parent, alias, index, dynamic and re-export imports.
