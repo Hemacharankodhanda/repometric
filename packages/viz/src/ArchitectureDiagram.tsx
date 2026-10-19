@@ -183,12 +183,35 @@ export function ArchitectureDiagram({
 
         if (!isMounted) return;
 
-        // Sanitize with DOMPurify per spec
+        // Sanitize with DOMPurify per spec while preserving foreignObject node labels
         const DOMPurify = (await import('dompurify')).default;
-        const cleanSvg = DOMPurify.sanitize(svg, {
-          USE_PROFILES: { svg: true, svgFilters: true },
-          ADD_TAGS: ['use'],
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svg, 'image/svg+xml');
+
+        // Strictly remove any executable scripts or event listeners
+        doc.querySelectorAll('script').forEach((el) => el.remove());
+        doc.querySelectorAll('*').forEach((el) => {
+          for (const attr of Array.from(el.attributes)) {
+            if (
+              attr.name.toLowerCase().startsWith('on') ||
+              attr.value.trim().toLowerCase().startsWith('javascript:')
+            ) {
+              el.removeAttribute(attr.name);
+            }
+          }
         });
+
+        // Sanitize each foreignObject's label content safely with DOMPurify
+        doc.querySelectorAll('foreignObject').forEach((fo) => {
+          const safeInner = DOMPurify.sanitize(fo.innerHTML, {
+            ALLOWED_TAGS: ['div', 'span', 'p', 'b', 'i', 'strong', 'em', 'br', 'code'],
+            ALLOWED_ATTR: ['class', 'style', 'xmlns'],
+          });
+          fo.innerHTML = safeInner;
+        });
+
+        const serializer = new XMLSerializer();
+        const cleanSvg = serializer.serializeToString(doc.documentElement);
 
         wrapper.innerHTML = cleanSvg;
 
@@ -198,6 +221,42 @@ export function ArchitectureDiagram({
         svgElement.style.width = '100%';
         svgElement.style.height = '100%';
         svgElement.style.cursor = 'grab';
+
+        // Add custom typography & contrast styles to ensure text is prominent and readable in light & dark
+        const styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+        styleEl.textContent = `
+          .node foreignObject { overflow: visible !important; }
+          .node .nodeLabel, .nodeLabel p, .nodeLabel span, .node text {
+            color: ${theme.ink} !important;
+            fill: ${theme.ink} !important;
+            font-family: Instrument Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1.4 !important;
+            user-select: none !important;
+          }
+          .cluster .nodeLabel, .cluster span, .cluster text {
+            color: ${theme.ink} !important;
+            fill: ${theme.ink} !important;
+            font-weight: 700 !important;
+            font-size: 13px !important;
+            letter-spacing: 0.04em !important;
+            text-transform: uppercase !important;
+            user-select: none !important;
+          }
+          .edgeLabel, .edgeLabel p, .edgeLabel span, .edgeLabel text {
+            color: ${theme.inkMuted} !important;
+            fill: ${theme.inkMuted} !important;
+            font-size: 11px !important;
+            font-family: JetBrains Mono, Menlo, monospace !important;
+            background-color: ${theme.paper} !important;
+            padding: 1px 4px !important;
+            border-radius: 4px !important;
+          }
+        `;
+        svgElement.prepend(styleEl);
 
         // Wrap inner contents in a zoomable <g>
         const innerContent = svgElement.innerHTML;
