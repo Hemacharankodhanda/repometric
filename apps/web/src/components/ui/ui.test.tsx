@@ -9,13 +9,13 @@ describe('Design tokens & UI primitives (T0.4)', () => {
   it('renders Button with variants', () => {
     const html = renderToString(<Button variant="default">Analyze repository</Button>);
     expect(html).toContain('Analyze repository');
-    expect(html).toContain('bg-teal');
+    expect(html).toContain('bg-primary');
   });
 
   it('renders Input with tokens', () => {
     const html = renderToString(<Input placeholder="owner/repo" />);
     expect(html).toContain('placeholder="owner/repo"');
-    expect(html).toContain('bg-surface');
+    expect(html).toContain('bg-card');
   });
 
   it('renders ThemeToggle', () => {

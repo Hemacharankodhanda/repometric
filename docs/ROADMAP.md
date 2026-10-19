@@ -10,7 +10,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
   AC: a script inserts and reads one `repos` row; the service key is not importable from client code (add an ESLint restriction or a `server-only` import).
 - [x] **T0.4 Design tokens.** Wire `tokens.css` into Tailwind, load the three fonts with `next/font`, add a light/dark/system toggle.
   AC: a demo page shows every token in both themes; contrast of text tokens verified at 4.5:1 or better.
-- [ ] **T0.5 Playful component kit.** Build the `Tilly` mascot (all moods in `DESIGN_SYSTEM.md` section 5), `StickerBadge`, `ChunkyButton`, `RepoInput`, `Stepper`, `EmptyState`, `ErrorState`, `Toast`, and the hard-shadow card, using shadcn/ui primitives restyled with tokens and the `motion` library.
+- [x] **T0.5 Playful component kit.** Build the `Tilly` mascot (all moods in `DESIGN_SYSTEM.md` section 5), `StickerBadge`, `ChunkyButton`, `RepoInput`, `Stepper`, `EmptyState`, `ErrorState`, `Toast`, and the hard-shadow card, using shadcn/ui primitives restyled with tokens and the `motion` library.
   AC: a `/kit` dev page shows every component and Tilly mood in light and dark; reduced motion disables animation; keyboard focus is visible everywhere.
 - [ ] **T0.6 Landing page.** Implement every section of `UX_SPEC.md` section 1 with the specified copy, using mock data for the interactive previews (labelled "sample").
   AC: passes the 5-second test; no horizontal scroll at 375 px; Lighthouse accessibility 95+ and performance 90+; interactive previews are lazy-loaded.
