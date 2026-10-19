@@ -52,7 +52,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
   AC: every interaction in `VISUALIZER_SPEC.md` section 4 works without a mouse.
 - [x] **T3.9 Architecture diagram core.** `buildDiagramSpec` + `compileMermaid` + tests in `packages/core`. Pure, deterministic, layer categorization, transitive reduction, cycle highlighting, strict escaping.
   AC: fixture tests pass, 100% determinism, hostile string sanitization, no network in tests.
-- [ ] **T3.10 Diagram tab UI.** `ArchitectureDiagram` in `packages/viz`, wired as fourth tab in web app with dynamic Mermaid import, pan/zoom, selection syncing with Map/Graph, toolbar exports (SVG, PNG, Mermaid, README snippet), and accessible list view.
+- [x] **T3.10 Diagram tab UI.** `ArchitectureDiagram` in `packages/viz`, wired as fourth tab in web app with dynamic Mermaid import, pan/zoom, selection syncing with Map/Graph, toolbar exports (SVG, PNG, Mermaid, README snippet), and accessible list view.
   AC: works in light and dark, keyboard accessible, exports download cleanly, Playwright test passes.
 
 ## Phase 4: distribution and polish (week 4)

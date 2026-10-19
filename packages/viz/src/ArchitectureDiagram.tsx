@@ -9,7 +9,6 @@ import {
 } from 'react';
 import * as d3Zoom from 'd3-zoom';
 import * as d3Selection from 'd3-selection';
-import DOMPurify from 'dompurify';
 import {
   Copy,
   Download,
@@ -185,6 +184,7 @@ export function ArchitectureDiagram({
         if (!isMounted) return;
 
         // Sanitize with DOMPurify per spec
+        const DOMPurify = (await import('dompurify')).default;
         const cleanSvg = DOMPurify.sanitize(svg, {
           USE_PROFILES: { svg: true, svgFilters: true },
           ADD_TAGS: ['use'],
@@ -397,7 +397,7 @@ export function ArchitectureDiagram({
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
     triggerCopyFeedback('svg');
   };
 

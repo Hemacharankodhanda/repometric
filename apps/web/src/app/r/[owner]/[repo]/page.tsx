@@ -70,6 +70,7 @@ interface AnalysisResponse {
 
 export default function ReportPage({ params }: { params: { owner: string; repo: string } }) {
   const [activeTab, setActiveTab] = useState<'map' | 'graph' | 'diagram' | 'report'>('map');
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<AnalysisResponse | null>(null);
@@ -216,7 +217,12 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                 {/* Tab 1: Repo Map */}
                 <TabsContent value="map" className="mt-0 focus-visible:outline-none">
                   {files.length > 0 ? (
-                    <RepoMap files={files} height={600} />
+                    <RepoMap
+                      files={files}
+                      height={600}
+                      selectedPath={selectedPath ?? undefined}
+                      onSelect={(p) => setSelectedPath(p)}
+                    />
                   ) : (
                     <div className="w-full h-[580px] rounded-panel border border-line bg-surface p-8 flex flex-col items-center justify-center text-center space-y-2">
                       <p className="text-xs text-ink-muted">No files found in repository tree.</p>
@@ -261,6 +267,7 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                       repo={params.repo}
                       sha={report.commitSha}
                       height={620}
+                      onSelectPath={(path) => setSelectedPath(path)}
                     />
                   ) : (
                     <div className="w-full h-[580px] rounded-panel border border-line bg-surface p-8 flex flex-col items-center justify-center text-center space-y-2">
