@@ -3,10 +3,10 @@
 Work top to bottom, one task at a time. Tick the box only when the acceptance criteria (AC) pass and the definition of done in `AGENTS.md` is met. Priorities: P0 must ship, P1 should, P2 later. If time runs short, cut P1 and P2 first; the score engine and the visualizers are protected scope.
 
 ## Phase 0: bootstrap (days 1-2)
-- [ ] **T0.1 Monorepo scaffold.** pnpm workspaces with `apps/web` (Next.js App Router, Tailwind), `packages/core`, `packages/viz`, `packages/cli`. Shared `tsconfig.base.json` (strict), ESLint, Prettier, Vitest.
+- [x] **T0.1 Monorepo scaffold.** pnpm workspaces with `apps/web` (Next.js App Router, Tailwind), `packages/core`, `packages/viz`, `packages/cli`. Shared `tsconfig.base.json` (strict), ESLint, Prettier, Vitest.
   AC: `pnpm install && pnpm typecheck && pnpm lint && pnpm test && pnpm build` all pass on a clean clone.
-- [ ] **T0.2 CI.** Keep `.github/workflows/ci.yml` working. AC: CI is green on a pull request.
-- [ ] **T0.3 Supabase wiring.** Apply `0001_init.sql`, add `pnpm db:types`, create a server-only Supabase client helper in `apps/web/src/server/db.ts` that uses the service role key.
+- [x] **T0.2 CI.** Keep `.github/workflows/ci.yml` working. AC: CI is green on a pull request.
+- [x] **T0.3 Supabase wiring.** Apply `0001_init.sql`, add `pnpm db:types`, create a server-only Supabase client helper in `apps/web/src/server/db.ts` that uses the service role key.
   AC: a script inserts and reads one `repos` row; the service key is not importable from client code (add an ESLint restriction or a `server-only` import).
 - [x] **T0.4 Design tokens.** Wire `tokens.css` into Tailwind, load the three fonts with `next/font`, add a light/dark toggle.
   AC: a demo page shows every token in both themes; contrast of text tokens verified at 4.5:1 or better.
