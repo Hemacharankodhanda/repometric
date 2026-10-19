@@ -12,6 +12,7 @@ import {
   ExternalLink,
   ChevronRight,
   Loader2,
+  Layers,
 } from 'lucide-react';
 import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
 import { Header } from '../../../../components/Header';
@@ -44,6 +45,18 @@ const DependencyGraph = dynamic(
   },
 );
 
+const ArchitectureDiagram = dynamic(
+  () => import('@repometric/viz').then((mod) => mod.ArchitectureDiagram),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[580px] rounded-panel border border-line bg-surface/50 animate-pulse flex items-center justify-center text-xs text-ink-muted">
+        Loading interactive architecture diagram...
+      </div>
+    ),
+  },
+);
+
 interface AnalysisResponse {
   cached: boolean;
   analysis: AnalysisReport & { id?: string };
@@ -56,7 +69,7 @@ interface AnalysisResponse {
 }
 
 export default function ReportPage({ params }: { params: { owner: string; repo: string } }) {
-  const [activeTab, setActiveTab] = useState<'map' | 'graph' | 'report'>('map');
+  const [activeTab, setActiveTab] = useState<'map' | 'graph' | 'diagram' | 'report'>('map');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<AnalysisResponse | null>(null);
@@ -155,7 +168,7 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
             <div className="flex-1 min-w-0">
               <Tabs
                 value={activeTab}
-                onValueChange={(val) => setActiveTab(val as 'map' | 'graph' | 'report')}
+                onValueChange={(val) => setActiveTab(val as 'map' | 'graph' | 'diagram' | 'report')}
                 className="w-full space-y-4"
               >
                 <div className="flex items-center justify-between border-b border-line pb-2">
@@ -170,6 +183,10 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                         Graph
                         {data?.graph?.data?.nodes?.length ? ` (${data.graph.data.nodes.length} nodes)` : ''}
                       </span>
+                    </TabsTrigger>
+                    <TabsTrigger value="diagram" className="flex items-center space-x-1.5">
+                      <Layers className="w-3.5 h-3.5" />
+                      <span>Diagram</span>
                     </TabsTrigger>
                     <TabsTrigger value="report" className="flex items-center space-x-1.5">
                       <FileText className="w-3.5 h-3.5" />
@@ -230,6 +247,24 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                         <span>Explore Repo Map treemap</span>
                         <ChevronRight className="w-3 h-3" />
                       </button>
+                    </div>
+                  )}
+                </TabsContent>
+
+                {/* Tab 3: Architecture Diagram */}
+                <TabsContent value="diagram" className="mt-0 focus-visible:outline-none">
+                  {files.length > 0 ? (
+                    <ArchitectureDiagram
+                      files={files}
+                      graph={data?.graph?.data || null}
+                      owner={params.owner}
+                      repo={params.repo}
+                      sha={report.commitSha}
+                      height={620}
+                    />
+                  ) : (
+                    <div className="w-full h-[580px] rounded-panel border border-line bg-surface p-8 flex flex-col items-center justify-center text-center space-y-2">
+                      <p className="text-xs text-ink-muted">No files found to build architecture diagram.</p>
                     </div>
                   )}
                 </TabsContent>

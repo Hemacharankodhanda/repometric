@@ -19,3 +19,4 @@ export const VIZ_VERSION = '0.1.0';
 export * from './colors';
 export * from './RepoMap';
 export * from './DependencyGraph';
+export * from './ArchitectureDiagram';
