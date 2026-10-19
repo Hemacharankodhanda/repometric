@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "e2e": "playwright test",
-    "db:types": "node scripts/generate-db-types.mjs"
+    "db:types": "node scripts/generate-db-types.mjs",
+    "verify:github": "node scripts/verify-github.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",

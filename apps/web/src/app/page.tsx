@@ -35,21 +35,41 @@ export default function HomePage() {
             <RepoInput />
           </div>
 
-          <div className="flex items-center space-x-2 text-xs text-ink-muted pt-1">
-            <span>Try an example:</span>
-            <Link href="/r/facebook/react" className="text-teal hover:underline font-mono">
-              facebook/react
-            </Link>
+          <div className="flex flex-wrap items-center gap-2 text-xs pt-1">
+            <span className="text-ink-muted">Popular repositories:</span>
+            {[
+              { owner: 'facebook', repo: 'react' },
+              { owner: 'expressjs', repo: 'express' },
+              { owner: 'vuejs', repo: 'core' },
+              { owner: 'astral-sh', repo: 'uv' },
+              { owner: 'shadcn-ui', repo: 'ui' },
+            ].map((r) => (
+              <Link
+                key={`${r.owner}/${r.repo}`}
+                href={`/r/${r.owner}/${r.repo}`}
+                className="px-2 py-0.5 rounded-control bg-surface border border-line text-ink font-mono text-[11px] hover:border-teal hover:text-teal transition-colors"
+              >
+                {r.owner}/{r.repo}
+              </Link>
+            ))}
           </div>
         </section>
 
-        {/* Live Example Map */}
+        {/* Live Treemap Preview */}
         <section className="space-y-2 pt-2">
-          <div className="flex items-center justify-between text-xs text-ink-muted">
-            <span className="font-medium text-ink">
-              Live preview: interactive treemap of a React codebase
-            </span>
-            <span>Click any folder to zoom into its contents</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-ink-muted">
+            <div className="flex items-center space-x-2">
+              <span className="font-medium text-ink">
+                Interactive codebase treemap
+              </span>
+              <span>• Click any folder to zoom into its contents</span>
+            </div>
+            <Link
+              href="/r/facebook/react"
+              className="text-teal hover:underline font-mono text-[11px]"
+            >
+              Analyze facebook/react live &rarr;
+            </Link>
           </div>
 
           <RepoMap files={mockFiles} height={560} />

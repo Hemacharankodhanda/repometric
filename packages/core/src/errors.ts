@@ -5,7 +5,7 @@
 
 export class RepoNotFoundError extends Error {
   readonly code = 'NOT_FOUND' as const;
-  constructor(owner: string, name: string) {
+  constructor(public readonly owner: string, public readonly name: string) {
     super(`Repository not found: ${owner}/${name}`);
     this.name = 'RepoNotFoundError';
   }
@@ -13,7 +13,7 @@ export class RepoNotFoundError extends Error {
 
 export class PrivateRepoError extends Error {
   readonly code = 'PRIVATE_REPO' as const;
-  constructor(owner: string, name: string) {
+  constructor(public readonly owner: string, public readonly name: string) {
     super(`Repository is private or requires authentication: ${owner}/${name}`);
     this.name = 'PrivateRepoError';
   }

@@ -39,6 +39,11 @@ export function RepoInput({
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  React.useEffect(() => {
+    setValue(defaultValue);
+    setLoading(false);
+  }, [defaultValue]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = parseRepoInput(value);

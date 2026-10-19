@@ -27,9 +27,9 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
 - [x] **T2.1 Maintenance signals** and **T2.2 Community signals.** AC: tests per boundary; bot and owner exclusion tested.
 - [x] **T2.3 Dependency signals.** Manifest parsing for `package.json` and `requirements.txt`/`pyproject.toml`; npm and PyPI lookups with concurrency 8.
   AC: range-to-major parsing tested; deprecated flag read from the registry response; `na` when no manifest.
-- [ ] **T2.4 Persistence and `POST /api/analyze`.** Cache by `(repo, sha)`, rate limiting through `rate_state`, error mapping from `API_SPEC.md`.
+- [x] **T2.4 Persistence and `POST /api/analyze`.** Cache by `(repo, sha)`, rate limiting through `rate_state`, error mapping from `API_SPEC.md`.
   AC: second call for the same SHA makes zero GitHub calls (asserted in a test); each error code returns the specified HTTP status.
-- [ ] **T2.5 Report page UI.** Score rail, ranked category legend with expandable evidence, fix list, loading and error states, all per `DESIGN_SYSTEM.md`.
+- [x] **T2.5 Report page UI.** Score rail, ranked category legend with expandable evidence, fix list, loading and error states, all per `DESIGN_SYSTEM.md`.
   AC: works at 375 px width; keyboard-only use possible; Playwright test analyzes a mocked repo end to end.
 - [ ] **T2.6 Permalink and metadata.** `/r/[owner]/[repo]` server-rendered from the stored analysis, Open Graph tags with score and grade, `/methodology` page generated from the scoring config.
   AC: link preview shows the score; methodology lists every signal and weight.

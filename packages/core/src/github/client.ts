@@ -222,6 +222,35 @@ export class GitHubClient {
   }
 
   /**
+   * Fetches repository metadata and default branch head commit SHA.
+   */
+  async getHeadSha(owner: string, name: string): Promise<{ meta: RepoMeta; headSha: string }> {
+    const repoData = await this.request<GitHubRepoResponse>(`/repos/${owner}/${name}`);
+    if (repoData.private) {
+      throw new PrivateRepoError(owner, name);
+    }
+
+    const meta: RepoMeta = {
+      owner: repoData.owner.login.toLowerCase(),
+      name: repoData.name.toLowerCase(),
+      defaultBranch: repoData.default_branch,
+      description: repoData.description,
+      topics: repoData.topics || [],
+      homepage: repoData.homepage || null,
+      license: repoData.license?.spdx_id || repoData.license?.name || null,
+      stars: repoData.stargazers_count,
+      hasWiki: repoData.has_wiki,
+      archived: repoData.archived,
+    };
+
+    const branchData = await this.request<{ commit: { sha: string } }>(
+      `/repos/${owner}/${name}/branches/${encodeURIComponent(meta.defaultBranch)}`,
+    );
+
+    return { meta, headSha: branchData.commit.sha };
+  }
+
+  /**
    * Builds a full RepoSnapshot from GitHub for scoring.
    */
   async getSnapshot(
@@ -413,12 +442,21 @@ export class GitHubClient {
     // 8. Sample up to 40 source files for comment density calculation
     const sampledFiles = candidateSourceFiles.slice(0, 40);
     const sampledSources: { path: string; content: string }[] = [];
-    for (const filePath of sampledFiles) {
-      const content = await this.getFile(meta.owner, meta.name, commitSha, filePath);
-      if (content !== null) {
-        sampledSources.push({ path: filePath, content });
-      }
-    }
+    const workerChunks: string[][] = Array.from({ length: 8 }, () => []);
+    sampledFiles.forEach((file, index) => {
+      workerChunks[index % 8].push(file);
+    });
+
+    await Promise.all(
+      workerChunks.map(async (chunk) => {
+        for (const filePath of chunk) {
+          const content = await this.getFile(meta.owner, meta.name, commitSha, filePath);
+          if (content !== null) {
+            sampledSources.push({ path: filePath, content });
+          }
+        }
+      }),
+    );
 
     // 9. Lookup package registries (up to 50 direct dependencies, concurrency 8)
     const lookupItems: { name: string; ecosystem: 'npm' | 'pypi' }[] = [];
