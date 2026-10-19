@@ -13,13 +13,16 @@
     "format:check": "prettier --check .",
     "e2e": "playwright test",
     "db:types": "node scripts/generate-db-types.mjs",
-    "verify:github": "node scripts/verify-github.mjs"
+    "verify:github": "node scripts/verify-github.mjs",
+    "cli": "tsx packages/cli/src/index.ts",
+    "repometric": "tsx packages/cli/src/index.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
     "@playwright/test": "^1.64.1",
     "eslint": "^9.14.0",
     "prettier": "^3.3.3",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.14.0",
     "vitest": "^2.1.4"

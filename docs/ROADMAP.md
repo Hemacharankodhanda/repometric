@@ -53,7 +53,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
 
 ## Phase 4: distribution and polish (week 4)
 - [ ] **T4.1 Badge endpoint** and copy snippets in the UI. AC: correct SVG per grade, grey badge for unknown repos, cache headers set, hit counter increments on miss.
-- [ ] **T4.2 CLI (P1).** `repometric` with `--json`, `--min-score`, `--token`, `--open`, local path mode and exit codes from `API_SPEC.md`.
+- [x] **T4.2 CLI (P1).** `repometric` with `--json`, `--min-score`, `--token`, `--open`, local path mode and exit codes from `API_SPEC.md`.
   AC: tested against a fixture repo; `npx` smoke test in CI; published with a README.
 - [ ] **T4.3 Exports (P1).** JSON report, Markdown report, PNG of each visualizer with legend and footer.
 - [ ] **T4.4 Keep-alive cron and analytics.** `vercel.json` cron for `/api/cron/keepalive`; privacy-friendly page analytics; capture the success metrics in `PRD.md` section 7.
