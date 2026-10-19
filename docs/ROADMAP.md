@@ -8,7 +8,7 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
 - [ ] **T0.2 CI.** Keep `.github/workflows/ci.yml` working. AC: CI is green on a pull request.
 - [ ] **T0.3 Supabase wiring.** Apply `0001_init.sql`, add `pnpm db:types`, create a server-only Supabase client helper in `apps/web/src/server/db.ts` that uses the service role key.
   AC: a script inserts and reads one `repos` row; the service key is not importable from client code (add an ESLint restriction or a `server-only` import).
-- [ ] **T0.4 Design tokens.** Wire `tokens.css` into Tailwind, load the three fonts with `next/font`, add a light/dark toggle.
+- [x] **T0.4 Design tokens.** Wire `tokens.css` into Tailwind, load the three fonts with `next/font`, add a light/dark toggle.
   AC: a demo page shows every token in both themes; contrast of text tokens verified at 4.5:1 or better.
 
 ## Phase 1: core scoring (week 1)
