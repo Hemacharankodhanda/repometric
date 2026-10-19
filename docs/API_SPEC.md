@@ -67,9 +67,9 @@ Requires `Authorization: Bearer $CRON_SECRET`. Runs `select 1` against Supabase.
 | `/methodology` | Plain-language explanation of every signal, generated from the scoring config |
 
 ## CLI (`packages/cli`)
-Binary `repo-analyzer`, published to npm. Built with Commander.
+Binary `repometric`, published to npm. Built with Commander.
 ```
-repo-analyzer <target> [options]
+repometric <target> [options]
   <target>              owner/repo, a GitHub URL, or a local path such as .
   --json                print AnalysisReport as JSON
   --min-score <n>       exit 1 if score is below n

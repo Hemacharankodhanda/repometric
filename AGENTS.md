@@ -1,9 +1,9 @@
-# Repo Analyzer: agent guide
+# RepoMetric: agent guide
 
 Read this file first, then `docs/PRD.md`, then the spec for the task you are working on.
 
 ## What this project is
-Repo Analyzer takes a public GitHub repository and produces:
+RepoMetric takes a public GitHub repository and produces:
 1. A 0-100 health score with evidence for every deduction and a prioritized fix list.
 2. A **Repo Map**: a zoomable treemap of folders and files.
 3. A **Dependency Graph**: a force-directed graph of file imports.
@@ -35,7 +35,7 @@ docs/               Specs (see below)
 pnpm install
 pnpm dev                 # web app
 pnpm test                # all unit tests
-pnpm --filter @repo-analyzer/core test
+pnpm --filter @repometric/core test
 pnpm lint && pnpm typecheck
 pnpm build
 pnpm e2e                 # Playwright

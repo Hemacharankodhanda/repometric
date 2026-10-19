@@ -44,7 +44,7 @@ Data palettes (identical in light and dark unless noted):
 ## 4. Layout
 ```
 +--------------------------------------------------+
-| repo-analyzer        [ github.com/owner/repo  ]  |
+| repometric        [ github.com/owner/repo  ]  |
 +------------+-------------------------------------+
 |  68        |  Map | Graph | Report               |
 |  Needs     |  +-------------------------------+  |

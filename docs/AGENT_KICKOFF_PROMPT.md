@@ -4,7 +4,7 @@ Paste this into your AI coding agent after placing this folder's contents at the
 
 ---
 
-You are building **Repo Analyzer** in this repository. Before writing any code:
+You are building **RepoMetric** in this repository. Before writing any code:
 
 1. Read `AGENTS.md` fully, then `docs/PRD.md`, `docs/ARCHITECTURE.md` and `docs/DECISIONS.md`.
 2. Skim `docs/SCORING_SPEC.md`, `docs/API_SPEC.md`, `docs/VISUALIZER_SPEC.md`, `docs/DATA_MODEL.md` and `docs/DESIGN_SYSTEM.md` so you know where each answer lives.

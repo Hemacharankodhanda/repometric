@@ -1,4 +1,4 @@
--- Repo Analyzer initial schema
+-- RepoMetric initial schema
 -- Writes happen only through server routes using the service role key (bypasses RLS).
 -- Public clients may only read.
 

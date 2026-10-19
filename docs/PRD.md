@@ -1,4 +1,4 @@
-# Repo Analyzer: product requirements (condensed)
+# RepoMetric: product requirements (condensed)
 
 Status: v1 draft. Target: MVP in 4 weeks at $0 infrastructure cost.
 

@@ -23,5 +23,3 @@ Decisions already made. Do not reopen them without a reason. Add new entries at 
 **ADR-010: Public repos only in v1.** Avoids OAuth scope handling and storing anything private.
 
 **ADR-011: Scores for repos with no issue or PR history use `no_data` at 50%.** Fairness for small student repos without penalizing or rewarding the absence of data.
-
-**ADR-012: Product brand name is Repometric.** The public-facing product name displayed in the UI, web pages, titles, CLI commands (`repometric`), and documentation is Repometric.
