@@ -1,0 +1,100 @@
+/* Design tokens: see docs/DESIGN_SYSTEM.md. Components use these variables only. */
+
+:root {
+  --paper: #e9eef0;
+  --surface: #f5f8f9;
+  --fog: #c9d3d8;
+  --ink: #14213d;
+  --ink-muted: #4a5872;
+  --line: color-mix(in srgb, var(--ink) 15%, transparent);
+
+  --teal: #2a7f87;
+  --teal-text: #1f6068;
+  --danger: #d6352f;
+  --danger-text: #b02620;
+  --moss: #5e8c4a;
+  --moss-text: #3f6b2e;
+  --focus: #2a7f87;
+
+  /* Data palettes */
+  --lang-1: #e69f00;
+  --lang-2: #56b4e9;
+  --lang-3: #009e73;
+  --lang-4: #f0e442;
+  --lang-5: #0072b2;
+  --lang-6: #d55e00;
+  --lang-7: #cc79a7;
+  --lang-other: #999999;
+
+  --seq-1: #ffffcc;
+  --seq-2: #a1dab4;
+  --seq-3: #41b6c4;
+  --seq-4: #2c7fb8;
+  --seq-5: #253494;
+
+  /* Shape */
+  --radius-tile: 2px;
+  --radius-control: 6px;
+  --radius-panel: 12px;
+
+  /* Type */
+  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-xs: 0.8rem;
+  --text-sm: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.563rem;
+  --text-xl: 1.953rem;
+  --text-2xl: 2.441rem;
+  --text-score: 3.815rem;
+}
+
+:root[data-theme='dark'] {
+  --paper: #0f1a26;
+  --surface: #16263a;
+  --fog: #223244;
+  --ink: #e6edf0;
+  --ink-muted: #9fb0bf;
+
+  --teal: #4fb3bc;
+  --teal-text: #7fd0d7;
+  --danger: #ff6b5e;
+  --danger-text: #ff8f85;
+  --moss: #8dbb78;
+  --moss-text: #a8d192;
+  --focus: #4fb3bc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #0f1a26;
+    --surface: #16263a;
+    --fog: #223244;
+    --ink: #e6edf0;
+    --ink-muted: #9fb0bf;
+
+    --teal: #4fb3bc;
+    --teal-text: #7fd0d7;
+    --danger: #ff6b5e;
+    --danger-text: #ff8f85;
+    --moss: #8dbb78;
+    --moss-text: #a8d192;
+    --focus: #4fb3bc;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
