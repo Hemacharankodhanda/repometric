@@ -50,6 +50,10 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
   AC: progress bar works; a second visit loads the graph without refetching files.
 - [ ] **T3.8 Accessibility for visualizers.** Keyboard navigation, table views, live region, reduced motion.
   AC: every interaction in `VISUALIZER_SPEC.md` section 4 works without a mouse.
+- [ ] **T3.9 Architecture diagram core.** `buildDiagramSpec` + `compileMermaid` + tests in `packages/core`. Pure, deterministic, layer categorization, transitive reduction, cycle highlighting, strict escaping.
+  AC: fixture tests pass, 100% determinism, hostile string sanitization, no network in tests.
+- [ ] **T3.10 Diagram tab UI.** `ArchitectureDiagram` in `packages/viz`, wired as fourth tab in web app with dynamic Mermaid import, pan/zoom, selection syncing with Map/Graph, toolbar exports (SVG, PNG, Mermaid, README snippet), and accessible list view.
+  AC: works in light and dark, keyboard accessible, exports download cleanly, Playwright test passes.
 
 ## Phase 4: distribution and polish (week 4)
 - [ ] **T4.1 Badge endpoint** and copy snippets in the UI. AC: correct SVG per grade, grey badge for unknown repos, cache headers set, hit counter increments on miss.
@@ -64,3 +68,5 @@ Work top to bottom, one task at a time. Tick the box only when the acceptance cr
 
 ## Later (P2)
 Compare two repos, score history chart, hierarchical and radial graph layouts, SVG export of the Map, private repos with OAuth.
+- [ ] **T5.1 Optional bring-your-own-key AI diagram mode.** Client-side BYOK mode that does not alter scoring or server code.
+

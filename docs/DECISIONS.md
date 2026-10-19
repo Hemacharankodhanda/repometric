@@ -18,8 +18,10 @@ Decisions already made. Do not reopen them without a reason. Add new entries at 
 
 **ADR-008: P0 map color modes are language, size, import fan-in and test sibling.** Churn and top-author need per-file commit history, which is expensive on the GitHub API. They are P1 and computed only for the 100 largest source files with batched GraphQL.
 
-**ADR-009: No AI or LLM API in this project.** Scoring must be deterministic, explainable and free. AI features belong to the separate PR reviewer project.
+**ADR-009: No AI or LLM API in scoring or graph building.** Scoring and architecture extraction must be deterministic, explainable and free.
 
 **ADR-010: Public repos only in v1.** Avoids OAuth scope handling and storing anything private.
 
 **ADR-011: Scores for repos with no issue or PR history use `no_data` at 50%.** Fairness for small student repos without penalizing or rewarding the absence of data.
+
+**ADR-012: Architecture diagram is deterministic, built in the browser from GraphData, rendered with Mermaid (strict mode).** Optional bring-your-own-key AI diagrams are a later P2 and do not change scoring.
