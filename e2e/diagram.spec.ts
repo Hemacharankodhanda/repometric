@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-test.skip('Diagram tab: navigation, component inspection, list toggle, and SVG export', async ({
+test('Diagram tab: navigation, component inspection, list toggle, and SVG export', async ({
   page,
 }) => {
+  // Prevent tour popup from interrupting tab clicks
+  await page.addInitScript(() => {
+    localStorage.setItem('repometric_tour_seen', 'true');
+  });
+
   // 1. Mock API analysis response for reliable, isolated execution
   await page.route('**/api/analyze', async (route) => {
     await route.fulfill({
@@ -79,7 +84,7 @@ test.skip('Diagram tab: navigation, component inspection, list toggle, and SVG e
   await page.goto('/r/repometric/repometric');
 
   // Verify report loaded
-  await expect(page.locator('h2')).toContainText('repometric/repometric');
+  await expect(page.locator('text=repometric/repometric').first()).toBeVisible({ timeout: 10000 });
 
   // 3. Switch to Diagram tab
   const diagramTabTrigger = page.locator('button[role="tab"]:has-text("Diagram")');

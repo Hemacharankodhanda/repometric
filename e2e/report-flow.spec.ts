@@ -42,10 +42,10 @@ test('landing page to analysis screen, report page, tabs, and theme toggle', asy
   await expect(page.locator('text=Treemap zoom')).toBeVisible();
 
   await page.click('button[role="tab"]:has-text("Graph")');
-  await expect(page.locator('text=Dependency Graph is brewing')).toBeVisible();
+  await expect(page.locator('text=Force-directed graph')).toBeVisible();
 
   await page.click('button[role="tab"]:has-text("Diagram")');
-  await expect(page.locator('text=Architecture Diagram coming soon')).toBeVisible();
+  await expect(page.locator('text=Architecture Layers')).toBeVisible();
 
   await page.click('button[role="tab"]:has-text("Overview")');
   await expect(page.locator('text=Health categories')).toBeVisible();

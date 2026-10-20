@@ -22,7 +22,7 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 
-import type { AnalysisReport, FileNode } from '@repometric/core';
+import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
 import { Header } from '../../../../components/Header';
 import { RepoInput } from '../../../../components/RepoInput';
 import { ChunkyButton } from '../../../../components/ChunkyButton';
@@ -40,7 +40,7 @@ import { Toast } from '../../../../components/Toast';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../../../components/ui/Tabs';
 import { getMockAnalysis } from '../../../../server/mockReportService';
 
-// Lazy-load RepoMap for visualizer budget
+// Lazy-load Visualizers for visualizer budget
 const RepoMap = dynamic(() => import('@repometric/viz').then((mod) => mod.RepoMap), {
   ssr: false,
   loading: () => (
@@ -50,6 +50,32 @@ const RepoMap = dynamic(() => import('@repometric/viz').then((mod) => mod.RepoMa
     </div>
   ),
 });
+
+const DependencyGraph = dynamic(
+  () => import('@repometric/viz').then((mod) => mod.DependencyGraph),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[580px] rounded-card border-2 border-ink bg-card flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
+        <div className="w-8 h-8 rounded-full border-2 border-ink border-t-primary animate-spin" />
+        <span>Loading interactive Dependency Graph...</span>
+      </div>
+    ),
+  },
+);
+
+const ArchitectureDiagram = dynamic(
+  () => import('@repometric/viz').then((mod) => mod.ArchitectureDiagram),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[620px] rounded-card border-2 border-ink bg-card flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
+        <div className="w-8 h-8 rounded-full border-2 border-ink border-t-primary animate-spin" />
+        <span>Loading interactive Architecture Diagram...</span>
+      </div>
+    ),
+  },
+);
 
 type TabType = 'overview' | 'fixes' | 'map' | 'graph' | 'diagram';
 
@@ -80,6 +106,8 @@ export default function ReportPage({
   const mockData = useMemo(() => getMockAnalysis(owner, repo), [owner, repo]);
   const baseReport: AnalysisReport = mockData.report;
   const files: FileNode[] = mockData.files;
+  const graph: GraphData = mockData.graph;
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
 
   // Initialize done fixes from localStorage
   useEffect(() => {
@@ -637,7 +665,12 @@ export default function ReportPage({
                 </div>
 
                 <div className="w-full">
-                  <RepoMap files={files} height={560} />
+                  <RepoMap
+                    files={files}
+                    height={560}
+                    selectedPath={selectedPath ?? undefined}
+                    onSelect={(p) => setSelectedPath(p)}
+                  />
                 </div>
               </div>
             </TabsContent>
@@ -646,33 +679,32 @@ export default function ReportPage({
             <TabsContent value="graph" className="mt-0 space-y-4">
               <ReadingGuide type="graph" />
 
-              <div className="rounded-card border-2 border-ink bg-card p-8 sm:p-12 shadow-[4px_4px_0_var(--ink)] flex flex-col items-center justify-center text-center space-y-4">
-                <div className="p-3 rounded-full border-2 border-ink bg-sky/20 text-ink shadow-[2px_2px_0_var(--ink)]">
-                  <Network className="w-8 h-8" />
-                </div>
-
-                <div className="space-y-1.5 max-w-md">
-                  <div className="inline-flex items-center space-x-1.5">
-                    <StickerBadge variant="sky" size="sm" rotate="left">
-                      Phase 3 feature
+              <div
+                id="graph-container"
+                className="relative rounded-card border-2 border-ink bg-card p-4 shadow-[4px_4px_0_var(--ink)] space-y-3"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b-2 border-ink">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                      Force-directed graph
+                    </span>
+                    <StickerBadge variant="sky" size="sm" rotate="none">
+                      {graph.nodes.length} nodes • {graph.edges.length} imports
                     </StickerBadge>
+                    {graph.stats.cycles.length > 0 && (
+                      <StickerBadge variant="coral" size="sm" rotate="none">
+                        {graph.stats.cycles.length} cycles detected
+                      </StickerBadge>
+                    )}
                   </div>
-                  <h3 className="font-display font-extrabold text-xl text-ink">
-                    Dependency Graph is brewing
-                  </h3>
-                  <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
-                    A force-directed canvas visualizing module fan-in, import volume, and circular dependency clusters. Coming next!
-                  </p>
                 </div>
 
-                <div className="pt-2">
-                  <ChunkyButton
-                    variant="primary"
-                    size="md"
-                    onClick={() => handleTabChange('map')}
-                  >
-                    Explore Repo Map instead
-                  </ChunkyButton>
+                <div className="w-full">
+                  <DependencyGraph
+                    data={graph}
+                    height={580}
+                    onSelectNode={(nodeId) => setSelectedPath(nodeId)}
+                  />
                 </div>
               </div>
             </TabsContent>
@@ -681,33 +713,31 @@ export default function ReportPage({
             <TabsContent value="diagram" className="mt-0 space-y-4">
               <ReadingGuide type="diagram" />
 
-              <div className="rounded-card border-2 border-ink bg-card p-8 sm:p-12 shadow-[4px_4px_0_var(--ink)] flex flex-col items-center justify-center text-center space-y-4">
-                <div className="p-3 rounded-full border-2 border-ink bg-lime/30 text-ink shadow-[2px_2px_0_var(--ink)]">
-                  <Layers className="w-8 h-8" />
-                </div>
-
-                <div className="space-y-1.5 max-w-md">
-                  <div className="inline-flex items-center space-x-1.5">
-                    <StickerBadge variant="lime" size="sm" rotate="right">
-                      Phase 3 feature
+              <div
+                id="diagram-container"
+                className="relative rounded-card border-2 border-ink bg-card p-4 shadow-[4px_4px_0_var(--ink)] space-y-3"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b-2 border-ink">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                      Architecture Layers
+                    </span>
+                    <StickerBadge variant="lime" size="sm" rotate="none">
+                      Deterministic flowchart
                     </StickerBadge>
                   </div>
-                  <h3 className="font-display font-extrabold text-xl text-ink">
-                    Architecture Diagram coming soon
-                  </h3>
-                  <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
-                    Deterministic layer flowcharts generated from your package structure, ready to paste directly into your README.
-                  </p>
                 </div>
 
-                <div className="pt-2">
-                  <ChunkyButton
-                    variant="primary"
-                    size="md"
-                    onClick={() => handleTabChange('map')}
-                  >
-                    Explore Repo Map instead
-                  </ChunkyButton>
+                <div className="w-full">
+                  <ArchitectureDiagram
+                    files={files}
+                    graph={graph}
+                    owner={owner}
+                    repo={repo}
+                    sha={baseReport.commitSha}
+                    height={620}
+                    onSelectPath={(path) => setSelectedPath(path)}
+                  />
                 </div>
               </div>
             </TabsContent>

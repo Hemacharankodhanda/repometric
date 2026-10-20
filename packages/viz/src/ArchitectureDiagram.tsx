@@ -54,7 +54,12 @@ export function getThemeColors(): ThemeColors {
     };
   }
 
-  const isDark = document.documentElement.classList.contains('dark');
+  const isDark =
+    typeof document !== 'undefined' &&
+    (document.documentElement.classList.contains('dark') ||
+      document.documentElement.getAttribute('data-theme') === 'dark' ||
+      (!document.documentElement.getAttribute('data-theme') &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches));
   if (isDark) {
     return {
       paper: '#0F1A26',
@@ -132,7 +137,7 @@ export function ArchitectureDiagram({
     });
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class'],
+      attributeFilter: ['class', 'data-theme'],
     });
     return () => observer.disconnect();
   }, []);
@@ -582,7 +587,7 @@ export function ArchitectureDiagram({
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col w-full rounded-panel border border-line bg-paper overflow-hidden select-none"
+      className="relative flex flex-col w-full rounded-card border-2 border-ink bg-card overflow-hidden select-none shadow-[3px_3px_0_var(--ink)]"
       style={{ height: `${height}px` }}
       data-testid="architecture-diagram"
     >
@@ -592,16 +597,16 @@ export function ArchitectureDiagram({
       </div>
 
       {/* Top Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-line bg-surface/90 backdrop-blur-xs z-10">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b-2 border-ink bg-paper-2 z-10">
         <div className="flex items-center space-x-2">
           {/* View Toggle */}
-          <div className="flex items-center border border-line rounded-control bg-paper p-0.5">
+          <div className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]">
             <button
               type="button"
               onClick={() => setViewMode('diagram')}
-              className={`flex items-center space-x-1.5 px-2 py-1 rounded-xs text-xs font-medium transition-colors ${
+              className={`flex items-center space-x-1.5 px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
                 viewMode === 'diagram'
-                  ? 'bg-surface text-ink shadow-xs font-semibold'
+                  ? 'bg-lime text-ink shadow-[1px_1px_0_var(--ink)] font-bold'
                   : 'text-ink-muted hover:text-ink'
               }`}
               title="View as interactive diagram"
@@ -612,9 +617,9 @@ export function ArchitectureDiagram({
             <button
               type="button"
               onClick={() => setViewMode('list')}
-              className={`flex items-center space-x-1.5 px-2 py-1 rounded-xs text-xs font-medium transition-colors ${
+              className={`flex items-center space-x-1.5 px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
                 viewMode === 'list'
-                  ? 'bg-surface text-ink shadow-xs font-semibold'
+                  ? 'bg-lime text-ink shadow-[1px_1px_0_var(--ink)] font-bold'
                   : 'text-ink-muted hover:text-ink'
               }`}
               title="View as accessible list and table"
@@ -629,10 +634,10 @@ export function ArchitectureDiagram({
             <button
               type="button"
               onClick={() => setShowEdgeWeights((prev) => !prev)}
-              className={`px-2 py-1 rounded-control border border-line text-xs transition-colors ${
+              className={`px-2 py-1 rounded-control border-2 border-ink text-xs font-bold transition-colors shadow-[1px_1px_0_var(--ink)] ${
                 showEdgeWeights
-                  ? 'bg-surface text-ink font-medium'
-                  : 'bg-paper text-ink-muted hover:text-ink'
+                  ? 'bg-sun text-ink'
+                  : 'bg-card text-ink-muted hover:text-ink'
               }`}
               title="Toggle import counts on edges"
             >
@@ -642,13 +647,13 @@ export function ArchitectureDiagram({
         </div>
 
         {/* Action Controls & Export Buttons */}
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center space-x-1 sm:space-x-1.5">
           {viewMode === 'diagram' && (
             <>
               <button
                 type="button"
                 onClick={handleResetView}
-                className="p-1.5 rounded-control text-ink-muted hover:text-ink hover:bg-surface border border-transparent hover:border-line transition-colors"
+                className="p-1.5 rounded-control text-ink hover:bg-paper-2 border-2 border-ink bg-card shadow-[1px_1px_0_var(--ink)] transition-colors"
                 title="Reset zoom and pan view"
                 aria-label="Reset view"
               >
@@ -657,7 +662,7 @@ export function ArchitectureDiagram({
               <button
                 type="button"
                 onClick={handleResetView}
-                className="p-1.5 rounded-control text-ink-muted hover:text-ink hover:bg-surface border border-transparent hover:border-line transition-colors"
+                className="p-1.5 rounded-control text-ink hover:bg-paper-2 border-2 border-ink bg-card shadow-[1px_1px_0_var(--ink)] transition-colors"
                 title="Fit to screen"
                 aria-label="Fit to screen"
               >
@@ -666,17 +671,17 @@ export function ArchitectureDiagram({
             </>
           )}
 
-          <div className="h-4 w-px bg-line mx-1" />
+          <div className="h-4 w-px bg-ink/30 mx-1" />
 
           {/* Copy Mermaid */}
           <button
             type="button"
             onClick={handleCopyMermaid}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border border-line bg-surface hover:bg-paper text-xs text-ink transition-colors"
+            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
             title="Copy raw Mermaid code"
           >
             {copiedAction === 'mermaid' ? (
-              <Check className="w-3.5 h-3.5 text-moss-text" />
+              <Check className="w-3.5 h-3.5 text-lime-text" />
             ) : (
               <Copy className="w-3.5 h-3.5 text-ink-muted" />
             )}
@@ -687,11 +692,11 @@ export function ArchitectureDiagram({
           <button
             type="button"
             onClick={handleCopyReadme}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border border-line bg-surface hover:bg-paper text-xs text-ink transition-colors"
+            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
             title="Copy as Markdown ```mermaid block for README"
           >
             {copiedAction === 'readme' ? (
-              <Check className="w-3.5 h-3.5 text-moss-text" />
+              <Check className="w-3.5 h-3.5 text-lime-text" />
             ) : (
               <FileCode className="w-3.5 h-3.5 text-ink-muted" />
             )}
@@ -702,11 +707,11 @@ export function ArchitectureDiagram({
           <button
             type="button"
             onClick={handleDownloadSvg}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border border-line bg-surface hover:bg-paper text-xs text-ink transition-colors"
+            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
             title="Download vector SVG"
           >
             {copiedAction === 'svg' ? (
-              <Check className="w-3.5 h-3.5 text-moss-text" />
+              <Check className="w-3.5 h-3.5 text-lime-text" />
             ) : (
               <Download className="w-3.5 h-3.5 text-ink-muted" />
             )}
@@ -717,11 +722,11 @@ export function ArchitectureDiagram({
           <button
             type="button"
             onClick={handleDownloadPng}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border border-line bg-surface hover:bg-paper text-xs text-ink transition-colors"
+            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
             title="Download 2x PNG image with footer strip"
           >
             {copiedAction === 'png' ? (
-              <Check className="w-3.5 h-3.5 text-moss-text" />
+              <Check className="w-3.5 h-3.5 text-lime-text" />
             ) : (
               <Download className="w-3.5 h-3.5 text-ink-muted" />
             )}

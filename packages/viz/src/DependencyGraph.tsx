@@ -748,10 +748,10 @@ export function DependencyGraph({
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col border border-line rounded-panel bg-surface overflow-hidden ${className}`}
+      className={`flex flex-col border-2 border-ink rounded-card bg-card overflow-hidden shadow-[3px_3px_0_var(--ink)] ${className}`}
     >
       {/* Top Toolbar */}
-      <div className="p-3 border-b border-line bg-paper/60 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="p-3 border-b-2 border-ink bg-paper-2 flex flex-wrap items-center justify-between gap-3 text-xs">
         {/* Search & Folder Filters */}
         <div className="flex items-center space-x-2 flex-1 min-w-[240px]">
           <div className="relative flex-1 max-w-xs">
@@ -761,7 +761,7 @@ export function DependencyGraph({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search file in graph..."
-              className="w-full h-8 pl-8 pr-3 bg-surface border border-line rounded-control text-ink text-xs focus:outline-none focus:border-teal"
+              className="w-full h-8 pl-8 pr-3 bg-card border-2 border-ink rounded-control text-ink text-xs focus:outline-none shadow-[1px_1px_0_var(--ink)]"
             />
             {searchQuery && (
               <button
@@ -778,7 +778,7 @@ export function DependencyGraph({
           <select
             value={filterFolder}
             onChange={(e) => setFilterFolder(e.target.value)}
-            className="h-8 px-2 bg-surface border border-line rounded-control text-ink text-xs focus:outline-none focus:border-teal"
+            className="h-8 px-2 bg-card border-2 border-ink rounded-control text-ink text-xs focus:outline-none shadow-[1px_1px_0_var(--ink)]"
           >
             <option value="all">All folders ({uniqueFolders.length})</option>
             {uniqueFolders.map((f) => (
@@ -792,10 +792,10 @@ export function DependencyGraph({
           <button
             type="button"
             onClick={() => setHideTests(!hideTests)}
-            className={`h-8 px-2.5 rounded-control border text-xs font-medium inline-flex items-center space-x-1.5 transition-colors ${
+            className={`h-8 px-2.5 rounded-control border-2 border-ink text-xs font-bold inline-flex items-center space-x-1.5 shadow-[1px_1px_0_var(--ink)] transition-all ${
               hideTests
-                ? 'bg-teal/15 border-teal text-teal'
-                : 'bg-surface border-line text-ink-muted hover:text-ink'
+                ? 'bg-primary text-on-primary'
+                : 'bg-card text-ink hover:bg-paper-2'
             }`}
             title="Hide test files from graph"
           >
@@ -807,8 +807,8 @@ export function DependencyGraph({
         {/* Right Controls: Spacing, Labels, Color mode, view toggle, insights */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Spacing Selector */}
-          <div className="flex items-center border border-line rounded-control bg-surface p-0.5" title="Spread graph nodes">
-            <span className="text-[10px] text-ink-muted px-1.5 font-medium">Spread:</span>
+          <div className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]" title="Spread graph nodes">
+            <span className="text-[10px] text-ink-muted px-1.5 font-bold">Spread:</span>
             {[
               { label: '1x', val: 1.0 },
               { label: '1.5x', val: 1.6 },
@@ -819,7 +819,7 @@ export function DependencyGraph({
                 type="button"
                 onClick={() => setSpacing(s.val)}
                 className={`px-1.5 py-0.5 rounded-xs text-[11px] font-mono transition-colors ${
-                  spacing === s.val ? 'bg-paper text-ink font-bold shadow-xs' : 'text-ink-muted hover:text-ink'
+                  spacing === s.val ? 'bg-sky text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 {s.label}
@@ -828,8 +828,8 @@ export function DependencyGraph({
           </div>
 
           {/* Labels Mode Selector */}
-          <div className="flex items-center border border-line rounded-control bg-surface p-0.5" title="Toggle node labels">
-            <span className="text-[10px] text-ink-muted px-1.5 font-medium">Labels:</span>
+          <div className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]" title="Toggle node labels">
+            <span className="text-[10px] text-ink-muted px-1.5 font-bold">Labels:</span>
             {[
               { id: 'smart', label: 'Smart' },
               { id: 'all', label: 'All' },
@@ -839,8 +839,8 @@ export function DependencyGraph({
                 key={l.id}
                 type="button"
                 onClick={() => setLabelMode(l.id as 'smart' | 'all' | 'off')}
-                className={`px-1.5 py-0.5 rounded-xs text-[11px] transition-colors ${
-                  labelMode === l.id ? 'bg-paper text-ink font-semibold shadow-xs' : 'text-ink-muted hover:text-ink'
+                className={`px-1.5 py-0.5 rounded-xs text-[11px] font-bold transition-colors ${
+                  labelMode === l.id ? 'bg-sun text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 {l.label}
@@ -849,12 +849,12 @@ export function DependencyGraph({
           </div>
 
           {/* Color Mode */}
-          <div className="flex items-center border border-line rounded-control bg-surface p-0.5">
+          <div className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]">
             <button
               type="button"
               onClick={() => setColorMode('language')}
-              className={`px-2 py-1 rounded-xs text-xs font-medium transition-colors ${
-                colorMode === 'language' ? 'bg-paper text-ink shadow-xs' : 'text-ink-muted hover:text-ink'
+              className={`px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
+                colorMode === 'language' ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
               }`}
             >
               Language
@@ -862,8 +862,8 @@ export function DependencyGraph({
             <button
               type="button"
               onClick={() => setColorMode('size')}
-              className={`px-2 py-1 rounded-xs text-xs font-medium transition-colors ${
-                colorMode === 'size' ? 'bg-paper text-ink shadow-xs' : 'text-ink-muted hover:text-ink'
+              className={`px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
+                colorMode === 'size' ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
               }`}
             >
               Size
@@ -871,8 +871,8 @@ export function DependencyGraph({
             <button
               type="button"
               onClick={() => setColorMode('fanIn')}
-              className={`px-2 py-1 rounded-xs text-xs font-medium transition-colors ${
-                colorMode === 'fanIn' ? 'bg-paper text-ink shadow-xs' : 'text-ink-muted hover:text-ink'
+              className={`px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
+                colorMode === 'fanIn' ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
               }`}
             >
               Fan-In
@@ -881,15 +881,15 @@ export function DependencyGraph({
 
           {/* Focus depth slider if neighborhood is active */}
           {focusedNodeId && (
-            <div className="flex items-center space-x-1 px-2 py-1 rounded-control bg-surface border border-line text-[11px]">
-              <span className="text-ink-muted font-medium">Hops:</span>
+            <div className="flex items-center space-x-1 px-2 py-1 rounded-control bg-card border-2 border-ink shadow-[1px_1px_0_var(--ink)] text-[11px]">
+              <span className="text-ink-muted font-bold">Hops:</span>
               {[1, 2, 3].map((d) => (
                 <button
                   key={d}
                   type="button"
                   onClick={() => setFocusDepth(d)}
-                  className={`w-5 h-5 rounded-xs font-mono font-semibold ${
-                    focusDepth === d ? 'bg-teal text-white' : 'text-ink-muted hover:text-ink'
+                  className={`w-5 h-5 rounded-xs font-mono font-bold ${
+                    focusDepth === d ? 'bg-primary text-on-primary' : 'text-ink-muted hover:text-ink'
                   }`}
                 >
                   {d}
@@ -898,7 +898,7 @@ export function DependencyGraph({
               <button
                 type="button"
                 onClick={() => setFocusedNodeId(null)}
-                className="ml-1 text-teal hover:underline text-[10px]"
+                className="ml-1 text-primary-text font-bold hover:underline text-[10px]"
               >
                 Reset
               </button>
@@ -909,10 +909,10 @@ export function DependencyGraph({
           <button
             type="button"
             onClick={() => setShowInsights(!showInsights)}
-            className={`h-8 px-2.5 rounded-control border text-xs font-medium inline-flex items-center space-x-1.5 transition-colors ${
+            className={`h-8 px-2.5 rounded-control border-2 border-ink text-xs font-bold inline-flex items-center space-x-1.5 shadow-[1px_1px_0_var(--ink)] transition-colors ${
               showInsights
-                ? 'bg-teal/15 border-teal text-teal'
-                : 'bg-surface border-line text-ink-muted hover:text-ink'
+                ? 'bg-sun text-ink'
+                : 'bg-card text-ink hover:bg-paper-2'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -923,7 +923,7 @@ export function DependencyGraph({
           <button
             type="button"
             onClick={() => setViewMode(viewMode === 'canvas' ? 'table' : 'canvas')}
-            className="h-8 px-2.5 rounded-control border border-line bg-surface text-ink-muted hover:text-ink text-xs font-medium inline-flex items-center space-x-1"
+            className="h-8 px-2.5 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-ink text-xs font-bold inline-flex items-center space-x-1 shadow-[1px_1px_0_var(--ink)]"
             title="Toggle accessible table view"
           >
             {viewMode === 'canvas' ? <TableIcon className="w-3.5 h-3.5" /> : <Network className="w-3.5 h-3.5" />}
