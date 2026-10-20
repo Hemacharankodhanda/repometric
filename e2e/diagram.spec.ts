@@ -100,9 +100,9 @@ test('Diagram tab: navigation, component inspection, list toggle, and SVG export
   await expect(svg).toBeVisible({ timeout: 20000 });
 
   // 4. Click a component node in the diagram
-  const firstNode = svg.locator('.node').first();
-  await expect(firstNode).toBeVisible();
-  await firstNode.click();
+  const compNode = svg.locator('[aria-label*="Architecture component web"]').first();
+  await expect(compNode).toBeVisible();
+  await compNode.click();
 
   // Verify side panel opens with component details
   await expect(page.locator('text=Directory path:')).toBeVisible();

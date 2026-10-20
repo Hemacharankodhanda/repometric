@@ -20,8 +20,13 @@ export interface StoredAnalysis {
 }
 
 // In-memory fallback cache when Supabase is not configured
-const inMemoryCache = new Map<string, StoredAnalysis>();
-const inMemoryRateLimits = new Map<string, { count: number; resetAt: number }>();
+declare global {
+  var __repometric_cache: Map<string, StoredAnalysis> | undefined;
+  var __repometric_rate_limits: Map<string, { count: number; resetAt: number }> | undefined;
+}
+
+const inMemoryCache = (globalThis.__repometric_cache ??= new Map<string, StoredAnalysis>());
+const inMemoryRateLimits = (globalThis.__repometric_rate_limits ??= new Map<string, { count: number; resetAt: number }>());
 
 function getCacheKey(owner: string, name: string, sha: string): string {
   return `${owner.toLowerCase()}/${name.toLowerCase()}@${sha}`;

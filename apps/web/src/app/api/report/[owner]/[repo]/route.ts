@@ -20,7 +20,7 @@ export async function GET(
       id: stored.id,
       ...stored.report,
     },
-    graph: { status: stored.graphStatus },
+    graph: { status: stored.graphStatus, data: stored.graphData },
     files: stored.files,
   });
 }

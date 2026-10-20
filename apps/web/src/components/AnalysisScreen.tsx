@@ -46,6 +46,9 @@ export function AnalysisScreen({
     return () => clearInterval(tipInterval);
   }, []);
 
+  const onCompleteRef = React.useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
   // Advance stepper stages smoothly
   useEffect(() => {
     // Check prefers-reduced-motion: if reduced, finish almost immediately
@@ -54,7 +57,7 @@ export function AnalysisScreen({
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReduced) {
-      const timer = setTimeout(onComplete, 800);
+      const timer = setTimeout(() => onCompleteRef.current(), 800);
       return () => clearTimeout(timer);
     }
 
@@ -73,14 +76,14 @@ export function AnalysisScreen({
           return next;
         } else {
           clearInterval(interval);
-          setTimeout(onComplete, 250);
+          setTimeout(() => onCompleteRef.current(), 250);
           return prev;
         }
       });
     }, stepDuration);
 
     return () => clearInterval(interval);
-  }, [onComplete, speedMultiplier]);
+  }, [speedMultiplier]);
 
   return (
     <div className="w-full py-12 sm:py-16 flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in-50 duration-300">

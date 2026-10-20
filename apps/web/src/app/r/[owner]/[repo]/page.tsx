@@ -7,9 +7,6 @@ import confetti from 'canvas-confetti';
 import {
   FileText,
   Wrench,
-  Map as MapIcon,
-  Network,
-  Layers,
   ExternalLink,
   RotateCcw,
   Maximize2,
@@ -79,6 +76,14 @@ const ArchitectureDiagram = dynamic(
 
 type TabType = 'overview' | 'fixes' | 'map' | 'graph' | 'diagram';
 
+interface AnalysisDataState {
+  report: AnalysisReport;
+  files: FileNode[];
+  graph: GraphData | null;
+  graphStatus: 'ready' | 'missing' | 'unsupported';
+  isMock: boolean;
+}
+
 export default function ReportPage({
   params,
 }: {
@@ -98,16 +103,104 @@ export default function ReportPage({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showTour, setShowTour] = useState(false);
 
+  // Analysis State
+  const [data, setData] = useState<AnalysisDataState | null>(null);
+  const [fetchError, setFetchError] = useState<{ code: string; message: string } | null>(null);
+  const [animationFinished, setAnimationFinished] = useState(false);
+  const [reanalyzeTrigger, setReanalyzeTrigger] = useState(0);
+
   // Local Mark Done storage state for Fixes
   const [doneFixes, setDoneFixes] = useState<Record<string, boolean>>({});
   const [templateCopied, setTemplateCopied] = useState<string | null>(null);
-
-  // Load mock data
-  const mockData = useMemo(() => getMockAnalysis(owner, repo), [owner, repo]);
-  const baseReport: AnalysisReport = mockData.report;
-  const files: FileNode[] = mockData.files;
-  const graph: GraphData = mockData.graph;
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
+
+  // Mock fallback generator
+  const mockFallback = useMemo(() => getMockAnalysis(owner, repo), [owner, repo]);
+
+  // Active data sources
+  const baseReport: AnalysisReport = data?.report ?? mockFallback.report;
+  const files: FileNode[] = data?.files ?? mockFallback.files;
+  const graph: GraphData = data?.graph ?? mockFallback.graph;
+  const isMock = data?.isMock ?? false;
+
+  // Fetch real analysis from API
+  useEffect(() => {
+    let cancelled = false;
+    setAnalyzing(true);
+    setAnimationFinished(false);
+    setFetchError(null);
+
+    // If explicit ?mock=true is passed, use mock fallback immediately
+    if (searchParams.get('mock') === 'true') {
+      const mock = getMockAnalysis(owner, repo);
+      setData({
+        report: mock.report,
+        files: mock.files,
+        graph: mock.graph,
+        graphStatus: 'ready',
+        isMock: true,
+      });
+      return;
+    }
+
+    async function loadAnalysis() {
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ repo: `${owner}/${repo}` }),
+        });
+
+        if (cancelled) return;
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          const code = errData?.error?.code || 'INTERNAL';
+          const message = errData?.error?.message || 'Failed to analyze repository.';
+          setFetchError({ code, message });
+          setAnalyzing(false);
+          return;
+        }
+
+        const json = await res.json();
+        if (cancelled) return;
+
+        setData({
+          report: json.analysis,
+          files: json.files || [],
+          graph: json.graph?.data || null,
+          graphStatus: json.graph?.status || 'ready',
+          isMock: false,
+        });
+      } catch {
+        if (cancelled) return;
+        // Offline or test environment fallback
+        const mock = getMockAnalysis(owner, repo);
+        setData({
+          report: mock.report,
+          files: mock.files,
+          graph: mock.graph,
+          graphStatus: 'ready',
+          isMock: true,
+        });
+      }
+    }
+
+    loadAnalysis();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [owner, repo, searchParams, reanalyzeTrigger]);
+
+  // When data is available and stepper animation has completed, reveal the report
+  useEffect(() => {
+    if (!analyzing) return;
+    if (data && animationFinished) {
+      setAnalyzing(false);
+      setToastMessage('Found a fresh report!');
+    }
+  }, [analyzing, data, animationFinished]);
 
   // Initialize done fixes from localStorage
   useEffect(() => {
@@ -166,9 +259,43 @@ export default function ReportPage({
     setToastMessage(done ? 'Marked done! Projected score updated.' : 'Fix unmarked.');
   };
 
+  // Dynamic Repository Insights derived from actual files and graph
+  const mostDepended = useMemo(() => {
+    if (!graph?.nodes?.length) return null;
+    return [...graph.nodes].sort((a, b) => b.fanIn - a.fanIn)[0];
+  }, [graph]);
+
+  const cycleCount = graph?.stats?.cycles?.length ?? 0;
+
+  const largestFolder = useMemo(() => {
+    if (!files.length) return null;
+    const folderSizes = new Map<string, { size: number; count: number }>();
+    for (const f of files) {
+      const parts = f.path.split('/');
+      if (parts.length > 1) {
+        const folder = parts.slice(0, -1).join('/') + '/';
+        const cur = folderSizes.get(folder) || { size: 0, count: 0 };
+        folderSizes.set(folder, { size: cur.size + f.size, count: cur.count + 1 });
+      }
+    }
+    let max: { folder: string; size: number; count: number } | null = null;
+    for (const [folder, val] of folderSizes.entries()) {
+      if (!max || val.size > max.size) {
+        max = { folder, ...val };
+      }
+    }
+    return max;
+  }, [files]);
+
+  const testFileCount = useMemo(() => files.filter((f) => f.isTest).length, [files]);
+  const sourceFileCount = useMemo(
+    () => files.filter((f) => !f.isTest && f.language).length,
+    [files],
+  );
+
   // Confetti on 90+ score (never on reduced motion)
   useEffect(() => {
-    if (analyzing || errorParam) return;
+    if (analyzing || errorParam || fetchError) return;
     if (currentScore >= 90) {
       const prefersReduced =
         typeof window !== 'undefined' &&
@@ -191,7 +318,7 @@ export default function ReportPage({
         }
       }
     }
-  }, [analyzing, errorParam, currentScore, owner, repo]);
+  }, [analyzing, errorParam, fetchError, currentScore, owner, repo]);
 
   const handleCopyTemplate = async (type: 'license' | 'gitignore' | 'ci') => {
     let content = '';
@@ -230,9 +357,10 @@ export default function ReportPage({
     }
   };
 
-  // Render Empty and Error states per UX_SPEC 2.6 if ?error=... is present
-  if (errorParam) {
-    if (errorParam === 'not_found') {
+  // Render Empty and Error states per UX_SPEC 2.6
+  const activeErrorCode = errorParam || fetchError?.code?.toLowerCase();
+  if (activeErrorCode) {
+    if (activeErrorCode === 'not_found' || activeErrorCode === 'invalid_repo') {
       return (
         <div className="min-h-screen flex flex-col bg-paper">
           <Header />
@@ -240,7 +368,7 @@ export default function ReportPage({
             <EmptyState
               mood="lost"
               title="Couldn't find that repo"
-              description="Couldn't find that repo. Check the spelling, and make sure it's public on GitHub."
+              description={fetchError?.message || "Couldn't find that repo. Check the spelling, and make sure it's public on GitHub."}
               actionText="Try another repo"
               actionHref="/"
             />
@@ -249,7 +377,7 @@ export default function ReportPage({
       );
     }
 
-    if (errorParam === 'private') {
+    if (activeErrorCode === 'private' || activeErrorCode === 'private_repo') {
       return (
         <div className="min-h-screen flex flex-col bg-paper">
           <Header />
@@ -266,7 +394,7 @@ export default function ReportPage({
       );
     }
 
-    if (errorParam === 'rate_limit') {
+    if (activeErrorCode === 'rate_limit' || activeErrorCode === 'rate_limited') {
       return (
         <div className="min-h-screen flex flex-col bg-paper">
           <Header />
@@ -274,7 +402,7 @@ export default function ReportPage({
             <ErrorState
               mood="worried"
               title="Rate limit reached"
-              message="GitHub API rate limit reached. Resets in 14 minutes."
+              message={fetchError?.message || "GitHub API rate limit reached. Resets in 14 minutes."}
               solution="Add your optional personal GitHub token to raise your limit to 5,000 requests per hour."
               retryText="Go back home"
               onRetry={() => (window.location.href = '/')}
@@ -284,7 +412,7 @@ export default function ReportPage({
       );
     }
 
-    if (errorParam === 'too_large') {
+    if (activeErrorCode === 'too_large') {
       return (
         <div className="min-h-screen flex flex-col bg-paper">
           <Header />
@@ -301,7 +429,7 @@ export default function ReportPage({
       );
     }
 
-    if (errorParam === 'unsupported_language') {
+    if (activeErrorCode === 'unsupported_language') {
       return (
         <div className="min-h-screen flex flex-col bg-paper">
           <Header />
@@ -317,9 +445,26 @@ export default function ReportPage({
         </div>
       );
     }
+
+    // Generic error
+    return (
+      <div className="min-h-screen flex flex-col bg-paper">
+        <Header />
+        <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-16 flex items-center justify-center">
+          <ErrorState
+            mood="worried"
+            title="Analysis failed"
+            message={fetchError?.message || "An unexpected error occurred while analyzing this repository."}
+            solution="Check that the repository exists and is accessible, then try again."
+            retryText="Try again"
+            onRetry={() => setReanalyzeTrigger((c) => c + 1)}
+          />
+        </main>
+      </div>
+    );
   }
 
-  // 1. Analysis Screen during initial simulated scan
+  // 1. Analysis Screen during initial scan
   if (analyzing) {
     return (
       <div className="min-h-screen flex flex-col bg-paper">
@@ -328,8 +473,7 @@ export default function ReportPage({
           <AnalysisScreen
             repoName={`${owner}/${repo}`}
             onComplete={() => {
-              setAnalyzing(false);
-              setToastMessage('Found a fresh report!');
+              setAnimationFinished(true);
             }}
           />
         </main>
@@ -375,9 +519,11 @@ export default function ReportPage({
 
             <div className="flex items-center space-x-2 text-xs font-mono text-ink-muted bg-paper-2 px-2.5 py-1 rounded-control border-2 border-ink shadow-[1px_1px_0_var(--ink)]">
               <span>sha: {baseReport.commitSha.slice(0, 7)}</span>
-              <StickerBadge variant="card" size="sm" rotate="none">
-                sample
-              </StickerBadge>
+              {isMock && (
+                <StickerBadge variant="card" size="sm" rotate="none">
+                  sample
+                </StickerBadge>
+              )}
             </div>
           </div>
 
@@ -397,7 +543,9 @@ export default function ReportPage({
             <ChunkyButton
               variant="secondary"
               size="sm"
-              onClick={() => setAnalyzing(true)}
+              onClick={() => {
+                setReanalyzeTrigger((c) => c + 1);
+              }}
               className="flex items-center space-x-1"
               title="Re-run analysis"
             >
@@ -454,17 +602,14 @@ export default function ReportPage({
                   value="map"
                   className="flex items-center space-x-1.5"
                 >
-                  <MapIcon className="w-4 h-4" />
-                  <span>Map ({files.length} files)</span>
+                  <span>Map</span>
                 </TabsTrigger>
 
                 <TabsTrigger value="graph" className="flex items-center space-x-1.5">
-                  <Network className="w-4 h-4" />
                   <span>Graph</span>
                 </TabsTrigger>
 
                 <TabsTrigger value="diagram" className="flex items-center space-x-1.5">
-                  <Layers className="w-4 h-4" />
                   <span>Diagram</span>
                 </TabsTrigger>
               </TabsList>
@@ -472,31 +617,29 @@ export default function ReportPage({
 
             {/* TAB 1: OVERVIEW */}
             <TabsContent value="overview" className="mt-0 space-y-6">
-              {/* Category Rows Section */}
+              {/* 6 Category Rows */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-display font-extrabold text-lg text-ink">
-                      Health categories
-                    </h3>
-                    <p className="text-xs text-ink-muted">
-                      Deterministic scores normalized across 6 dimensions. Click "What's this?" for details.
-                    </p>
-                  </div>
+                  <h3 className="font-display font-extrabold text-lg text-ink">
+                    Health categories
+                  </h3>
+                  <span className="text-xs text-ink-muted">
+                    Weighted across 6 software engineering dimensions
+                  </span>
                 </div>
 
-                <div className="space-y-2.5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {baseReport.categories.map((cat) => (
                     <CategoryRow key={cat.id} category={cat} />
                   ))}
                 </div>
               </div>
 
-              {/* Top Fixes Preview Card */}
-              <div className="rounded-card border-2 border-ink bg-sun/10 p-5 shadow-[4px_4px_0_var(--ink)] space-y-4">
-                <div className="flex items-center justify-between border-b-2 border-ink pb-3">
+              {/* Top 3 Fixes Preview */}
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-display font-extrabold text-base text-ink">
+                    <h3 className="font-display font-extrabold text-lg text-ink">
                       Top payoff fixes
                     </h3>
                     <p className="text-xs text-ink-muted">
@@ -540,60 +683,70 @@ export default function ReportPage({
                   <InsightCard
                     variant="sky"
                     label="Most depended-on file"
-                    value="src/index.ts"
-                    subtext="Imported by 28 modules"
-                    badge="Hotspot"
+                    value={mostDepended ? (mostDepended.id.split('/').pop() || mostDepended.id) : 'None'}
+                    subtext={
+                      mostDepended
+                        ? `Imported by ${mostDepended.fanIn} modules (${mostDepended.id})`
+                        : 'No internal dependencies detected'
+                    }
+                    badge={mostDepended && mostDepended.fanIn > 5 ? 'Hotspot' : 'Normal'}
                     icon={<FileCode className="w-4 h-4 text-primary-text" />}
                   />
                   <InsightCard
-                    variant="lime"
+                    variant={cycleCount === 0 ? 'lime' : 'coral'}
                     label="Circular dependencies"
-                    value="0 cycles"
-                    subtext="Clean acyclic import tree"
-                    badge="Clean"
-                    icon={<Check className="w-4 h-4 text-ink" />}
+                    value={`${cycleCount} cycle${cycleCount === 1 ? '' : 's'}`}
+                    subtext={cycleCount === 0 ? 'Clean acyclic import tree' : 'Mutual import loops detected'}
+                    badge={cycleCount === 0 ? 'Clean' : 'Needs attention'}
+                    icon={cycleCount === 0 ? <Check className="w-4 h-4 text-ink" /> : <AlertTriangle className="w-4 h-4 text-coral-text" />}
                   />
                   <InsightCard
                     variant="sun"
                     label="Largest folder"
-                    value="src/packages/"
-                    subtext="412 KB across 42 files"
-                    badge="42% of total"
+                    value={largestFolder ? largestFolder.folder : 'Root'}
+                    subtext={
+                      largestFolder
+                        ? `${Math.max(1, Math.round(largestFolder.size / 1024))} KB across ${largestFolder.count} files`
+                        : 'Single directory project'
+                    }
+                    badge="Storage"
                     icon={<Folder className="w-4 h-4 text-ink" />}
                   />
                   <InsightCard
-                    variant="coral"
-                    label="Files missing tests"
-                    value="3 files"
-                    subtext="Missing test sibling in src/"
-                    badge="Quick win"
-                    icon={<AlertTriangle className="w-4 h-4 text-coral-text" />}
+                    variant={testFileCount > 0 ? 'sky' : 'coral'}
+                    label="Test coverage"
+                    value={testFileCount > 0 ? `${testFileCount} test files` : 'No tests found'}
+                    subtext={
+                      testFileCount > 0
+                        ? `Found alongside ${sourceFileCount} source files`
+                        : 'No test files detected in repository tree'
+                    }
+                    badge={testFileCount > 0 ? 'Protected' : 'Quick win'}
+                    icon={testFileCount > 0 ? <Check className="w-4 h-4 text-primary-text" /> : <AlertTriangle className="w-4 h-4 text-coral-text" />}
                   />
                 </div>
               </div>
             </TabsContent>
 
             {/* TAB 2: FIXES */}
-            <TabsContent value="fixes" className="mt-0 space-y-6">
-              {/* Fixes Header Banner */}
-              <div className="rounded-card border-2 border-ink bg-sun/15 p-5 shadow-[4px_4px_0_var(--ink)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center space-x-2">
-                    <h3 className="font-display font-extrabold text-lg text-ink">
-                      Prioritized fix list
-                    </h3>
-                    <StickerBadge variant="sun" size="sm" rotate="right">
-                      +{projectedScore - currentScore} pts available
-                    </StickerBadge>
-                  </div>
-                  <p className="text-xs sm:text-sm text-ink-muted">
-                    Check "Mark done" locally to preview your projected score rise to {projectedScore}.
+            <TabsContent value="fixes" className="mt-0 space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-display font-extrabold text-lg text-ink">
+                    Prioritized fix list
+                  </h3>
+                  <p className="text-xs text-ink-muted">
+                    Ranked by points gained divided by estimated engineering effort.
                   </p>
                 </div>
+              </div>
 
-                {/* Quick Copy Templates */}
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-bold text-ink-muted">Copy template:</span>
+              {/* Template Copy Quick-Actions */}
+              <div className="rounded-card border-2 border-ink bg-card p-3 shadow-[2px_2px_0_var(--ink)] flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-bold text-ink">
+                  ⚡ Quick starter templates:
+                </span>
+                <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('license')}
@@ -688,23 +841,39 @@ export default function ReportPage({
                     <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
                       Force-directed graph
                     </span>
-                    <StickerBadge variant="sky" size="sm" rotate="none">
-                      {graph.nodes.length} nodes • {graph.edges.length} imports
-                    </StickerBadge>
-                    {graph.stats.cycles.length > 0 && (
-                      <StickerBadge variant="coral" size="sm" rotate="none">
-                        {graph.stats.cycles.length} cycles detected
-                      </StickerBadge>
+                    {graph && graph.nodes && graph.nodes.length > 0 && (
+                      <>
+                        <StickerBadge variant="sky" size="sm" rotate="none">
+                          {graph.nodes.length} nodes • {graph.edges.length} imports
+                        </StickerBadge>
+                        {cycleCount > 0 && (
+                          <StickerBadge variant="coral" size="sm" rotate="none">
+                            {cycleCount} cycle{cycleCount === 1 ? '' : 's'} detected
+                          </StickerBadge>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
 
                 <div className="w-full">
-                  <DependencyGraph
-                    data={graph}
-                    height={580}
-                    onSelectNode={(nodeId) => setSelectedPath(nodeId)}
-                  />
+                  {graph && graph.nodes && graph.nodes.length > 0 ? (
+                    <DependencyGraph
+                      data={graph}
+                      height={580}
+                      onSelectNode={(nodeId) => setSelectedPath(nodeId)}
+                    />
+                  ) : (
+                    <div className="py-12">
+                      <EmptyState
+                        mood="neutral"
+                        title="Graph unsupported for this repo"
+                        description="The dependency graph currently supports JavaScript, TypeScript, and Python projects with under 20,000 files. The Repo Map and health score work for all languages."
+                        actionText="View Repo Map"
+                        onAction={() => handleTabChange('map')}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </TabsContent>
@@ -729,15 +898,27 @@ export default function ReportPage({
                 </div>
 
                 <div className="w-full">
-                  <ArchitectureDiagram
-                    files={files}
-                    graph={graph}
-                    owner={owner}
-                    repo={repo}
-                    sha={baseReport.commitSha}
-                    height={620}
-                    onSelectPath={(path) => setSelectedPath(path)}
-                  />
+                  {graph && graph.nodes && graph.nodes.length > 0 ? (
+                    <ArchitectureDiagram
+                      files={files}
+                      graph={graph}
+                      owner={owner}
+                      repo={repo}
+                      sha={baseReport.commitSha}
+                      height={620}
+                      onSelectPath={(path) => setSelectedPath(path)}
+                    />
+                  ) : (
+                    <div className="py-12">
+                      <EmptyState
+                        mood="neutral"
+                        title="Architecture diagram unavailable"
+                        description="The architecture diagram is built from dependency graph relationships. For repositories without supported import trees, explore the interactive Repo Map instead."
+                        actionText="View Repo Map"
+                        onAction={() => handleTabChange('map')}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </TabsContent>

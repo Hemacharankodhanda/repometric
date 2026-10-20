@@ -8,6 +8,74 @@ test('landing page to analysis screen, report page, tabs, and theme toggle', asy
     localStorage.setItem('repometric_tour_seen', 'true');
   });
 
+  // 1. Mock API analysis response for reliable, isolated execution in test environment
+  await page.route('**/api/analyze', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        cached: true,
+        analysis: {
+          repo: {
+            owner: 'facebook',
+            name: 'react',
+            description: 'The library for web and native user interfaces.',
+            stars: 220000,
+            archived: false,
+            defaultBranch: 'main',
+            license: 'MIT',
+            homepage: 'https://react.dev',
+            topics: ['javascript', 'react', 'ui'],
+            hasWiki: false,
+          },
+          commitSha: 'fb1234567890abcdef',
+          score: 68,
+          grade: 'needs-work',
+          categories: [
+            { id: 'activity', label: 'Activity', weight: 20, earned: 14, excluded: false, signals: [] },
+            { id: 'maintenance', label: 'Maintenance', weight: 20, earned: 12, excluded: false, signals: [] },
+            { id: 'community', label: 'Community', weight: 15, earned: 6, excluded: false, signals: [] },
+            { id: 'documentation', label: 'Documentation', weight: 20, earned: 16, excluded: false, signals: [] },
+            { id: 'hygiene', label: 'Hygiene', weight: 15, earned: 8, excluded: false, signals: [] },
+            { id: 'dependencies', label: 'Dependencies', weight: 10, earned: 8, excluded: false, signals: [] },
+          ],
+          fixes: [
+            {
+              id: 'fix-1',
+              signalId: 'documentation.readme_quickstart',
+              title: 'Add quickstart code block to README',
+              why: 'Helps developers test the package faster.',
+              how: 'Add a fenced code block with usage instructions.',
+              pointsGain: 4,
+              effort: 'small',
+              priority: 12,
+            },
+          ],
+          projectedScore: 86,
+          analyzedAt: new Date().toISOString(),
+          coreVersion: '0.1.0',
+        },
+        files: [
+          { path: 'packages/react/src/React.js', size: 8400, language: 'JavaScript', isTest: false },
+          { path: 'packages/react/__tests__/React-test.js', size: 4200, language: 'JavaScript', isTest: true },
+        ],
+        graph: {
+          status: 'ready',
+          data: {
+            nodes: [
+              { id: 'packages/react/src/React.js', folder: 'packages/react/src', language: 'JavaScript', size: 8400, fanIn: 2, fanOut: 2, isTest: false },
+            ],
+            edges: [],
+            externals: [],
+            stats: { nodeCount: 1, edgeCount: 0, unresolvedCount: 0, cycles: [], orphans: [], topFanIn: [], topFanOut: [] },
+            truncated: false,
+            collapsedToFolders: false,
+          },
+        },
+      }),
+    });
+  });
+
   // 1. Open landing page
   await page.goto('/');
   await page.waitForLoadState('networkidle');
