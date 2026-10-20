@@ -20,13 +20,19 @@ test('landing page to analysis screen, report page, tabs, and theme toggle', asy
   await page.locator('button:has-text("Analyze repo")').first().click();
 
   // 3. Watch analysis screen
-  await expect(page.locator('text=Analyzing facebook/react')).toBeVisible();
+  await expect(page.locator('text=Analyzing facebook/react').first()).toBeVisible();
+  // Verify header has analyzing status badge and NO floating 'Analyze a repo' button
+  await expect(page.locator('header button:has-text("Analyze a repo")')).toHaveCount(0);
+  await expect(page.locator('header').getByText('Analyzing facebook/react...')).toBeVisible();
 
   // 4. Land on report page
   await expect(page).toHaveURL(/\/r\/facebook\/react/, { timeout: 10000 });
   await expect(page.locator('text=facebook/react').first()).toBeVisible();
   await expect(page.locator('text=68').first()).toBeVisible();
   await expect(page.locator('text=Needs work').first()).toBeVisible();
+  // Verify report page header has compact repo search and NO duplicate 'Analyze a repo' button
+  await expect(page.locator('header button:has-text("Analyze a repo")')).toHaveCount(0);
+  await expect(page.locator('header input#repo-input-field')).toBeVisible();
 
   // 5. Switch tabs: Fixes, Map, Graph, Diagram, Overview
   await page.click('button[role="tab"]:has-text("Fixes")');

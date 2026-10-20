@@ -39,6 +39,7 @@ export interface RepoInputProps {
   className?: string;
   autoFocus?: boolean;
   id?: string;
+  compact?: boolean;
 }
 
 export function RepoInput({
@@ -47,6 +48,7 @@ export function RepoInput({
   className = '',
   autoFocus = false,
   id = 'repo-input-field',
+  compact = false,
 }: RepoInputProps) {
   const router = useRouter();
   const [value, setValue] = useState(defaultValue);
@@ -84,6 +86,58 @@ export function RepoInput({
       router.push(`/r/${parsed.owner}/${parsed.repo}`);
     }
   };
+
+  if (compact) {
+    return (
+      <div className={`w-full max-w-md relative ${className}`}>
+        <form onSubmit={handleSubmit} className="w-full relative">
+          <div className="flex items-center rounded-control border-2 border-ink bg-card px-2.5 py-1 shadow-[2px_2px_0_var(--ink)] focus-within:shadow-[3px_3px_0_var(--ink)] transition-all h-10">
+            <Search className="w-4 h-4 text-ink-muted mr-2 shrink-0" aria-hidden="true" />
+            <input
+              id={id}
+              type="text"
+              value={value}
+              onChange={(e) => {
+                setValue(e.target.value);
+                if (error) setError(null);
+              }}
+              placeholder="owner/repo"
+              aria-label="Repository URL or owner and name"
+              autoFocus={autoFocus}
+              className="w-full bg-transparent font-mono text-xs sm:text-sm text-ink placeholder:text-ink-muted focus:outline-none min-w-0"
+            />
+            <ChunkyButton
+              type="submit"
+              disabled={loading}
+              size="sm"
+              variant="primary"
+              className="shrink-0 h-7 px-2 sm:px-2.5 text-xs font-bold ml-1.5"
+              aria-label="Analyze repository"
+            >
+              {loading ? (
+                <span className="w-3.5 h-3.5 border-2 border-ink border-t-white rounded-full animate-spin" />
+              ) : (
+                <>
+                  <span className="hidden sm:inline mr-1">Analyze</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </>
+              )}
+            </ChunkyButton>
+          </div>
+
+          {error && (
+            <div
+              className="absolute left-0 top-full mt-2 z-50 rounded-control border-2 border-coral bg-card px-3 py-1.5 text-xs text-coral-text font-medium shadow-[3px_3px_0_var(--ink)] flex items-center space-x-1.5 whitespace-nowrap animate-in fade-in slide-in-from-top-1"
+              role="alert"
+            >
+              <AlertCircle className="w-4 h-4 shrink-0 text-coral-text" />
+              <span>{error}</span>
+            </div>
+          )}
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className={`w-full max-w-2xl ${className}`}>

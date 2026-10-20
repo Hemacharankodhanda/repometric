@@ -54,8 +54,8 @@ export function AnalysisScreen({
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReduced) {
-      onComplete();
-      return;
+      const timer = setTimeout(onComplete, 800);
+      return () => clearTimeout(timer);
     }
 
     const stepDuration = 320 / speedMultiplier;
