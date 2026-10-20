@@ -96,6 +96,7 @@ export default function ReportPage({
   const initialTab = (searchParams.get('tab') as TabType) || 'overview';
   const errorParam = searchParams.get('error');
   const forceTour = searchParams.get('tour') === 'true';
+  const isMockRequested = searchParams.get('mock') === 'true';
 
   const [activeTab, setActiveTab] = useState<TabType>(initialTab);
   const [analyzing, setAnalyzing] = useState(true);
@@ -123,15 +124,28 @@ export default function ReportPage({
   const graph: GraphData = data?.graph ?? mockFallback.graph;
   const isMock = data?.isMock ?? false;
 
+  // Track currently loaded repo and last reanalyze trigger to prevent reloading on tab changes
+  const loadedRepoRef = React.useRef<string | null>(null);
+  const lastReanalyzeTriggerRef = React.useRef(reanalyzeTrigger);
+
   // Fetch real analysis from API
   useEffect(() => {
+    const currentKey = `${owner}/${repo}`.toLowerCase();
+    const isExplicitReanalyze = reanalyzeTrigger !== lastReanalyzeTriggerRef.current;
+    lastReanalyzeTriggerRef.current = reanalyzeTrigger;
+
+    // If this repo was already analyzed and not an explicit re-analyze, do not trigger loading screen
+    if (!isExplicitReanalyze && loadedRepoRef.current === currentKey) {
+      return;
+    }
+
     let cancelled = false;
     setAnalyzing(true);
     setAnimationFinished(false);
     setFetchError(null);
 
     // If explicit ?mock=true is passed, use mock fallback immediately
-    if (searchParams.get('mock') === 'true') {
+    if (isMockRequested) {
       const mock = getMockAnalysis(owner, repo);
       setData({
         report: mock.report,
@@ -140,6 +154,7 @@ export default function ReportPage({
         graphStatus: 'ready',
         isMock: true,
       });
+      loadedRepoRef.current = currentKey;
       return;
     }
 
@@ -172,6 +187,7 @@ export default function ReportPage({
           graphStatus: json.graph?.status || 'ready',
           isMock: false,
         });
+        loadedRepoRef.current = currentKey;
       } catch {
         if (cancelled) return;
         // Offline or test environment fallback
@@ -183,6 +199,7 @@ export default function ReportPage({
           graphStatus: 'ready',
           isMock: true,
         });
+        loadedRepoRef.current = currentKey;
       }
     }
 
@@ -191,7 +208,7 @@ export default function ReportPage({
     return () => {
       cancelled = true;
     };
-  }, [owner, repo, searchParams, reanalyzeTrigger]);
+  }, [owner, repo, isMockRequested, reanalyzeTrigger]);
 
   // When data is available and stepper animation has completed, reveal the report
   useEffect(() => {
