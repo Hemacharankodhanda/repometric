@@ -4,22 +4,22 @@
 
 @layer base {
   :root {
-    --paper: #fffbf0;
-    --paper-2: #f4efe2;
+    --paper: #faf9f5;
+    --paper-2: #f2efe7;
     --card: #ffffff;
-    --ink: #1b1b3a;
-    --ink-muted: #5a5a7a;
+    --ink: #0f172a;
+    --ink-muted: #475569;
 
-    --primary: #5b5bff;
+    --primary: #4f46e5;
     --on-primary: #ffffff;
-    --primary-text: #3a3ad6;
+    --primary-text: #3730a3;
 
-    --lime: #c6f432;
-    --sun: #ffd23f;
-    --coral: #ff6b57;
-    --coral-text: #c2362a;
-    --sky: #7fd6ff;
-    --on-fill: #1b1b3a; /* text on lime, sun, coral, sky */
+    --lime: #a3e635;
+    --sun: #f59e0b;
+    --coral: #f43f5e;
+    --coral-text: #be123c;
+    --sky: #38bdf8;
+    --on-fill: #0f172a; /* text on lime, sun, coral, sky */
 
     --border: 2px solid var(--ink);
     --shadow-sm: 2px 2px 0 var(--ink);
@@ -66,42 +66,42 @@
   }
 
   :root[data-theme="dark"] {
-    --paper: #14142b;
-    --paper-2: #1b1b38;
-    --card: #1f1f3d;
-    --ink: #f5f3ff;
-    --ink-muted: #b4b4d6;
+    --paper: #090d16;
+    --paper-2: #0f172a;
+    --card: #182234;
+    --ink: #f8fafc;
+    --ink-muted: #94a3b8;
 
-    --primary: #7c7cff;
-    --on-primary: #14142b;
-    --primary-text: #a9a9ff;
+    --primary: #6366f1;
+    --on-primary: #090d16;
+    --primary-text: #818cf8;
 
-    --lime: #c6f432;
-    --sun: #ffd23f;
-    --sky: #7fd6ff;
-    --coral: #ff7f6e;
-    --coral-text: #ff9c8f;
-    --on-fill: #14142b;
+    --lime: #a3e635;
+    --sun: #fbbf24;
+    --sky: #38bdf8;
+    --coral: #fb7185;
+    --coral-text: #fda4af;
+    --on-fill: #090d16;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #14142b;
-      --paper-2: #1b1b38;
-      --card: #1f1f3d;
-      --ink: #f5f3ff;
-      --ink-muted: #b4b4d6;
+      --paper: #090d16;
+      --paper-2: #0f172a;
+      --card: #182234;
+      --ink: #f8fafc;
+      --ink-muted: #94a3b8;
 
-      --primary: #7c7cff;
-      --on-primary: #14142b;
-      --primary-text: #a9a9ff;
+      --primary: #6366f1;
+      --on-primary: #090d16;
+      --primary-text: #818cf8;
 
-      --lime: #c6f432;
-      --sun: #ffd23f;
-      --sky: #7fd6ff;
-      --coral: #ff7f6e;
-      --coral-text: #ff9c8f;
-      --on-fill: #14142b;
+      --lime: #a3e635;
+      --sun: #fbbf24;
+      --sky: #38bdf8;
+      --coral: #fb7185;
+      --coral-text: #fda4af;
+      --on-fill: #090d16;
     }
   }
 

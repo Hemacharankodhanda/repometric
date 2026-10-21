@@ -23,3 +23,7 @@ Decisions already made. Do not reopen them without a reason. Add new entries at 
 **ADR-010: Public repos only in v1.** Avoids OAuth scope handling and storing anything private.
 
 **ADR-011: Scores for repos with no issue or PR history use `no_data` at 50%.** Fairness for small student repos without penalizing or rewarding the absence of data.
+
+**ADR-012: Architecture diagram tab using Mermaid and linkStyle cyclic highlighting.** Visualizes system components and circular dependencies.
+
+**ADR-013: Refreshed field guide design tokens for modern contrast and vibrancy.** Updated `--paper` to a clean warm paper tone (`#FAF9F5`), elevated `--primary` to electric indigo (`#4F46E5`), sharpened obsidian slate ink (`#0F172A`), enhanced accents (spring lime `#A3E635`, warm amber `#F59E0B`, coral `#F43F5E`, azure sky `#38BDF8`), and upgraded dark mode with deep midnight obsidian (`#090D16`) for superior contrast and readability.

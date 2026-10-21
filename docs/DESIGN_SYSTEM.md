@@ -19,18 +19,18 @@ Defined in `apps/web/src/styles/tokens.css` and mapped into Tailwind. Components
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--paper` | `#FFFBF0` | `#14142B` | Page background |
-| `--paper-2` | `#F4EFE2` | `#1B1B38` | Alternate sections (with dot grid) |
-| `--card` | `#FFFFFF` | `#1F1F3D` | Cards, panels, canvases |
-| `--ink` | `#1B1B3A` | `#F5F3FF` | Text, borders, shadows |
-| `--ink-muted` | `#5A5A7A` | `#B4B4D6` | Secondary text |
-| `--primary` | `#5B5BFF` | `#7C7CFF` | Primary buttons and fills (white text on light mode, ink text on dark) |
-| `--primary-text` | `#3A3AD6` | `#A9A9FF` | Links and accent text |
-| `--lime` | `#C6F432` | `#C6F432` | Highlights, success, "Excellent" |
-| `--sun` | `#FFD23F` | `#FFD23F` | Warnings, "Needs work", stickers |
-| `--coral` | `#FF6B57` | `#FF7F6E` | Danger fills, "At risk" |
-| `--coral-text` | `#C2362A` | `#FF9C8F` | Danger as text |
-| `--sky` | `#7FD6FF` | `#7FD6FF` | Info fills, "Good" |
+| `--paper` | `#FAF9F5` | `#090D16` | Page background |
+| `--paper-2` | `#F2EFE7` | `#0F172A` | Alternate sections (with dot grid) |
+| `--card` | `#FFFFFF` | `#182234` | Cards, panels, canvases |
+| `--ink` | `#0F172A` | `#F8FAFC` | Text, borders, shadows |
+| `--ink-muted` | `#475569` | `#94A3B8` | Secondary text |
+| `--primary` | `#4F46E5` | `#6366F1` | Primary buttons and fills (white text on light mode, ink text on dark) |
+| `--primary-text` | `#3730A3` | `#818CF8` | Links and accent text |
+| `--lime` | `#A3E635` | `#A3E635` | Highlights, success, "Excellent" |
+| `--sun` | `#F59E0B` | `#FBBF24` | Warnings, "Needs work", stickers |
+| `--coral` | `#F43F5E` | `#FB7185` | Danger fills, "At risk" |
+| `--coral-text` | `#BE123C` | `#FDA4AF` | Danger as text |
+| `--sky` | `#38BDF8` | `#38BDF8` | Info fills, "Good" |
 
 Fills (`--lime`, `--sun`, `--coral`, `--sky`) always carry `--ink`-colored text in light mode. Never put colored text on `--paper` unless it is a `*-text` token. Grades are always shown as a word as well as a color.
 
