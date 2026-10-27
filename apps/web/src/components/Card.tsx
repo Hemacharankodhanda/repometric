@@ -14,9 +14,9 @@ export function Card({
 }: CardProps) {
   return (
     <div
-      className={`rounded-card border-2 border-ink bg-card p-6 shadow-[4px_4px_0_var(--ink)] ${
+      className={`rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card p-6 shadow-sm ${
         hoverLift
-          ? 'transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--ink)]'
+          ? 'transition-all duration-200 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5'
           : ''
       } ${className}`}
       {...props}

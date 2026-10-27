@@ -27,3 +27,6 @@ Decisions already made. Do not reopen them without a reason. Add new entries at 
 **ADR-012: Architecture diagram tab using Mermaid and linkStyle cyclic highlighting.** Visualizes system components and circular dependencies.
 
 **ADR-013: Refreshed field guide design tokens for modern contrast and vibrancy.** Updated `--paper` to a clean warm paper tone (`#FAF9F5`), elevated `--primary` to electric indigo (`#4F46E5`), sharpened obsidian slate ink (`#0F172A`), enhanced accents (spring lime `#A3E635`, warm amber `#F59E0B`, coral `#F43F5E`, azure sky `#38BDF8`), and upgraded dark mode with deep midnight obsidian (`#090D16`) for superior contrast and readability.
+
+**ADR-014: Modern Dev-Intelligence UI/UX Architecture.** Replaced the cartoon/neo-brutalist aesthetic (thick 2-3px black borders, harsh 4px offset drop-shadows, toy-like sticker badges) with a high-precision developer-intelligence design system inspired by Linear, Vercel/Geist, and GitHub Next. Introduces refined 1px borders, subtle multi-layered elevation shadows, a radial SVG telemetry health gauge with animated arcs, frosted glass toolbars and headers, sleek status badges, and refined bento cards while maintaining 100% test compatibility and zero-cost constraints.
+

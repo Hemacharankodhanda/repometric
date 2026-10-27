@@ -18,7 +18,7 @@ export interface StepperProps {
 
 export function Stepper({ steps, currentStepIndex, className = '' }: StepperProps) {
   return (
-    <div className={`w-full max-w-md space-y-3 ${className}`}>
+    <div className={`w-full max-w-md space-y-2.5 ${className}`}>
       {steps.map((step, idx) => {
         const isCompleted = idx < currentStepIndex || step.status === 'completed';
         const isActive = idx === currentStepIndex || step.status === 'active';
@@ -26,28 +26,28 @@ export function Stepper({ steps, currentStepIndex, className = '' }: StepperProp
         return (
           <div
             key={step.id}
-            className={`flex items-center space-x-3 p-2.5 rounded-control border-2 transition-all duration-200 ${
+            className={`flex items-center space-x-3 p-3 rounded-xl border transition-all duration-200 ${
               isActive
-                ? 'border-ink bg-sun/20 shadow-[3px_3px_0_var(--ink)] scale-[1.02]'
+                ? 'border-primary/40 bg-primary/5 shadow-sm scale-[1.01]'
                 : isCompleted
-                ? 'border-ink/60 bg-lime/10'
-                : 'border-ink/20 bg-card/40 opacity-60'
+                ? 'border-emerald-500/25 bg-emerald-500/5'
+                : 'border-slate-200/60 dark:border-slate-800/60 bg-card/40 opacity-50'
             }`}
           >
             {/* Step badge icon */}
             <div
-              className={`w-7 h-7 rounded-full border-2 border-ink flex items-center justify-center shrink-0 font-mono text-xs font-bold ${
+              className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 font-mono text-xs font-semibold ${
                 isCompleted
-                  ? 'bg-lime text-ink'
+                  ? 'bg-emerald-500 text-white'
                   : isActive
-                  ? 'bg-sun text-ink shadow-[1px_1px_0_var(--ink)]'
-                  : 'bg-paper-2 text-ink-muted'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'bg-paper-2 text-ink-muted border border-slate-200 dark:border-slate-800'
               }`}
             >
               {isCompleted ? (
-                <Check className="w-4 h-4 stroke-[3]" />
+                <Check className="w-3.5 h-3.5 stroke-[3]" />
               ) : isActive ? (
-                <Loader2 className="w-4 h-4 animate-spin stroke-[2.5]" />
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
                 <span>{idx + 1}</span>
               )}
@@ -57,13 +57,13 @@ export function Stepper({ steps, currentStepIndex, className = '' }: StepperProp
             <div className="flex-1 min-w-0">
               <p
                 className={`text-xs sm:text-sm font-semibold truncate ${
-                  isActive ? 'text-ink' : isCompleted ? 'text-ink/80' : 'text-ink-muted'
+                  isActive ? 'text-ink' : isCompleted ? 'text-ink' : 'text-ink-muted'
                 }`}
               >
                 {step.label}
               </p>
               {isActive && step.progressText && (
-                <p className="text-[11px] font-mono text-ink-muted truncate">
+                <p className="text-[11px] font-mono text-primary font-medium truncate">
                   {step.progressText}
                 </p>
               )}

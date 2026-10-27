@@ -78,6 +78,7 @@ const config: Config = {
         DEFAULT: 'var(--shadow-md)',
         md: 'var(--shadow-md)',
         lg: 'var(--shadow-lg)',
+        glow: 'var(--shadow-glow)',
         none: '0 0 #0000',
       },
       borderRadius: {

@@ -47,12 +47,12 @@ export function ReadingGuide({ type, className = '' }: ReadingGuideProps) {
 
   return (
     <div
-      className={`rounded-control border-2 border-ink bg-paper-2 p-2.5 text-xs text-ink transition-all ${className}`}
+      className={`rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-3 text-xs text-ink transition-all shadow-sm ${className}`}
     >
       <div className="flex items-center justify-between cursor-pointer" onClick={() => setOpen(!open)}>
         <div className="flex items-center space-x-2">
           <HelpCircle className="w-4 h-4 text-primary shrink-0" />
-          <span className="font-bold text-ink">{info.title}:</span>
+          <span className="font-semibold text-ink">{info.title}:</span>
           <span className="text-ink-muted hidden sm:inline">{info.summary}</span>
         </div>
         <button
@@ -66,11 +66,11 @@ export function ReadingGuide({ type, className = '' }: ReadingGuideProps) {
       </div>
 
       {open && (
-        <div className="mt-2.5 pt-2.5 border-t border-ink/20 grid grid-cols-1 sm:grid-cols-3 gap-2 text-ink">
+        <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-ink">
           {info.details.map((d, i) => (
-            <div key={i} className="p-2 rounded bg-card/60 border border-ink/20">
-              <span className="font-bold block text-ink">{d.label}:</span>
-              <span className="text-ink-muted text-[11px] leading-tight block mt-0.5">
+            <div key={i} className="p-2.5 rounded-lg bg-paper-2 border border-slate-200/70 dark:border-slate-800/70">
+              <span className="font-semibold block text-ink">{d.label}:</span>
+              <span className="text-ink-muted text-[11px] leading-relaxed block mt-0.5">
                 {d.desc}
               </span>
             </div>

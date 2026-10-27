@@ -3,10 +3,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Tilly } from './Tilly';
 import { ThemeToggle } from './ThemeToggle';
 import { ChunkyButton } from './ChunkyButton';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Activity } from 'lucide-react';
 
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -28,9 +27,6 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
   const router = useRouter();
 
   const isHome = pathname === '/';
-
-  // CTA button ("Analyze a repo") only appears on landing page unless explicitly requested.
-  // Never show on report pages or analyzing screen where it's redundant.
   const shouldShowCta = showCta !== undefined ? showCta : isHome;
 
   const handleCtaClick = () => {
@@ -46,11 +42,13 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-ink bg-card/95 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-3 sm:gap-6">
-        {/* Wordmark with small Tilly */}
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper/85 dark:bg-paper/90 backdrop-blur-md transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        {/* Wordmark with modern radar icon & Tilly */}
         <Link href="/" className="flex items-center space-x-2.5 group shrink-0">
-          <Tilly mood="idle" size={32} className="transition-transform group-hover:scale-110" />
+          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+            <Activity className="w-4 h-4" />
+          </div>
           <span className="font-display font-extrabold text-xl tracking-tight text-ink">
             repometric
           </span>
@@ -63,8 +61,8 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
           </div>
         ) : statusText ? (
           <div className="flex-1 hidden sm:flex items-center justify-center">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-pill border-2 border-ink bg-paper-2 text-xs font-mono font-bold text-ink shadow-[2px_2px_0_var(--ink)] animate-pulse">
-              <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-xs font-mono font-medium text-primary">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping" />
               <span>{statusText}</span>
             </div>
           </div>
@@ -72,30 +70,29 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
 
         {/* Right side navigation & tools */}
         <div className="flex items-center space-x-3 sm:space-x-5 shrink-0">
-          {/* Desktop navigation links - shown when no search bar is active */}
           {!children && (
-            <nav className="hidden md:flex items-center space-x-5 text-sm font-bold text-ink">
+            <nav className="hidden md:flex items-center space-x-5 text-sm font-medium text-ink-muted">
               {isHome ? (
                 <>
-                  <a href="#how-it-works" className="text-ink-muted hover:text-ink transition-colors">
+                  <a href="#how-it-works" className="hover:text-ink transition-colors">
                     How it works
                   </a>
-                  <a href="#what-you-get" className="text-ink-muted hover:text-ink transition-colors">
+                  <a href="#what-you-get" className="hover:text-ink transition-colors">
                     What you get
                   </a>
-                  <a href="#faq" className="text-ink-muted hover:text-ink transition-colors">
+                  <a href="#faq" className="hover:text-ink transition-colors">
                     FAQ
                   </a>
                 </>
               ) : null}
-              <Link href="/methodology" className="text-ink-muted hover:text-ink transition-colors">
+              <Link href="/methodology" className="hover:text-ink transition-colors">
                 Methodology
               </Link>
               <a
                 href="https://github.com/Hemacharankodhanda/repometric"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-ink-muted hover:text-ink transition-colors flex items-center space-x-1"
+                className="hover:text-ink transition-colors flex items-center space-x-1.5"
                 title="View on GitHub"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -104,17 +101,16 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
             </nav>
           )}
 
-          {/* When search bar is present, show compact utility links */}
           {children && (
-            <div className="hidden lg:flex items-center space-x-4 text-xs font-bold text-ink">
-              <Link href="/methodology" className="text-ink-muted hover:text-ink transition-colors">
+            <div className="hidden lg:flex items-center space-x-4 text-xs font-medium text-ink-muted">
+              <Link href="/methodology" className="hover:text-ink transition-colors">
                 Methodology
               </Link>
               <a
                 href="https://github.com/Hemacharankodhanda/repometric"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-ink-muted hover:text-ink transition-colors flex items-center space-x-1"
+                className="hover:text-ink transition-colors flex items-center space-x-1.5"
                 title="View on GitHub"
               >
                 <GithubIcon className="w-3.5 h-3.5" />
@@ -141,7 +137,7 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-control border-2 border-ink bg-paper-2 text-ink md:hidden shadow-[2px_2px_0_var(--ink)]"
+              className="p-2 rounded-control border border-slate-200 dark:border-slate-800 bg-card text-ink md:hidden shadow-sm"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -153,9 +149,9 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t-2 border-ink bg-card p-4 space-y-3 font-bold text-sm shadow-[4px_4px_0_var(--ink)]">
+        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-card p-4 space-y-3 font-medium text-sm shadow-lg">
           {children && (
-            <div className="pb-3 mb-2 border-b-2 border-ink/10">
+            <div className="pb-3 mb-2 border-b border-slate-100 dark:border-slate-800">
               <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5">
                 Analyze another repo
               </span>

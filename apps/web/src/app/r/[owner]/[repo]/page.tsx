@@ -521,23 +521,23 @@ export default function ReportPage({
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
         {/* 2. Header Strip */}
-        <div className="rounded-card border-2 border-ink bg-card bg-paper-dots p-4 shadow-[4px_4px_0_var(--ink)] flex flex-wrap items-center justify-between gap-4">
+        <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-4 sm:p-5 shadow-sm flex flex-wrap items-center justify-between gap-4 backdrop-blur-sm">
           {/* Left: owner/repo & short sha */}
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={`https://github.com/${owner}/${repo}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1.5 font-mono text-base sm:text-lg font-bold text-ink hover:text-primary-text transition-colors"
+              className="flex items-center space-x-2 font-mono text-base sm:text-lg font-bold text-ink hover:text-primary transition-colors"
             >
               <span>{owner}/{repo}</span>
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4 text-ink-muted" />
             </a>
 
-            <div className="flex items-center space-x-2 text-xs font-mono text-ink-muted bg-paper-2 px-2.5 py-1 rounded-control border-2 border-ink shadow-[1px_1px_0_var(--ink)]">
+            <div className="flex items-center space-x-2 text-xs font-mono text-ink-muted bg-paper-2 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-800">
               <span>sha: {baseReport.commitSha.slice(0, 7)}</span>
               {isMock && (
-                <StickerBadge variant="card" size="sm" rotate="none">
+                <StickerBadge variant="card" size="sm" dot={false}>
                   sample
                 </StickerBadge>
               )}
@@ -593,8 +593,8 @@ export default function ReportPage({
             onValueChange={handleTabChange}
             className="w-full space-y-4"
           >
-            <div className="border-b-2 border-ink pb-2 flex items-center justify-between overflow-x-auto no-scrollbar">
-              <TabsList className="flex items-center space-x-1.5 bg-paper-2 p-1 rounded-control border-2 border-ink shadow-[2px_2px_0_var(--ink)]">
+            <div className="flex items-center justify-between overflow-x-auto no-scrollbar">
+              <TabsList className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-900/80 p-1 rounded-xl border border-slate-200/80 dark:border-slate-800/80">
                 <TabsTrigger value="overview" className="flex items-center space-x-1.5">
                   <FileText className="w-4 h-4" />
                   <span>Overview</span>
@@ -608,7 +608,7 @@ export default function ReportPage({
                   <Wrench className="w-4 h-4" />
                   <span>Fixes ({baseReport.fixes.length})</span>
                   {pointsGainedFromDone > 0 && (
-                    <span className="ml-1 px-1.5 py-0.2 bg-lime text-ink rounded-pill text-[10px] font-bold">
+                    <span className="ml-1 px-1.5 py-0.2 bg-emerald-500 text-white rounded-full text-[10px] font-semibold">
                       +{pointsGainedFromDone.toFixed(1)}
                     </span>
                   )}
@@ -645,7 +645,7 @@ export default function ReportPage({
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                   {baseReport.categories.map((cat) => (
                     <CategoryRow key={cat.id} category={cat} />
                   ))}
@@ -707,7 +707,7 @@ export default function ReportPage({
                         : 'No internal dependencies detected'
                     }
                     badge={mostDepended && mostDepended.fanIn > 5 ? 'Hotspot' : 'Normal'}
-                    icon={<FileCode className="w-4 h-4 text-primary-text" />}
+                    icon={<FileCode className="w-4 h-4 text-primary" />}
                   />
                   <InsightCard
                     variant={cycleCount === 0 ? 'lime' : 'coral'}
@@ -715,7 +715,7 @@ export default function ReportPage({
                     value={`${cycleCount} cycle${cycleCount === 1 ? '' : 's'}`}
                     subtext={cycleCount === 0 ? 'Clean acyclic import tree' : 'Mutual import loops detected'}
                     badge={cycleCount === 0 ? 'Clean' : 'Needs attention'}
-                    icon={cycleCount === 0 ? <Check className="w-4 h-4 text-ink" /> : <AlertTriangle className="w-4 h-4 text-coral-text" />}
+                    icon={cycleCount === 0 ? <Check className="w-4 h-4 text-emerald-500" /> : <AlertTriangle className="w-4 h-4 text-rose-500" />}
                   />
                   <InsightCard
                     variant="sun"
@@ -727,7 +727,7 @@ export default function ReportPage({
                         : 'Single directory project'
                     }
                     badge="Storage"
-                    icon={<Folder className="w-4 h-4 text-ink" />}
+                    icon={<Folder className="w-4 h-4 text-amber-500" />}
                   />
                   <InsightCard
                     variant={testFileCount > 0 ? 'sky' : 'coral'}
@@ -739,7 +739,7 @@ export default function ReportPage({
                         : 'No test files detected in repository tree'
                     }
                     badge={testFileCount > 0 ? 'Protected' : 'Quick win'}
-                    icon={testFileCount > 0 ? <Check className="w-4 h-4 text-primary-text" /> : <AlertTriangle className="w-4 h-4 text-coral-text" />}
+                    icon={testFileCount > 0 ? <Check className="w-4 h-4 text-primary" /> : <AlertTriangle className="w-4 h-4 text-rose-500" />}
                   />
                 </div>
               </div>
@@ -759,33 +759,33 @@ export default function ReportPage({
               </div>
 
               {/* Template Copy Quick-Actions */}
-              <div className="rounded-card border-2 border-ink bg-card p-3 shadow-[2px_2px_0_var(--ink)] flex flex-wrap items-center justify-between gap-2">
-                <span className="text-xs font-bold text-ink">
+              <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-paper-2 p-3 flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-semibold text-ink">
                   ⚡ Quick starter templates:
                 </span>
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('license')}
-                    className="px-2.5 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink flex items-center space-x-1 shadow-[2px_2px_0_var(--ink)]"
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-card hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-sm transition-all"
                   >
-                    {templateCopied === 'license' ? <Check className="w-3 h-3 text-lime-text" /> : <Copy className="w-3 h-3" />}
+                    {templateCopied === 'license' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-ink-muted" />}
                     <span>LICENSE</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('gitignore')}
-                    className="px-2.5 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink flex items-center space-x-1 shadow-[2px_2px_0_var(--ink)]"
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-card hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-sm transition-all"
                   >
-                    {templateCopied === 'gitignore' ? <Check className="w-3 h-3 text-lime-text" /> : <Copy className="w-3 h-3" />}
+                    {templateCopied === 'gitignore' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-ink-muted" />}
                     <span>.gitignore</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('ci')}
-                    className="px-2.5 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink flex items-center space-x-1 shadow-[2px_2px_0_var(--ink)]"
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-card hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-sm transition-all"
                   >
-                    {templateCopied === 'ci' ? <Check className="w-3 h-3 text-lime-text" /> : <Copy className="w-3 h-3" />}
+                    {templateCopied === 'ci' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-ink-muted" />}
                     <span>CI workflow</span>
                   </button>
                 </div>
@@ -810,11 +810,11 @@ export default function ReportPage({
 
               <div
                 id="map-container"
-                className="relative rounded-card border-2 border-ink bg-card p-4 shadow-[4px_4px_0_var(--ink)] space-y-3"
+                className="relative rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-4 sm:p-6 shadow-sm space-y-4"
               >
-                <div className="flex items-center justify-between pb-2 border-b-2 border-ink">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                       Treemap zoom
                     </span>
                     <StickerBadge variant="sky" size="sm" rotate="none">
@@ -851,11 +851,11 @@ export default function ReportPage({
 
               <div
                 id="graph-container"
-                className="relative rounded-card border-2 border-ink bg-card p-4 shadow-[4px_4px_0_var(--ink)] space-y-3"
+                className="relative rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-4 sm:p-6 shadow-sm space-y-4"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b-2 border-ink">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                       Force-directed graph
                     </span>
                     {graph && graph.nodes && graph.nodes.length > 0 && (
@@ -901,11 +901,11 @@ export default function ReportPage({
 
               <div
                 id="diagram-container"
-                className="relative rounded-card border-2 border-ink bg-card p-4 shadow-[4px_4px_0_var(--ink)] space-y-3"
+                className="relative rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-4 sm:p-6 shadow-sm space-y-4"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b-2 border-ink">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                       Architecture Layers
                     </span>
                     <StickerBadge variant="lime" size="sm" rotate="none">

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Tilly } from './Tilly';
 import { Stepper, type StepItem } from './Stepper';
-import { Lightbulb } from 'lucide-react';
+import { Lightbulb, Sparkles } from 'lucide-react';
 
 const TRUE_TIPS = [
   'A good README has install steps, usage and a screenshot.',
@@ -51,7 +51,6 @@ export function AnalysisScreen({
 
   // Advance stepper stages smoothly
   useEffect(() => {
-    // Check prefers-reduced-motion: if reduced, finish almost immediately
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -86,14 +85,20 @@ export function AnalysisScreen({
   }, [speedMultiplier]);
 
   return (
-    <div className="w-full py-12 sm:py-16 flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in-50 duration-300">
+    <div className="w-full py-12 sm:py-16 flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in-50 duration-300 relative">
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-primary/10 blur-3xl" />
+
       {/* Tilly Scanning */}
-      <div className="relative">
-        <Tilly mood="scanning" size={120} />
+      <div className="relative z-10">
+        <Tilly mood="scanning" size={100} />
       </div>
 
       {/* Heading */}
-      <div className="space-y-1">
+      <div className="space-y-1.5 z-10">
+        <div className="flex items-center justify-center space-x-1.5 text-xs font-semibold text-primary">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Telemetry Scanner</span>
+        </div>
         <h2 className="font-display font-extrabold text-xl sm:text-2xl text-ink tracking-tight">
           Analyzing {repoName}
         </h2>
@@ -103,21 +108,21 @@ export function AnalysisScreen({
       </div>
 
       {/* Stepper */}
-      <div className="w-full flex justify-center px-4">
+      <div className="w-full flex justify-center px-4 z-10">
         <Stepper steps={steps} currentStepIndex={currentStepIndex} />
       </div>
 
       {/* Rotating True Tip Box */}
-      <div className="max-w-md w-full px-4">
-        <div className="rounded-card border-2 border-ink bg-card p-4 shadow-[3px_3px_0_var(--ink)] flex items-start space-x-3 text-left">
-          <div className="p-1 rounded-control bg-sun text-ink border-2 border-ink shrink-0 mt-0.5">
-            <Lightbulb className="w-4 h-4 stroke-[2.5]" />
+      <div className="max-w-md w-full px-4 z-10">
+        <div className="rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-4 shadow-sm flex items-start space-x-3 text-left">
+          <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0 mt-0.5">
+            <Lightbulb className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-ink-muted block mb-0.5">
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted block mb-0.5">
               Good repo practice
             </span>
-            <p className="text-xs font-semibold text-ink leading-relaxed transition-opacity duration-300">
+            <p className="text-xs font-medium text-ink leading-relaxed transition-opacity duration-300">
               {TRUE_TIPS[tipIndex]}
             </p>
           </div>

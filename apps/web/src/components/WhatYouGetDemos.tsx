@@ -46,40 +46,42 @@ export function DemoScoreReceipts() {
   const current = data[activeTab];
 
   return (
-    <div className="w-full rounded-card border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)] space-y-3">
-      <div className="flex items-center justify-between border-b-2 border-ink pb-2.5">
-        <div className="flex gap-1.5">
+    <div className="w-full rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-5 shadow-sm space-y-3">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+        <div className="flex gap-1.5 bg-paper-2 p-1 rounded-lg border border-slate-200/80 dark:border-slate-800/80">
           {(['docs', 'hygiene', 'activity'] as const).map((tab) => (
             <button
               key={tab}
               type="button"
               onClick={() => setActiveTab(tab)}
-              className={`px-2.5 py-1 rounded-control border-2 border-ink text-xs font-bold capitalize transition-all ${
+              className={`px-2.5 py-1 rounded-md text-xs font-medium capitalize transition-all ${
                 activeTab === tab
-                  ? 'bg-sun text-ink shadow-[2px_2px_0_var(--ink)] -translate-y-0.5'
-                  : 'bg-paper-2 text-ink-muted hover:text-ink'
+                  ? 'bg-card text-ink shadow-sm font-semibold'
+                  : 'text-ink-muted hover:text-ink'
               }`}
             >
               {tab}
             </button>
           ))}
         </div>
-        <span className="font-mono text-xs font-bold text-ink">{current.score}</span>
+        <span className="font-mono text-xs font-semibold text-ink">{current.score}</span>
       </div>
 
       <div className="space-y-2">
         {current.items.map((item, idx) => (
           <div
             key={idx}
-            className="flex items-start justify-between gap-2 p-2.5 rounded-control border border-ink/40 bg-paper-2 text-xs"
+            className="flex items-start justify-between gap-2 p-2.5 rounded-lg border border-slate-200/70 dark:border-slate-800/70 bg-paper-2 text-xs"
           >
             <div className="space-y-0.5">
-              <div className="font-bold text-ink">{item.label}</div>
+              <div className="font-semibold text-ink">{item.label}</div>
               <p className="text-[11px] text-ink-muted">{item.desc}</p>
             </div>
             <span
-              className={`font-mono text-xs font-bold px-2 py-0.5 rounded border border-ink/60 shrink-0 ${
-                item.pass ? 'bg-lime text-ink' : 'bg-sun/60 text-ink'
+              className={`font-mono text-xs font-semibold px-2 py-0.5 rounded-full shrink-0 ${
+                item.pass
+                  ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                  : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
               }`}
             >
               {item.pts}
@@ -97,23 +99,23 @@ export function DemoFixList() {
   const projected = done ? 78.5 : 74;
 
   return (
-    <div className="w-full rounded-card border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)] space-y-3">
-      <div className="flex items-center justify-between border-b-2 border-ink pb-2.5">
+    <div className="w-full rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-5 shadow-sm space-y-3">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
         <div className="flex items-center space-x-2">
-          <span className="text-xs font-bold text-ink-muted uppercase">Health:</span>
+          <span className="text-xs font-medium text-ink-muted uppercase">Health:</span>
           <span className="font-display font-extrabold text-lg text-ink">{projected.toFixed(1)}</span>
           {done && (
-            <StickerBadge variant="lime" size="sm" rotate="right">
+            <StickerBadge variant="lime" size="sm">
               +4.5 pts gained!
             </StickerBadge>
           )}
         </div>
-        <span className="text-[11px] font-bold text-primary-text">Click checkbox to preview</span>
+        <span className="text-[11px] font-medium text-primary">Click checkbox to preview</span>
       </div>
 
       <div
-        className={`p-3.5 rounded-control border-2 border-ink bg-paper-2 transition-all ${
-          done ? 'opacity-70 bg-lime/10' : 'shadow-[3px_3px_0_var(--ink)]'
+        className={`p-3.5 rounded-lg border border-slate-200/80 dark:border-slate-800/80 bg-paper-2 transition-all ${
+          done ? 'opacity-70 bg-emerald-500/5 border-emerald-500/20' : ''
         }`}
       >
         <div className="flex items-center justify-between gap-3">
@@ -122,14 +124,16 @@ export function DemoFixList() {
               type="button"
               onClick={() => setDone(!done)}
               aria-label="Toggle sample fix"
-              className={`w-6 h-6 rounded-[6px] border-2 border-ink flex items-center justify-center transition-colors ${
-                done ? 'bg-lime text-ink' : 'bg-card hover:bg-lime/30 shadow-[1px_1px_0_var(--ink)]'
+              className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors cursor-pointer ${
+                done
+                  ? 'bg-emerald-500 border-emerald-500 text-white'
+                  : 'border-slate-300 dark:border-slate-700 bg-card hover:border-primary'
               }`}
             >
-              {done && <Check className="w-4 h-4 stroke-[3]" />}
+              {done && <Check className="w-3.5 h-3.5 stroke-[3]" />}
             </button>
             <div>
-              <span className={`text-xs sm:text-sm font-bold text-ink ${done ? 'line-through text-ink-muted' : ''}`}>
+              <span className={`text-xs sm:text-sm font-semibold text-ink ${done ? 'line-through text-ink-muted' : ''}`}>
                 Add an open source license (MIT/Apache)
               </span>
               <p className="text-[11px] text-ink-muted">Effort: about 2 minutes</p>
@@ -149,20 +153,20 @@ export function DemoTreemapZoom() {
   const [folder, setFolder] = useState<'root' | 'src'>('root');
 
   return (
-    <div className="w-full rounded-card border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)] space-y-3">
-      <div className="flex items-center justify-between border-b-2 border-ink pb-2 text-xs">
-        <div className="flex items-center space-x-1.5 font-bold font-mono">
+    <div className="w-full rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-5 shadow-sm space-y-3">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-xs">
+        <div className="flex items-center space-x-1.5 font-medium font-mono">
           <button
             type="button"
             onClick={() => setFolder('root')}
-            className={`hover:underline ${folder === 'root' ? 'text-primary-text' : 'text-ink-muted'}`}
+            className={`hover:underline ${folder === 'root' ? 'text-primary font-semibold' : 'text-ink-muted'}`}
           >
             root
           </button>
           {folder === 'src' && (
             <>
               <span>/</span>
-              <span className="text-primary-text">src</span>
+              <span className="text-primary font-semibold">src</span>
             </>
           )}
         </div>
@@ -170,7 +174,7 @@ export function DemoTreemapZoom() {
           <button
             type="button"
             onClick={() => setFolder('root')}
-            className="flex items-center space-x-1 text-primary-text font-bold hover:underline"
+            className="flex items-center space-x-1 text-primary text-xs hover:underline"
           >
             <RotateCcw className="w-3 h-3" />
             <span>Zoom out</span>
@@ -178,32 +182,32 @@ export function DemoTreemapZoom() {
         )}
       </div>
 
-      <div className="h-44 rounded-control border-2 border-ink bg-paper-2 p-2 grid grid-cols-3 gap-2">
+      <div className="h-44 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-2 grid grid-cols-3 gap-2">
         {folder === 'root' ? (
           <>
             <div
               onClick={() => setFolder('src')}
-              className="col-span-2 rounded border-2 border-ink bg-sun/40 p-2 flex flex-col justify-between cursor-pointer hover:-translate-y-0.5 hover:shadow-[2px_2px_0_var(--ink)] transition-all"
+              className="col-span-2 rounded-lg border border-amber-500/20 bg-amber-500/10 p-2.5 flex flex-col justify-between cursor-pointer hover:bg-amber-500/15 transition-all"
             >
-              <div className="flex items-center space-x-1.5 text-xs font-bold text-ink">
-                <Folder className="w-3.5 h-3.5 fill-sun text-ink" />
+              <div className="flex items-center space-x-1.5 text-xs font-semibold text-ink">
+                <Folder className="w-3.5 h-3.5 text-amber-500" />
                 <span>src/ (click to zoom)</span>
               </div>
               <span className="text-[10px] font-mono text-ink-muted">14 files • 84 KB</span>
             </div>
-            <div className="col-span-1 rounded border-2 border-ink bg-lime/40 p-2 flex flex-col justify-between">
-              <span className="text-xs font-bold text-ink">README.md</span>
+            <div className="col-span-1 rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-2.5 flex flex-col justify-between">
+              <span className="text-xs font-semibold text-ink">README.md</span>
               <span className="text-[10px] font-mono text-ink-muted">4.2 KB</span>
             </div>
           </>
         ) : (
           <>
-            <div className="col-span-2 rounded border-2 border-ink bg-sky/40 p-2 flex flex-col justify-between">
-              <span className="text-xs font-bold text-ink">index.ts</span>
+            <div className="col-span-2 rounded-lg border border-sky-500/20 bg-sky-500/10 p-2.5 flex flex-col justify-between">
+              <span className="text-xs font-semibold text-ink">index.ts</span>
               <span className="text-[10px] font-mono text-ink-muted">38.4 KB • TypeScript</span>
             </div>
-            <div className="col-span-1 rounded border-2 border-ink bg-coral/30 p-2 flex flex-col justify-between">
-              <span className="text-xs font-bold text-ink">utils.ts</span>
+            <div className="col-span-1 rounded-lg border border-rose-500/20 bg-rose-500/10 p-2.5 flex flex-col justify-between">
+              <span className="text-xs font-semibold text-ink">utils.ts</span>
               <span className="text-[10px] font-mono text-ink-muted">12.1 KB</span>
             </div>
           </>
@@ -218,45 +222,50 @@ export function DemoDependencyGraph() {
   const [selectedNode, setSelectedNode] = useState<string>('core.ts');
 
   return (
-    <div className="w-full rounded-card border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)] space-y-3">
-      <div className="flex items-center justify-between border-b-2 border-ink pb-2 text-xs">
-        <span className="font-bold text-ink">Interactive Import Graph</span>
-        <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-lime text-ink font-bold border border-ink">
+    <div className="w-full rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-5 shadow-sm space-y-3">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-xs">
+        <span className="font-semibold text-ink">Interactive Import Graph</span>
+        <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
           0 circular loops
         </span>
       </div>
 
-      <div className="h-44 rounded-control border-2 border-ink bg-paper-2 p-2 sm:p-3 flex items-center justify-between gap-1 sm:gap-2 overflow-x-auto relative">
-        {/* Nodes */}
+      <div className="h-44 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-2 sm:p-3 flex items-center justify-between gap-2 overflow-x-auto relative">
         <button
           type="button"
           onClick={() => setSelectedNode('page.tsx')}
-          className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-control border-2 border-ink font-mono text-[10px] sm:text-xs font-bold transition-transform shrink-0 ${
-            selectedNode === 'page.tsx' ? 'bg-primary text-on-primary scale-105 shadow-[2px_2px_0_var(--ink)]' : 'bg-card text-ink'
+          className={`px-3 py-1.5 rounded-lg border font-mono text-xs font-semibold transition-all shrink-0 ${
+            selectedNode === 'page.tsx'
+              ? 'bg-primary text-white border-primary shadow-sm'
+              : 'bg-card text-ink border-slate-200 dark:border-slate-800'
           }`}
         >
           page.tsx
         </button>
 
-        <ChevronRight className="w-3.5 h-3.5 text-ink-muted shrink-0" />
+        <ChevronRight className="w-4 h-4 text-ink-muted shrink-0" />
 
         <button
           type="button"
           onClick={() => setSelectedNode('core.ts')}
-          className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-control border-2 border-ink font-mono text-[10px] sm:text-xs font-bold transition-transform shrink-0 ${
-            selectedNode === 'core.ts' ? 'bg-sun text-ink scale-105 shadow-[2px_2px_0_var(--ink)]' : 'bg-card text-ink'
+          className={`px-3 py-1.5 rounded-lg border font-mono text-xs font-semibold transition-all shrink-0 ${
+            selectedNode === 'core.ts'
+              ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 shadow-sm'
+              : 'bg-card text-ink border-slate-200 dark:border-slate-800'
           }`}
         >
           core.ts (Hub)
         </button>
 
-        <ChevronRight className="w-3.5 h-3.5 text-ink-muted shrink-0" />
+        <ChevronRight className="w-4 h-4 text-ink-muted shrink-0" />
 
         <button
           type="button"
           onClick={() => setSelectedNode('utils.ts')}
-          className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-control border-2 border-ink font-mono text-[10px] sm:text-xs font-bold transition-transform shrink-0 ${
-            selectedNode === 'utils.ts' ? 'bg-sky text-ink scale-105 shadow-[2px_2px_0_var(--ink)]' : 'bg-card text-ink'
+          className={`px-3 py-1.5 rounded-lg border font-mono text-xs font-semibold transition-all shrink-0 ${
+            selectedNode === 'utils.ts'
+              ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/30 shadow-sm'
+              : 'bg-card text-ink border-slate-200 dark:border-slate-800'
           }`}
         >
           utils.ts
@@ -264,7 +273,7 @@ export function DemoDependencyGraph() {
       </div>
 
       <div className="text-xs font-mono text-ink-muted flex justify-between">
-        <span>Selected: <span className="font-bold text-ink">{selectedNode}</span></span>
+        <span>Selected: <span className="font-semibold text-ink">{selectedNode}</span></span>
         <span>Fan-in: 18 • Fan-out: 4</span>
       </div>
     </div>
@@ -293,29 +302,29 @@ flowchart TD
   };
 
   return (
-    <div className="w-full rounded-card border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)] space-y-3">
-      <div className="flex items-center justify-between border-b-2 border-ink pb-2 text-xs">
-        <span className="font-bold text-ink">Deterministic Architecture</span>
+    <div className="w-full rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-5 shadow-sm space-y-3">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2 text-xs">
+        <span className="font-semibold text-ink">Deterministic Architecture</span>
         <button
           type="button"
           onClick={copySnippet}
-          className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-control border-2 border-ink bg-paper-2 hover:bg-lime text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)]"
+          className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800 bg-paper-2 hover:bg-slate-200/60 dark:hover:bg-slate-800 text-xs font-medium text-ink transition-colors"
         >
-          {copied ? <Check className="w-3.5 h-3.5 text-ink" /> : <Copy className="w-3.5 h-3.5" />}
+          {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
           <span>{copied ? 'Copied!' : 'Copy README snippet'}</span>
         </button>
       </div>
 
-      <div className="p-3 rounded-control border-2 border-ink bg-paper-2 flex flex-col items-center space-y-2">
-        <div className="w-full max-w-xs p-2 rounded border-2 border-ink bg-sky/30 text-center text-xs font-bold text-ink">
+      <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex flex-col items-center space-y-2">
+        <div className="w-full max-w-xs p-2.5 rounded-lg border border-sky-500/20 bg-sky-500/10 text-center text-xs font-semibold text-ink">
           Client Layer (React UI & Pages)
         </div>
         <div className="text-ink-muted text-xs font-mono">&darr; imports</div>
-        <div className="w-full max-w-xs p-2 rounded border-2 border-ink bg-sun/30 text-center text-xs font-bold text-ink">
+        <div className="w-full max-w-xs p-2.5 rounded-lg border border-amber-500/20 bg-amber-500/10 text-center text-xs font-semibold text-ink">
           Core Engine & Scorer
         </div>
         <div className="text-ink-muted text-xs font-mono">&darr; calls</div>
-        <div className="w-full max-w-xs p-2 rounded border-2 border-teal border-dashed bg-card text-center text-xs font-bold text-ink">
+        <div className="w-full max-w-xs p-2.5 rounded-lg border border-primary/20 border-dashed bg-card text-center text-xs font-semibold text-ink">
           External Services (@supabase, redis)
         </div>
       </div>
@@ -332,15 +341,15 @@ export function DemoShowItOff() {
   const cliCommand = `npx repometric owner/repo`;
 
   return (
-    <div className="w-full rounded-card border-2 border-ink bg-card p-5 shadow-[4px_4px_0_var(--ink)] space-y-4">
+    <div className="w-full rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-5 shadow-sm space-y-4">
       {/* Live Badge Preview */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-ink pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
         <div>
-          <span className="text-xs font-bold text-ink-muted uppercase">README Badge:</span>
-          <div className="pt-1.5 flex items-center space-x-2">
-            <span className="inline-flex rounded-[4px] border-2 border-ink overflow-hidden font-bold text-xs shadow-[2px_2px_0_var(--ink)]">
-              <span className="bg-ink text-paper px-2 py-0.5">repometric</span>
-              <span className="bg-lime text-ink px-2 py-0.5">92 • excellent</span>
+          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">README Badge</span>
+          <div className="pt-2 flex items-center space-x-2">
+            <span className="inline-flex rounded-md border border-slate-300 dark:border-slate-700 overflow-hidden font-mono text-xs shadow-sm">
+              <span className="bg-slate-900 text-white px-2 py-0.5">repometric</span>
+              <span className="bg-emerald-500 text-white px-2 py-0.5 font-semibold">92 • excellent</span>
             </span>
           </div>
         </div>
@@ -361,10 +370,10 @@ export function DemoShowItOff() {
       {/* CLI terminal command */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <span className="text-xs font-bold text-ink-muted uppercase">Terminal CLI:</span>
-          <div className="pt-1.5 font-mono text-xs text-ink font-bold flex items-center space-x-2">
+          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">Terminal CLI</span>
+          <div className="pt-2 font-mono text-xs text-ink flex items-center space-x-2">
             <Terminal className="w-4 h-4 text-primary shrink-0" />
-            <code className="bg-paper-2 px-2 py-1 rounded border border-ink/40">{cliCommand}</code>
+            <code className="bg-paper-2 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800 font-semibold">{cliCommand}</code>
           </div>
         </div>
         <ChunkyButton

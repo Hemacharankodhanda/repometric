@@ -25,9 +25,9 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <div
-      className={`rounded-card border-2 border-ink bg-card p-8 sm:p-12 text-center shadow-[4px_4px_0_var(--ink)] flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
+      className={`rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-8 sm:p-12 text-center shadow-md flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
     >
-      <Tilly mood={mood} size={84} />
+      <Tilly mood={mood} size={72} />
       <div className="space-y-1.5">
         <h3 className="font-display font-bold text-lg sm:text-xl text-ink tracking-tight">
           {title}
@@ -77,10 +77,10 @@ export function ErrorState({
 }: ErrorStateProps) {
   return (
     <div
-      className={`rounded-card border-2 border-ink bg-card p-8 sm:p-12 text-center shadow-[4px_4px_0_var(--ink)] flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
+      className={`rounded-2xl border border-rose-200 dark:border-rose-900/60 bg-card p-8 sm:p-12 text-center shadow-md flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
       role="alert"
     >
-      <Tilly mood={mood} size={88} />
+      <Tilly mood={mood} size={72} />
       <div className="space-y-2">
         <h3 className="font-display font-bold text-lg sm:text-xl text-coral-text tracking-tight">
           {title}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Tilly } from './Tilly';
 import { StickerBadge, type StickerVariant } from './StickerBadge';
 import type { Grade } from '@repometric/core';
+import { ShieldCheck, Sparkles } from 'lucide-react';
 
 export interface ScoreSummaryProps {
   score: number;
@@ -36,7 +37,6 @@ export function ScoreSummary({
   const [displayScore, setDisplayScore] = useState(0);
 
   useEffect(() => {
-    // Check prefers-reduced-motion
     const prefersReducedMotion =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -46,14 +46,13 @@ export function ScoreSummary({
       return;
     }
 
-    const duration = 900; // ms
+    const duration = 900;
     const startTime = performance.now();
     let frameId: number;
 
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(1, elapsed / duration);
-      // easeOutExpo
       const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       setDisplayScore(Math.round(ease * score));
 
@@ -81,48 +80,112 @@ export function ScoreSummary({
 
   const finalVerdict = verdict || defaultVerdict;
 
+  // Circular gauge math
+  const radius = 64;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (circumference * displayScore) / 100;
+
+  const strokeColor =
+    score >= 90
+      ? '#10b981'
+      : score >= 75
+      ? '#06b6d4'
+      : score >= 55
+      ? '#f59e0b'
+      : '#f43f5e';
+
   return (
     <div
-      className={`rounded-card border-2 border-ink bg-card bg-paper-dots p-6 sm:p-8 shadow-[6px_6px_0_var(--ink)] flex flex-col md:flex-row items-center md:items-start justify-between gap-6 relative overflow-hidden ${className}`}
+      className={`rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card p-6 sm:p-8 shadow-sm dark:shadow-xl dark:shadow-indigo-950/10 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 relative overflow-hidden ${className}`}
     >
-      <div className="flex-1 space-y-4 text-center md:text-left z-10">
-        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-          <div className="px-5 py-2 rounded-control border-2 border-ink bg-paper shadow-[3px_3px_0_var(--ink)] flex items-baseline gap-2">
-            <span className="font-display font-extrabold text-score text-ink tracking-tight leading-none">
+      {/* Subtle ambient glow */}
+      <div className="pointer-events-none absolute -top-24 -left-24 w-80 h-80 rounded-full bg-primary/5 dark:bg-primary/10 blur-3xl" />
+
+      {/* Radial Health Gauge */}
+      <div className="shrink-0 flex flex-col items-center justify-center relative">
+        <div className="relative w-36 h-36 flex items-center justify-center">
+          <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 160 160">
+            {/* Background track */}
+            <circle
+              cx="80"
+              cy="80"
+              r={radius}
+              stroke="currentColor"
+              strokeWidth="10"
+              fill="transparent"
+              className="text-slate-100 dark:text-slate-800/70"
+            />
+            {/* Animated progress arc */}
+            <circle
+              cx="80"
+              cy="80"
+              r={radius}
+              stroke={strokeColor}
+              strokeWidth="10"
+              strokeDasharray={circumference}
+              strokeDashoffset={strokeDashoffset}
+              strokeLinecap="round"
+              fill="transparent"
+              className="transition-[stroke-dashoffset] duration-700 ease-out"
+            />
+          </svg>
+          {/* Inner Score Label */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+            <span className="font-display font-extrabold text-4xl sm:text-5xl text-ink tracking-tight leading-none">
               {displayScore}
             </span>
-            <span className="text-sm font-mono font-bold text-ink-muted">/100</span>
-          </div>
-          <div className="flex flex-col items-start space-y-1">
-            <span className="text-xs font-bold text-ink-muted uppercase tracking-wider">
-              Health grade
+            <span className="text-[11px] font-mono font-semibold text-ink-muted uppercase tracking-wider mt-1">
+              / 100
             </span>
-            <StickerBadge variant={gradeVariant} size="lg" rotate="right">
-              {gradeLabel}
-            </StickerBadge>
           </div>
         </div>
 
-        <p className="text-sm sm:text-base font-medium text-ink max-w-xl leading-relaxed">
+        <div className="mt-2.5">
+          <StickerBadge variant={gradeVariant} size="md">
+            {gradeLabel}
+          </StickerBadge>
+        </div>
+      </div>
+
+      {/* Score Insights & Verdict */}
+      <div className="flex-1 space-y-4 text-center md:text-left z-10 w-full">
+        <div>
+          <div className="flex items-center justify-center md:justify-start gap-2 mb-1.5">
+            <ShieldCheck className="w-4 h-4 text-primary" />
+            <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
+              Health Assessment
+            </span>
+          </div>
+          <h2 className="text-lg sm:text-xl font-bold text-ink tracking-tight">
+            Overall Repository Health
+          </h2>
+        </div>
+
+        <p className="text-sm sm:text-base font-normal text-ink-muted max-w-xl leading-relaxed">
           {finalVerdict}
         </p>
 
         {/* Projected score progress bar */}
         {targetProjected && (
-          <div className="pt-1 space-y-1.5 max-w-md">
-            <div className="flex justify-between text-xs font-semibold">
-              <span className="text-ink">Current: {score}</span>
-              <span className="text-primary-text">
-                Projected with fixes: <span className="font-bold">{targetProjected}</span> (+{targetProjected - score} pts)
+          <div className="pt-2 space-y-2 max-w-md">
+            <div className="flex justify-between items-center text-xs font-semibold">
+              <span className="text-ink flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-slate-400" />
+                Current: <span className="font-bold">{score}</span>
+              </span>
+              <span className="text-primary-text flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                Projected: <span className="font-bold text-primary">{targetProjected}</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">(+{targetProjected - score} pts)</span>
               </span>
             </div>
-            <div className="h-4 w-full rounded-pill border-2 border-ink bg-paper-2 overflow-hidden flex">
+            <div className="h-2.5 w-full rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden flex">
               <div
-                className="h-full bg-lime border-r-2 border-ink transition-all duration-500"
+                className="h-full bg-primary transition-all duration-500 rounded-l-full"
                 style={{ width: `${Math.min(100, score)}%` }}
               />
               <div
-                className="h-full bg-sun border-r-2 border-ink transition-all duration-500 opacity-80"
+                className="h-full bg-emerald-400 dark:bg-emerald-500 transition-all duration-500 opacity-90 rounded-r-full"
                 style={{ width: `${Math.max(0, Math.min(100, targetProjected) - score)}%` }}
               />
             </div>
@@ -130,8 +193,9 @@ export function ScoreSummary({
         )}
       </div>
 
-      <div className="shrink-0 flex flex-col items-center">
-        <Tilly mood={tillyMood} size={110} />
+      {/* Mascot Companion */}
+      <div className="shrink-0 flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60">
+        <Tilly mood={tillyMood} size={84} />
       </div>
     </div>
   );

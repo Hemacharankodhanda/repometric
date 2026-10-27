@@ -14,21 +14,21 @@ export interface ChunkyButtonProps extends React.ButtonHTMLAttributes<HTMLButton
 
 const VARIANT_STYLES: Record<ChunkyButtonVariant, string> = {
   primary:
-    'bg-primary text-on-primary border-2 border-ink shadow-[4px_4px_0_var(--ink)] hover:shadow-[6px_6px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
+    'bg-primary text-on-primary border border-primary/20 shadow-sm hover:shadow-md hover:shadow-primary/20 hover:brightness-105 active:scale-[0.98]',
   secondary:
-    'bg-card text-ink border-2 border-ink shadow-[4px_4px_0_var(--ink)] hover:shadow-[6px_6px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
+    'bg-card text-ink border border-slate-200 dark:border-slate-800 shadow-sm hover:bg-paper-2 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98]',
   lime:
-    'bg-lime text-ink border-2 border-ink shadow-[4px_4px_0_var(--ink)] hover:shadow-[6px_6px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
+    'bg-lime text-slate-900 border border-lime/30 shadow-sm hover:brightness-105 active:scale-[0.98]',
   coral:
-    'bg-coral text-ink border-2 border-ink shadow-[4px_4px_0_var(--ink)] hover:shadow-[6px_6px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
+    'bg-coral text-white border border-coral/30 shadow-sm hover:brightness-105 active:scale-[0.98]',
   ghost:
-    'bg-transparent text-ink border-2 border-transparent hover:border-ink hover:bg-card/50 active:translate-y-0.5',
+    'bg-transparent text-ink hover:bg-ink/5 dark:hover:bg-white/10 active:scale-[0.98]',
 };
 
 const SIZE_STYLES: Record<ChunkyButtonSize, string> = {
-  sm: 'min-h-[36px] px-3 py-1.5 text-xs font-bold rounded-control',
-  md: 'min-h-[44px] px-5 py-2.5 text-sm font-bold rounded-control',
-  lg: 'min-h-[52px] px-7 py-3.5 text-base font-extrabold rounded-control',
+  sm: 'min-h-[36px] px-3 py-1.5 text-xs font-semibold rounded-control',
+  md: 'min-h-[42px] px-4 py-2 text-sm font-semibold rounded-control',
+  lg: 'min-h-[48px] px-6 py-3 text-base font-bold rounded-control',
 };
 
 export function ChunkyButton({
@@ -43,7 +43,7 @@ export function ChunkyButton({
   return (
     <button
       disabled={disabled}
-      className={`inline-flex items-center justify-center space-x-2 select-none font-body tracking-tight transition-all duration-[120ms] ease-out focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0 ${VARIANT_STYLES[variant]} ${SIZE_STYLES[size]} ${className}`}
+      className={`inline-flex items-center justify-center space-x-2 select-none font-body tracking-tight transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:shadow-none disabled:scale-100 ${VARIANT_STYLES[variant]} ${SIZE_STYLES[size]} ${className}`}
       {...props}
     >
       {icon && <span className="inline-flex shrink-0">{icon}</span>}

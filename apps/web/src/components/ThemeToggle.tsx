@@ -34,45 +34,45 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
   };
 
   return (
-    <div className={`inline-flex items-center rounded-control border-2 border-ink bg-card p-0.5 shadow-sm ${className}`}>
+    <div className={`inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-800 bg-paper-2 p-0.5 shadow-sm ${className}`}>
       <button
         type="button"
         onClick={() => changeTheme('light')}
-        className={`p-1.5 rounded-[8px] transition-colors ${
+        className={`p-1.5 rounded-md transition-all ${
           theme === 'light'
-            ? 'bg-sun text-ink font-bold shadow-[1px_1px_0_var(--ink)]'
+            ? 'bg-card text-amber-500 shadow-sm'
             : 'text-ink-muted hover:text-ink'
         }`}
         title="Light mode"
         aria-label="Light mode"
       >
-        <Sun className="w-4 h-4" />
+        <Sun className="w-3.5 h-3.5" />
       </button>
       <button
         type="button"
         onClick={() => changeTheme('dark')}
-        className={`p-1.5 rounded-[8px] transition-colors ${
+        className={`p-1.5 rounded-md transition-all ${
           theme === 'dark'
-            ? 'bg-primary text-on-primary font-bold shadow-[1px_1px_0_var(--ink)]'
+            ? 'bg-card text-indigo-500 dark:text-indigo-400 shadow-sm'
             : 'text-ink-muted hover:text-ink'
         }`}
         title="Dark mode"
         aria-label="Dark mode"
       >
-        <Moon className="w-4 h-4" />
+        <Moon className="w-3.5 h-3.5" />
       </button>
       <button
         type="button"
         onClick={() => changeTheme('system')}
-        className={`p-1.5 rounded-[8px] transition-colors ${
+        className={`p-1.5 rounded-md transition-all ${
           theme === 'system'
-            ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]'
+            ? 'bg-card text-primary shadow-sm'
             : 'text-ink-muted hover:text-ink'
         }`}
         title="System preference"
         aria-label="System preference"
       >
-        <Monitor className="w-4 h-4" />
+        <Monitor className="w-3.5 h-3.5" />
       </button>
     </div>
   );
