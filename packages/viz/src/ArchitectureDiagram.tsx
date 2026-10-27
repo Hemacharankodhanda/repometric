@@ -177,7 +177,7 @@ export function ArchitectureDiagram({
           },
           flowchart: {
             useMaxWidth: false,
-            htmlLabels: true,
+            htmlLabels: false,
             curve: 'basis',
           },
           maxTextSize: 100000,
@@ -471,64 +471,125 @@ export function ArchitectureDiagram({
     const svgElement = svgWrapperRef.current.querySelector('svg');
     if (!svgElement) return;
 
-    const svgXml = new XMLSerializer().serializeToString(svgElement);
-    const img = new Image();
-    const svgBlob = new Blob([svgXml], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(svgBlob);
+    try {
+      // Clone the SVG so modifications don't alter the visible DOM
+      const clonedSvg = svgElement.cloneNode(true) as SVGSVGElement;
 
-    img.onload = () => {
-      const scaleFactor = 2;
+      // Defensively replace any foreignObject with native SVG <text> elements
+      // to guarantee browsers do not taint the canvas
+      const foreignObjects = Array.from(clonedSvg.querySelectorAll('foreignObject'));
+      for (const fo of foreignObjects) {
+        const text = fo.textContent?.trim() || '';
+        const foX = parseFloat(fo.getAttribute('x') || '0');
+        const foY = parseFloat(fo.getAttribute('y') || '0');
+        const foW = parseFloat(fo.getAttribute('width') || '0');
+        const foH = parseFloat(fo.getAttribute('height') || '0');
+
+        const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        textEl.setAttribute('text-anchor', 'middle');
+        textEl.setAttribute('dominant-baseline', 'central');
+        textEl.setAttribute('x', String(foX + foW / 2));
+        textEl.setAttribute('y', String(foY + foH / 2));
+        textEl.setAttribute('fill', theme.ink);
+        textEl.setAttribute(
+          'font-family',
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        );
+        textEl.setAttribute('font-size', '13px');
+        textEl.setAttribute('font-weight', '500');
+        textEl.textContent = text;
+        fo.replaceWith(textEl);
+      }
+
       const baseWidth = svgElement.clientWidth || 1000;
       const baseHeight = svgElement.clientHeight || 700;
-      const footerHeight = 44 * scaleFactor;
+      clonedSvg.setAttribute('width', String(baseWidth));
+      clonedSvg.setAttribute('height', String(baseHeight));
+      if (!clonedSvg.getAttribute('xmlns')) {
+        clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      }
 
-      const canvas = document.createElement('canvas');
-      canvas.width = baseWidth * scaleFactor;
-      canvas.height = baseHeight * scaleFactor + footerHeight;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+      const svgXml = new XMLSerializer().serializeToString(clonedSvg);
+      let dataUrl: string;
+      try {
+        dataUrl = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svgXml)));
+      } catch {
+        dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgXml);
+      }
 
-      // Background fill
-      ctx.fillStyle = theme.paper;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const scaleFactor = 2;
+          const footerHeight = 44 * scaleFactor;
 
-      // Draw diagram SVG
-      ctx.drawImage(img, 0, 0, canvas.width, baseHeight * scaleFactor);
+          const canvas = document.createElement('canvas');
+          canvas.width = baseWidth * scaleFactor;
+          canvas.height = baseHeight * scaleFactor + footerHeight;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            handleDownloadSvg();
+            return;
+          }
 
-      // Footer divider
-      ctx.strokeStyle = theme.fog;
-      ctx.lineWidth = 1 * scaleFactor;
-      ctx.beginPath();
-      ctx.moveTo(0, baseHeight * scaleFactor);
-      ctx.lineTo(canvas.width, baseHeight * scaleFactor);
-      ctx.stroke();
+          // Background fill
+          ctx.fillStyle = theme.paper;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Footer metadata
-      ctx.fillStyle = theme.ink;
-      ctx.font = `${13 * scaleFactor}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-      ctx.fillText(
-        `${owner}/${repo}  •  sha: ${sha.slice(0, 7)}  •  RepoMetric Architecture`,
-        20 * scaleFactor,
-        baseHeight * scaleFactor + 28 * scaleFactor
-      );
+          // Draw diagram SVG
+          ctx.drawImage(img, 0, 0, canvas.width, baseHeight * scaleFactor);
 
-      canvas.toBlob((blob) => {
-        if (!blob) return;
-        const pngUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = pngUrl;
-        a.download = `${repo}-architecture.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(pngUrl);
-        triggerCopyFeedback('png');
-      });
+          // Footer divider
+          ctx.strokeStyle = theme.fog;
+          ctx.lineWidth = 1 * scaleFactor;
+          ctx.beginPath();
+          ctx.moveTo(0, baseHeight * scaleFactor);
+          ctx.lineTo(canvas.width, baseHeight * scaleFactor);
+          ctx.stroke();
 
-      URL.revokeObjectURL(url);
-    };
+          // Footer metadata
+          ctx.fillStyle = theme.ink;
+          ctx.font = `${13 * scaleFactor}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+          ctx.fillText(
+            `${owner}/${repo}  •  sha: ${sha.slice(0, 7)}  •  RepoMetric Architecture`,
+            20 * scaleFactor,
+            baseHeight * scaleFactor + 28 * scaleFactor
+          );
 
-    img.src = url;
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                handleDownloadSvg();
+                return;
+              }
+              const pngUrl = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = pngUrl;
+              a.download = `${repo}-architecture.png`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(pngUrl);
+              triggerCopyFeedback('png');
+            },
+            'image/png'
+          );
+        } catch (canvasErr) {
+          console.warn('Canvas export restricted or tainted, falling back to SVG:', canvasErr);
+          handleDownloadSvg();
+        }
+      };
+
+      img.onerror = () => {
+        console.warn('Failed to load diagram SVG into Image, falling back to SVG download');
+        handleDownloadSvg();
+      };
+
+      img.src = dataUrl;
+    } catch (err) {
+      console.warn('PNG generation failed, falling back to SVG:', err);
+      handleDownloadSvg();
+    }
   };
 
   // Selected item metadata and connections
@@ -587,7 +648,7 @@ export function ArchitectureDiagram({
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col w-full rounded-card border-2 border-ink bg-card overflow-hidden select-none shadow-[3px_3px_0_var(--ink)]"
+      className="relative flex flex-col w-full rounded-2xl border border-border/80 bg-card/80 backdrop-blur-md overflow-hidden select-none shadow-card"
       style={{ height: `${height}px` }}
       data-testid="architecture-diagram"
     >
@@ -597,16 +658,16 @@ export function ArchitectureDiagram({
       </div>
 
       {/* Top Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b-2 border-ink bg-paper-2 z-10">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2.5 border-b border-border/60 bg-surface/80 backdrop-blur-sm z-10">
         <div className="flex items-center space-x-2">
           {/* View Toggle */}
-          <div className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]">
+          <div className="flex items-center border border-border rounded-lg bg-paper-2/60 p-0.5 shadow-xs">
             <button
               type="button"
               onClick={() => setViewMode('diagram')}
-              className={`flex items-center space-x-1.5 px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
+              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-150 ${
                 viewMode === 'diagram'
-                  ? 'bg-lime text-ink shadow-[1px_1px_0_var(--ink)] font-bold'
+                  ? 'bg-surface text-ink font-semibold shadow-xs'
                   : 'text-ink-muted hover:text-ink'
               }`}
               title="View as interactive diagram"
@@ -617,9 +678,9 @@ export function ArchitectureDiagram({
             <button
               type="button"
               onClick={() => setViewMode('list')}
-              className={`flex items-center space-x-1.5 px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
+              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-150 ${
                 viewMode === 'list'
-                  ? 'bg-lime text-ink shadow-[1px_1px_0_var(--ink)] font-bold'
+                  ? 'bg-surface text-ink font-semibold shadow-xs'
                   : 'text-ink-muted hover:text-ink'
               }`}
               title="View as accessible list and table"
@@ -634,10 +695,10 @@ export function ArchitectureDiagram({
             <button
               type="button"
               onClick={() => setShowEdgeWeights((prev) => !prev)}
-              className={`px-2 py-1 rounded-control border-2 border-ink text-xs font-bold transition-colors shadow-[1px_1px_0_var(--ink)] ${
+              className={`px-2.5 py-1 rounded-lg border text-xs font-medium transition-colors shadow-xs ${
                 showEdgeWeights
-                  ? 'bg-sun text-ink'
-                  : 'bg-card text-ink-muted hover:text-ink'
+                  ? 'bg-accent/15 border-accent/40 text-accent font-semibold'
+                  : 'border-border bg-card text-ink-muted hover:text-ink'
               }`}
               title="Toggle import counts on edges"
             >
@@ -653,7 +714,7 @@ export function ArchitectureDiagram({
               <button
                 type="button"
                 onClick={handleResetView}
-                className="p-1.5 rounded-control text-ink hover:bg-paper-2 border-2 border-ink bg-card shadow-[1px_1px_0_var(--ink)] transition-colors"
+                className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border bg-card shadow-xs transition-colors"
                 title="Reset zoom and pan view"
                 aria-label="Reset view"
               >
@@ -662,7 +723,7 @@ export function ArchitectureDiagram({
               <button
                 type="button"
                 onClick={handleResetView}
-                className="p-1.5 rounded-control text-ink hover:bg-paper-2 border-2 border-ink bg-card shadow-[1px_1px_0_var(--ink)] transition-colors"
+                className="p-1.5 rounded-lg text-ink-muted hover:text-ink hover:bg-surface border border-border bg-card shadow-xs transition-colors"
                 title="Fit to screen"
                 aria-label="Fit to screen"
               >
@@ -671,17 +732,17 @@ export function ArchitectureDiagram({
             </>
           )}
 
-          <div className="h-4 w-px bg-ink/30 mx-1" />
+          <div className="h-4 w-px bg-border mx-1" />
 
           {/* Copy Mermaid */}
           <button
             type="button"
             onClick={handleCopyMermaid}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
+            className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg border border-border bg-card hover:bg-surface hover:border-ink/20 text-xs font-medium text-ink shadow-xs transition-all duration-150 active:scale-[0.98]"
             title="Copy raw Mermaid code"
           >
             {copiedAction === 'mermaid' ? (
-              <Check className="w-3.5 h-3.5 text-lime-text" />
+              <Check className="w-3.5 h-3.5 text-accent" />
             ) : (
               <Copy className="w-3.5 h-3.5 text-ink-muted" />
             )}
@@ -692,11 +753,11 @@ export function ArchitectureDiagram({
           <button
             type="button"
             onClick={handleCopyReadme}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
+            className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg border border-border bg-card hover:bg-surface hover:border-ink/20 text-xs font-medium text-ink shadow-xs transition-all duration-150 active:scale-[0.98]"
             title="Copy as Markdown ```mermaid block for README"
           >
             {copiedAction === 'readme' ? (
-              <Check className="w-3.5 h-3.5 text-lime-text" />
+              <Check className="w-3.5 h-3.5 text-accent" />
             ) : (
               <FileCode className="w-3.5 h-3.5 text-ink-muted" />
             )}
@@ -707,11 +768,11 @@ export function ArchitectureDiagram({
           <button
             type="button"
             onClick={handleDownloadSvg}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
+            className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg border border-border bg-card hover:bg-surface hover:border-ink/20 text-xs font-medium text-ink shadow-xs transition-all duration-150 active:scale-[0.98]"
             title="Download vector SVG"
           >
             {copiedAction === 'svg' ? (
-              <Check className="w-3.5 h-3.5 text-lime-text" />
+              <Check className="w-3.5 h-3.5 text-accent" />
             ) : (
               <Download className="w-3.5 h-3.5 text-ink-muted" />
             )}
@@ -722,11 +783,11 @@ export function ArchitectureDiagram({
           <button
             type="button"
             onClick={handleDownloadPng}
-            className="flex items-center space-x-1 px-2 py-1 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-xs font-bold text-ink shadow-[1px_1px_0_var(--ink)] transition-colors"
+            className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg border border-border bg-card hover:bg-surface hover:border-ink/20 text-xs font-medium text-ink shadow-xs transition-all duration-150 active:scale-[0.98]"
             title="Download 2x PNG image with footer strip"
           >
             {copiedAction === 'png' ? (
-              <Check className="w-3.5 h-3.5 text-lime-text" />
+              <Check className="w-3.5 h-3.5 text-accent" />
             ) : (
               <Download className="w-3.5 h-3.5 text-ink-muted" />
             )}
@@ -979,7 +1040,7 @@ export function ArchitectureDiagram({
       </div>
 
       {/* Bottom Notes & Legend Bar */}
-      <div className="flex items-center justify-between px-3 py-1.5 border-t border-line bg-surface/70 text-[11px] text-ink-muted">
+      <div className="flex items-center justify-between px-3.5 py-2 border-t border-border/60 bg-surface/80 backdrop-blur-sm text-[11px] text-ink-muted">
         <div className="truncate max-w-xl">
           {spec.notes.length > 0 ? (
             <span>{spec.notes.join(' ')}</span>
@@ -990,15 +1051,15 @@ export function ArchitectureDiagram({
           )}
         </div>
         <div className="hidden sm:flex items-center space-x-3 text-[11px] shrink-0 font-mono">
-          <span className="flex items-center space-x-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-fog border border-ink" />
+          <span className="flex items-center space-x-1.5">
+            <span className="w-2.5 h-2.5 rounded-sm bg-fog/80 border border-border" />
             <span className="text-ink">Component</span>
           </span>
-          <span className="flex items-center space-x-1">
-            <span className="w-2.5 h-2.5 rounded-xs bg-surface border-2 border-teal" />
+          <span className="flex items-center space-x-1.5">
+            <span className="w-2.5 h-2.5 rounded-sm bg-surface border border-teal" />
             <span className="text-teal-text">External</span>
           </span>
-          <span className="flex items-center space-x-1">
+          <span className="flex items-center space-x-1.5">
             <span className="w-3 h-0.5 border-b-2 border-dashed border-danger" />
             <span className="text-danger-text">Cycle</span>
           </span>
