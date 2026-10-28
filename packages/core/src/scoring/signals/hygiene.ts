@@ -130,7 +130,9 @@ export const lintFormatSignal: Signal = {
 
     // Check pyproject.toml contents if available in sampledSources
     let hasPyprojectTool = false;
-    const pyprojectFile = snapshot.sampledSources?.find((f) => /(^|\/)pyproject\.toml$/i.test(f.path));
+    const pyprojectFile = snapshot.sampledSources?.find((f) =>
+      /(^|\/)pyproject\.toml$/i.test(f.path),
+    );
     if (pyprojectFile) {
       hasPyprojectTool = /\[tool\.(ruff|black)\]/i.test(pyprojectFile.content);
     }
@@ -199,7 +201,9 @@ export const licenseSignal: Signal = {
   max: 2,
   compute({ snapshot }: SignalContext): SignalResult {
     const hasLicenseFile = snapshot.tree.some((f) => isRootLicense(f.path));
-    const hasMetaLicense = Boolean(snapshot.meta.license && snapshot.meta.license.trim().length > 0);
+    const hasMetaLicense = Boolean(
+      snapshot.meta.license && snapshot.meta.license.trim().length > 0,
+    );
 
     const passes = hasLicenseFile || hasMetaLicense;
     const earned = passes ? 2 : 0;
@@ -241,7 +245,12 @@ export function isSecretPath(path: string): boolean {
     return true;
   }
 
-  if (basename === 'id_rsa' || basename.startsWith('id_rsa.') || basename === 'id_dsa' || basename === 'id_ed25519') {
+  if (
+    basename === 'id_rsa' ||
+    basename.startsWith('id_rsa.') ||
+    basename === 'id_dsa' ||
+    basename === 'id_ed25519'
+  ) {
     return true;
   }
 

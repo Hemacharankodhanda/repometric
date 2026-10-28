@@ -23,10 +23,20 @@ export interface StoredAnalysis {
 declare global {
   var __repometric_cache: Map<string, StoredAnalysis> | undefined;
   var __repometric_rate_limits: Map<string, { count: number; resetAt: number }> | undefined;
+  var __repometric_graphs: Map<string, GraphData> | undefined;
+  var __repometric_graph_rate_limits: Map<string, { count: number; resetAt: number }> | undefined;
 }
 
 const inMemoryCache = (globalThis.__repometric_cache ??= new Map<string, StoredAnalysis>());
-const inMemoryRateLimits = (globalThis.__repometric_rate_limits ??= new Map<string, { count: number; resetAt: number }>());
+const inMemoryRateLimits = (globalThis.__repometric_rate_limits ??= new Map<
+  string,
+  { count: number; resetAt: number }
+>());
+const inMemoryGraphs = (globalThis.__repometric_graphs ??= new Map<string, GraphData>());
+const inMemoryGraphRateLimits = (globalThis.__repometric_graph_rate_limits ??= new Map<
+  string,
+  { count: number; resetAt: number }
+>());
 
 function getCacheKey(owner: string, name: string, sha: string): string {
   return `${owner.toLowerCase()}/${name.toLowerCase()}@${sha}`;
@@ -302,4 +312,125 @@ export async function saveAnalysis(
   }
 
   return stored;
+}
+
+/**
+ * Checks rate limiting for graph uploads (60 requests per hour).
+ */
+export async function checkGraphRateLimit(ip: string): Promise<{
+  allowed: boolean;
+  remaining: number;
+  resetSeconds: number;
+}> {
+  const maxRequests = 60;
+  const windowMs = 3600 * 1000;
+  const now = Date.now();
+
+  const record = inMemoryGraphRateLimits.get(ip);
+  if (!record || record.resetAt <= now) {
+    inMemoryGraphRateLimits.set(ip, { count: 1, resetAt: now + windowMs });
+    return { allowed: true, remaining: maxRequests - 1, resetSeconds: 3600 };
+  }
+
+  if (record.count >= maxRequests) {
+    const resetSeconds = Math.ceil((record.resetAt - now) / 1000);
+    return { allowed: false, remaining: 0, resetSeconds };
+  }
+
+  record.count++;
+  const resetSeconds = Math.ceil((record.resetAt - now) / 1000);
+  return { allowed: true, remaining: maxRequests - record.count, resetSeconds };
+}
+
+/**
+ * Retrieves graph data for an analysis ID.
+ */
+export async function getGraphData(analysisId: string): Promise<GraphData | null> {
+  const cached = inMemoryGraphs.get(analysisId);
+  if (cached) return cached;
+
+  try {
+    const supabase = getServiceClient();
+    const { data } = await supabase
+      .from('graphs')
+      .select('*')
+      .eq('analysis_id', analysisId)
+      .maybeSingle();
+
+    if (!data) return null;
+
+    const graph: GraphData = {
+      nodes: data.nodes as unknown as GraphData['nodes'],
+      edges: data.edges as unknown as GraphData['edges'],
+      stats: data.stats as unknown as GraphData['stats'],
+      truncated: data.truncated ?? false,
+      collapsedToFolders: false,
+    };
+
+    inMemoryGraphs.set(analysisId, graph);
+    return graph;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Saves graph data for an analysis ID. Returns { stored: boolean }.
+ */
+export async function saveGraphData(
+  analysisId: string,
+  graph: GraphData,
+): Promise<{ stored: boolean }> {
+  if (inMemoryGraphs.has(analysisId)) {
+    return { stored: false };
+  }
+
+  inMemoryGraphs.set(analysisId, graph);
+
+  try {
+    const supabase = getServiceClient();
+    const { data: existing } = await supabase
+      .from('graphs')
+      .select('analysis_id')
+      .eq('analysis_id', analysisId)
+      .maybeSingle();
+
+    if (existing) {
+      return { stored: false };
+    }
+
+    await supabase.from('graphs').insert({
+      analysis_id: analysisId,
+      nodes: graph.nodes as unknown as Json,
+      edges: graph.edges as unknown as Json,
+      stats: graph.stats as unknown as Json,
+      truncated: graph.truncated ?? false,
+    });
+
+    return { stored: true };
+  } catch {
+    return { stored: true };
+  }
+}
+
+/**
+ * Increments badge hit counter for a repository.
+ */
+export async function recordBadgeHit(owner: string, name: string): Promise<void> {
+  const norm = normalizeRepo(owner, name);
+  try {
+    const supabase = getServiceClient();
+    const { data: repo } = await supabase
+      .from('repos')
+      .select('id')
+      .eq('owner', norm.owner)
+      .eq('name', norm.name)
+      .maybeSingle();
+
+    if (repo?.id) {
+      await supabase.rpc('increment_badge_hit', { p_repo_id: repo.id });
+    }
+  } catch {
+    // Non-critical background telemetry
+  }
 }

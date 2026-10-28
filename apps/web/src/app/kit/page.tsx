@@ -79,7 +79,12 @@ const SAMPLE_FIX: Fix = {
 const SAMPLE_STEPS: StepItem[] = [
   { id: '1', label: 'Finding the repo', status: 'completed' },
   { id: '2', label: 'Reading commits and issues', status: 'completed' },
-  { id: '3', label: 'Checking docs, tests and CI', status: 'active', progressText: 'Analyzing 4 workflows...' },
+  {
+    id: '3',
+    label: 'Checking docs, tests and CI',
+    status: 'active',
+    progressText: 'Analyzing 4 workflows...',
+  },
   { id: '4', label: 'Drawing the map', status: 'pending' },
 ];
 
@@ -130,9 +135,7 @@ export default function KitPage() {
               className="p-4 rounded-control border-2 border-ink bg-card text-center shadow-[3px_3px_0_var(--ink)] flex flex-col items-center justify-between space-y-2 hover:-translate-y-1 transition-transform"
             >
               <Tilly mood={mood} size={72} />
-              <div className="font-mono text-xs font-bold capitalize text-ink">
-                {mood}
-              </div>
+              <div className="font-mono text-xs font-bold capitalize text-ink">{mood}</div>
             </div>
           ))}
         </div>
@@ -145,13 +148,27 @@ export default function KitPage() {
           <span className="text-xs font-mono text-ink-muted">flat fills + hard shadows</span>
         </div>
         <div className="flex flex-wrap gap-4 items-center p-6 rounded-card border-2 border-ink bg-paper-2 bg-dots">
-          <StickerBadge variant="lime" rotate="left">Excellent 92</StickerBadge>
-          <StickerBadge variant="sky" rotate="right">Good 81</StickerBadge>
-          <StickerBadge variant="sun" rotate="left">Needs work 68</StickerBadge>
-          <StickerBadge variant="coral" rotate="right">At risk 42</StickerBadge>
-          <StickerBadge variant="primary" rotate="left">Free / Open Source</StickerBadge>
-          <StickerBadge variant="card" rotate="right">+4 pts</StickerBadge>
-          <StickerBadge variant="sun" size="lg" rotate="none">Featured Sample</StickerBadge>
+          <StickerBadge variant="lime" rotate="left">
+            Excellent 92
+          </StickerBadge>
+          <StickerBadge variant="sky" rotate="right">
+            Good 81
+          </StickerBadge>
+          <StickerBadge variant="sun" rotate="left">
+            Needs work 68
+          </StickerBadge>
+          <StickerBadge variant="coral" rotate="right">
+            At risk 42
+          </StickerBadge>
+          <StickerBadge variant="primary" rotate="left">
+            Free / Open Source
+          </StickerBadge>
+          <StickerBadge variant="card" rotate="right">
+            +4 pts
+          </StickerBadge>
+          <StickerBadge variant="sun" size="lg" rotate="none">
+            Featured Sample
+          </StickerBadge>
         </div>
       </section>
 
@@ -207,7 +224,9 @@ export default function KitPage() {
       <section className="space-y-4">
         <div className="flex items-center justify-between border-b-2 border-ink pb-2">
           <h2 className="font-display font-bold text-xl text-ink">6. Cards & Rows</h2>
-          <span className="text-xs font-mono text-ink-muted">CategoryRow, FixCard, InsightCard</span>
+          <span className="text-xs font-mono text-ink-muted">
+            CategoryRow, FixCard, InsightCard
+          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

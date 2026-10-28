@@ -32,7 +32,10 @@ export function loadEnvTokens(): void {
           if (trimmed && !trimmed.startsWith('#') && trimmed.includes('=')) {
             const [k, ...v] = trimmed.split('=');
             const key = k.trim();
-            const val = v.join('=').trim().replace(/^["']|["']$/g, '');
+            const val = v
+              .join('=')
+              .trim()
+              .replace(/^["']|["']$/g, '');
             if (!process.env[key] && val) {
               process.env[key] = val;
             }
@@ -60,10 +63,7 @@ export function formatGrade(grade: Grade): string {
   }
 }
 
-export function formatReport(
-  report: AnalysisReport,
-  options: { noColor?: boolean } = {}
-): string {
+export function formatReport(report: AnalysisReport, options: { noColor?: boolean } = {}): string {
   const useColor = !options.noColor && !process.env.NO_COLOR;
 
   // Grade color
@@ -102,7 +102,7 @@ export function formatReport(
       : '';
 
   lines.push(
-    `${bold}${report.repo.owner}/${report.repo.name}${resetColor}  ${bold}${report.score}/100${resetColor}  ${gradeColor}${gradeLabel}${resetColor}${projectedStr}`
+    `${bold}${report.repo.owner}/${report.repo.name}${resetColor}  ${bold}${report.score}/100${resetColor}  ${gradeColor}${gradeLabel}${resetColor}${projectedStr}`,
   );
   lines.push('');
 
@@ -149,7 +149,7 @@ export function createProgram(): Command {
       // Check for local path mode
       if (target === '.' || target.startsWith('./') || target.startsWith('../')) {
         console.error(
-          `Local path mode for "${target}" is not yet available in this release. Please specify a GitHub repository (e.g. expressjs/express or https://github.com/expressjs/express).`
+          `Local path mode for "${target}" is not yet available in this release. Please specify a GitHub repository (e.g. expressjs/express or https://github.com/expressjs/express).`,
         );
         process.exit(2);
         return;
@@ -160,7 +160,7 @@ export function createProgram(): Command {
         repoTarget = normalizeRepoTarget(target);
       } catch {
         console.error(
-          `Error: Invalid target "${target}". Expected owner/repo or https://github.com/owner/repo`
+          `Error: Invalid target "${target}". Expected owner/repo or https://github.com/owner/repo`,
         );
         process.exit(2);
         return;
@@ -212,12 +212,12 @@ export function createProgram(): Command {
           process.exitCode = 3;
         } else if (err instanceof PrivateRepoError) {
           console.error(
-            `Error: "${repoTarget.owner}/${repoTarget.name}" is private. RepoMetric v1 supports public repositories only.`
+            `Error: "${repoTarget.owner}/${repoTarget.name}" is private. RepoMetric v1 supports public repositories only.`,
           );
           process.exitCode = 3;
         } else if (err instanceof RateLimitError) {
           console.error(
-            `Error: GitHub rate limit reached. Resets at ${err.resetAt.toISOString()}. Pass --token or set GITHUB_TOKEN.`
+            `Error: GitHub rate limit reached. Resets at ${err.resetAt.toISOString()}. Pass --token or set GITHUB_TOKEN.`,
           );
           process.exitCode = 4;
         } else if (err instanceof UpstreamError) {

@@ -3,13 +3,7 @@
 import React from 'react';
 
 export type TillyMood =
-  | 'idle'
-  | 'scanning'
-  | 'happy'
-  | 'celebrating'
-  | 'neutral'
-  | 'worried'
-  | 'lost';
+  'idle' | 'scanning' | 'happy' | 'celebrating' | 'neutral' | 'worried' | 'lost';
 
 export interface TillyProps {
   mood?: TillyMood;
@@ -92,16 +86,16 @@ export function Tilly({ mood = 'idle', size = 64, className = '' }: TillyProps) 
         stroke="var(--ink)"
         strokeWidth="3"
       />
-      <path
-        d="M16 28 L84 28"
-        stroke="var(--ink)"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-      />
+      <path d="M16 28 L84 28" stroke="var(--ink)" strokeWidth="3.5" strokeLinecap="round" />
 
       {/* Tiny Compass Badge on Cap */}
       <circle cx="50" cy="18" r="6.5" fill="var(--sky)" stroke="var(--ink)" strokeWidth="2" />
-      <path d="M50 14 L52 18 L50 22 L48 18 Z" fill="var(--coral)" stroke="var(--ink)" strokeWidth="1" />
+      <path
+        d="M50 14 L52 18 L50 22 L48 18 Z"
+        fill="var(--coral)"
+        stroke="var(--ink)"
+        strokeWidth="1"
+      />
 
       {/* Eyes and Mouth based on mood */}
       {mood === 'idle' && (
@@ -111,7 +105,12 @@ export function Tilly({ mood = 'idle', size = 64, className = '' }: TillyProps) 
           <circle cx="42" cy="44" r="1.5" fill="var(--card)" />
           <circle cx="62" cy="44" r="1.5" fill="var(--card)" />
           {/* Subtle friendly curve mouth */}
-          <path d="M44 58 Q50 63 56 58" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" />
+          <path
+            d="M44 58 Q50 63 56 58"
+            stroke="var(--ink)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
         </g>
       )}
 
@@ -129,8 +128,21 @@ export function Tilly({ mood = 'idle', size = 64, className = '' }: TillyProps) 
           {/* Magnifying Glass held in hand */}
           <g transform="translate(62, 42) rotate(15)">
             <circle cx="12" cy="12" r="9" fill="var(--sky)" stroke="var(--ink)" strokeWidth="2.5" />
-            <line x1="18" y1="18" x2="28" y2="28" stroke="var(--ink)" strokeWidth="3.5" strokeLinecap="round" />
-            <path d="M8 8 Q14 6 16 12" stroke="var(--card)" strokeWidth="1.5" strokeLinecap="round" />
+            <line
+              x1="18"
+              y1="18"
+              x2="28"
+              y2="28"
+              stroke="var(--ink)"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+            />
+            <path
+              d="M8 8 Q14 6 16 12"
+              stroke="var(--card)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </g>
         </g>
       )}
@@ -171,8 +183,18 @@ export function Tilly({ mood = 'idle', size = 64, className = '' }: TillyProps) 
             strokeLinejoin="round"
           />
           {/* Star bursts near hands */}
-          <path d="M8 22 L10 26 L14 26 L11 29 L12 33 L8 30 L4 33 L5 29 L2 26 L6 26 Z" fill="var(--lime)" stroke="var(--ink)" strokeWidth="1" />
-          <path d="M90 22 L92 26 L96 26 L93 29 L94 33 L90 30 L86 33 L87 29 L84 26 L88 26 Z" fill="var(--lime)" stroke="var(--ink)" strokeWidth="1" />
+          <path
+            d="M8 22 L10 26 L14 26 L11 29 L12 33 L8 30 L4 33 L5 29 L2 26 L6 26 Z"
+            fill="var(--lime)"
+            stroke="var(--ink)"
+            strokeWidth="1"
+          />
+          <path
+            d="M90 22 L92 26 L96 26 L93 29 L94 33 L90 30 L86 33 L87 29 L84 26 L88 26 Z"
+            fill="var(--lime)"
+            stroke="var(--ink)"
+            strokeWidth="1"
+          />
         </g>
       )}
 
@@ -184,7 +206,15 @@ export function Tilly({ mood = 'idle', size = 64, className = '' }: TillyProps) 
           <circle cx="42" cy="43" r="1.5" fill="var(--card)" />
           <circle cx="62" cy="43" r="1.5" fill="var(--card)" />
           {/* Straight flat mouth */}
-          <line x1="43" y1="58" x2="57" y2="58" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" />
+          <line
+            x1="43"
+            y1="58"
+            x2="57"
+            y2="58"
+            stroke="var(--ink)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
           {/* Thinking hand under chin */}
           <path d="M44 65 Q50 63 56 65" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round" />
         </g>
@@ -201,9 +231,20 @@ export function Tilly({ mood = 'idle', size = 64, className = '' }: TillyProps) 
           <circle cx="41" cy="46" r="1.5" fill="var(--card)" />
           <circle cx="63" cy="46" r="1.5" fill="var(--card)" />
           {/* Wavy nervous mouth */}
-          <path d="M42 60 Q46 57 50 60 Q54 63 58 60" stroke="var(--ink)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+          <path
+            d="M42 60 Q46 57 50 60 Q54 63 58 60"
+            stroke="var(--ink)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+          />
           {/* Sweat drop on forehead */}
-          <path d="M27 38 C27 34, 30 31, 30 28 C30 31, 33 34, 33 38 C33 40, 30 42, 27 38 Z" fill="var(--sky)" stroke="var(--ink)" strokeWidth="1.5" />
+          <path
+            d="M27 38 C27 34, 30 31, 30 28 C30 31, 33 34, 33 38 C33 40, 30 42, 27 38 Z"
+            fill="var(--sky)"
+            stroke="var(--ink)"
+            strokeWidth="1.5"
+          />
         </g>
       )}
 
@@ -215,15 +256,51 @@ export function Tilly({ mood = 'idle', size = 64, className = '' }: TillyProps) 
           <circle cx="62" cy="45" r="4.5" fill="none" stroke="var(--ink)" strokeWidth="2" />
           <circle cx="62" cy="45" r="1.5" fill="var(--ink)" />
           {/* Little puzzled mouth */}
-          <path d="M46 58 Q50 54 54 58" stroke="var(--ink)" strokeWidth="2" strokeLinecap="round" fill="none" />
+          <path
+            d="M46 58 Q50 54 54 58"
+            stroke="var(--ink)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            fill="none"
+          />
           {/* Holding an upside-down map sheet */}
           <g transform="translate(30, 58) rotate(-10)">
-            <rect x="0" y="0" width="40" height="26" rx="2" fill="var(--paper-2)" stroke="var(--ink)" strokeWidth="2" />
+            <rect
+              x="0"
+              y="0"
+              width="40"
+              height="26"
+              rx="2"
+              fill="var(--paper-2)"
+              stroke="var(--ink)"
+              strokeWidth="2"
+            />
             {/* Grid fold lines */}
-            <line x1="13" y1="0" x2="13" y2="26" stroke="var(--ink-muted)" strokeWidth="1" strokeDasharray="2 2" />
-            <line x1="27" y1="0" x2="27" y2="26" stroke="var(--ink-muted)" strokeWidth="1" strokeDasharray="2 2" />
+            <line
+              x1="13"
+              y1="0"
+              x2="13"
+              y2="26"
+              stroke="var(--ink-muted)"
+              strokeWidth="1"
+              strokeDasharray="2 2"
+            />
+            <line
+              x1="27"
+              y1="0"
+              x2="27"
+              y2="26"
+              stroke="var(--ink-muted)"
+              strokeWidth="1"
+              strokeDasharray="2 2"
+            />
             {/* Upside down compass mark */}
-            <path d="M20 18 L17 8 L20 12 L23 8 Z" fill="var(--coral)" stroke="var(--ink)" strokeWidth="1" />
+            <path
+              d="M20 18 L17 8 L20 12 L23 8 Z"
+              fill="var(--coral)"
+              stroke="var(--ink)"
+              strokeWidth="1"
+            />
           </g>
         </g>
       )}

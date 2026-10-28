@@ -3,14 +3,7 @@
 import React, { useState } from 'react';
 import { StickerBadge } from './StickerBadge';
 import { ChunkyButton } from './ChunkyButton';
-import {
-  Check,
-  Copy,
-  ChevronRight,
-  Folder,
-  Terminal,
-  RotateCcw,
-} from 'lucide-react';
+import { Check, Copy, ChevronRight, Folder, Terminal, RotateCcw } from 'lucide-react';
 
 /* 1. Score with Receipts Interactive Demo */
 export function DemoScoreReceipts() {
@@ -20,25 +13,70 @@ export function DemoScoreReceipts() {
     docs: {
       score: '17.5 / 20 pts',
       items: [
-        { label: 'README length & sections', pts: '+10.0', pass: true, desc: 'Install, usage, and quickstart detected.' },
-        { label: 'Open-source License', pts: '+5.0', pass: true, desc: 'Standard MIT License found in root.' },
-        { label: 'Contributing guide', pts: '+2.5', pass: false, desc: 'CONTRIBUTING.md lacks PR template.' },
+        {
+          label: 'README length & sections',
+          pts: '+10.0',
+          pass: true,
+          desc: 'Install, usage, and quickstart detected.',
+        },
+        {
+          label: 'Open-source License',
+          pts: '+5.0',
+          pass: true,
+          desc: 'Standard MIT License found in root.',
+        },
+        {
+          label: 'Contributing guide',
+          pts: '+2.5',
+          pass: false,
+          desc: 'CONTRIBUTING.md lacks PR template.',
+        },
       ],
     },
     hygiene: {
       score: '16.0 / 20 pts',
       items: [
-        { label: 'Automated CI workflow', pts: '+10.0', pass: true, desc: 'GitHub Actions running tests on pull requests.' },
-        { label: '.gitignore hygiene', pts: '+4.0', pass: true, desc: 'Node modules and environment files ignored.' },
-        { label: 'Branch protection', pts: '+2.0', pass: false, desc: 'Direct pushes allowed on main branch.' },
+        {
+          label: 'Automated CI workflow',
+          pts: '+10.0',
+          pass: true,
+          desc: 'GitHub Actions running tests on pull requests.',
+        },
+        {
+          label: '.gitignore hygiene',
+          pts: '+4.0',
+          pass: true,
+          desc: 'Node modules and environment files ignored.',
+        },
+        {
+          label: 'Branch protection',
+          pts: '+2.0',
+          pass: false,
+          desc: 'Direct pushes allowed on main branch.',
+        },
       ],
     },
     activity: {
       score: '19.0 / 20 pts',
       items: [
-        { label: 'Commit cadence (90d)', pts: '+10.0', pass: true, desc: '52 commits across 11 active weeks.' },
-        { label: 'Issue resolution rate', pts: '+5.0', pass: true, desc: 'Median issue close time: 3.2 days.' },
-        { label: 'Recent tag / release', pts: '+4.0', pass: true, desc: 'v1.4.0 tagged 18 days ago.' },
+        {
+          label: 'Commit cadence (90d)',
+          pts: '+10.0',
+          pass: true,
+          desc: '52 commits across 11 active weeks.',
+        },
+        {
+          label: 'Issue resolution rate',
+          pts: '+5.0',
+          pass: true,
+          desc: 'Median issue close time: 3.2 days.',
+        },
+        {
+          label: 'Recent tag / release',
+          pts: '+4.0',
+          pass: true,
+          desc: 'v1.4.0 tagged 18 days ago.',
+        },
       ],
     },
   };
@@ -103,7 +141,9 @@ export function DemoFixList() {
       <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
         <div className="flex items-center space-x-2">
           <span className="text-xs font-medium text-ink-muted uppercase">Health:</span>
-          <span className="font-display font-extrabold text-lg text-ink">{projected.toFixed(1)}</span>
+          <span className="font-display font-extrabold text-lg text-ink">
+            {projected.toFixed(1)}
+          </span>
           {done && (
             <StickerBadge variant="lime" size="sm">
               +4.5 pts gained!
@@ -133,7 +173,9 @@ export function DemoFixList() {
               {done && <Check className="w-3.5 h-3.5 stroke-[3]" />}
             </button>
             <div>
-              <span className={`text-xs sm:text-sm font-semibold text-ink ${done ? 'line-through text-ink-muted' : ''}`}>
+              <span
+                className={`text-xs sm:text-sm font-semibold text-ink ${done ? 'line-through text-ink-muted' : ''}`}
+              >
                 Add an open source license (MIT/Apache)
               </span>
               <p className="text-[11px] text-ink-muted">Effort: about 2 minutes</p>
@@ -273,7 +315,9 @@ export function DemoDependencyGraph() {
       </div>
 
       <div className="text-xs font-mono text-ink-muted flex justify-between">
-        <span>Selected: <span className="font-semibold text-ink">{selectedNode}</span></span>
+        <span>
+          Selected: <span className="font-semibold text-ink">{selectedNode}</span>
+        </span>
         <span>Fan-in: 18 • Fan-out: 4</span>
       </div>
     </div>
@@ -310,7 +354,11 @@ flowchart TD
           onClick={copySnippet}
           className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800 bg-paper-2 hover:bg-slate-200/60 dark:hover:bg-slate-800 text-xs font-medium text-ink transition-colors"
         >
-          {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+          {copied ? (
+            <Check className="w-3.5 h-3.5 text-emerald-500" />
+          ) : (
+            <Copy className="w-3.5 h-3.5" />
+          )}
           <span>{copied ? 'Copied!' : 'Copy README snippet'}</span>
         </button>
       </div>
@@ -345,11 +393,15 @@ export function DemoShowItOff() {
       {/* Live Badge Preview */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
         <div>
-          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">README Badge</span>
+          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
+            README Badge
+          </span>
           <div className="pt-2 flex items-center space-x-2">
             <span className="inline-flex rounded-md border border-slate-300 dark:border-slate-700 overflow-hidden font-mono text-xs shadow-sm">
               <span className="bg-slate-900 text-white px-2 py-0.5">repometric</span>
-              <span className="bg-emerald-500 text-white px-2 py-0.5 font-semibold">92 • excellent</span>
+              <span className="bg-emerald-500 text-white px-2 py-0.5 font-semibold">
+                92 • excellent
+              </span>
             </span>
           </div>
         </div>
@@ -370,10 +422,14 @@ export function DemoShowItOff() {
       {/* CLI terminal command */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">Terminal CLI</span>
+          <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
+            Terminal CLI
+          </span>
           <div className="pt-2 font-mono text-xs text-ink flex items-center space-x-2">
             <Terminal className="w-4 h-4 text-primary shrink-0" />
-            <code className="bg-paper-2 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800 font-semibold">{cliCommand}</code>
+            <code className="bg-paper-2 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800 font-semibold">
+              {cliCommand}
+            </code>
           </div>
         </div>
         <ChunkyButton

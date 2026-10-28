@@ -88,12 +88,13 @@ export default function HomePage() {
         </section>
 
         {/* 1.3 How it works */}
-        <section id="how-it-works" className="py-20 sm:py-24 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper-2">
+        <section
+          id="how-it-works"
+          className="py-20 sm:py-24 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper-2"
+        >
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-2.5 max-w-xl mx-auto">
-              <StickerBadge variant="primary">
-                Simple 3-Step Sequence
-              </StickerBadge>
+              <StickerBadge variant="primary">Simple 3-Step Sequence</StickerBadge>
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
                 How it works
               </h2>
@@ -125,7 +126,9 @@ export default function HomePage() {
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-display font-extrabold text-base">
                     2
                   </div>
-                  <h3 className="font-display font-bold text-xl text-ink">We read the public data</h3>
+                  <h3 className="font-display font-bold text-xl text-ink">
+                    We read the public data
+                  </h3>
                   <p className="text-sm text-ink-muted leading-relaxed">
                     Commits, issues, files and imports. Nothing is cloned or run on our servers.
                   </p>
@@ -144,7 +147,8 @@ export default function HomePage() {
                   </div>
                   <h3 className="font-display font-bold text-xl text-ink">Get your report</h3>
                   <p className="text-sm text-ink-muted leading-relaxed">
-                    A 0–100 health score, a prioritized fix list, and interactive visualizers of your code.
+                    A 0–100 health score, a prioritized fix list, and interactive visualizers of
+                    your code.
                   </p>
                 </div>
                 <div className="flex items-center justify-between text-xs font-semibold text-ink bg-paper-2 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800">
@@ -157,11 +161,12 @@ export default function HomePage() {
         </section>
 
         {/* 1.4 What you get */}
-        <section id="what-you-get" className="py-20 sm:py-28 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper space-y-20 max-w-6xl mx-auto">
+        <section
+          id="what-you-get"
+          className="py-20 sm:py-28 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper space-y-20 max-w-6xl mx-auto"
+        >
           <div className="text-center space-y-2.5 max-w-xl mx-auto">
-            <StickerBadge variant="lime">
-              Complete Feature Suite
-            </StickerBadge>
+            <StickerBadge variant="lime">Complete Feature Suite</StickerBadge>
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
               What you get
             </h2>
@@ -201,7 +206,8 @@ export default function HomePage() {
                 A to-do list, sorted by payoff
               </h3>
               <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                Add a license: +4 points, about 2 minutes. Fixes are ranked by points gained per effort so you can make fast gains.
+                Add a license: +4 points, about 2 minutes. Fixes are ranked by points gained per
+                effort so you can make fast gains.
               </p>
             </div>
           </div>
@@ -216,7 +222,8 @@ export default function HomePage() {
                 See the whole repo at a glance
               </h3>
               <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                Every file is a tile. Bigger tile, bigger file. Click any folder to zoom in and discover hidden hotspots.
+                Every file is a tile. Bigger tile, bigger file. Click any folder to zoom in and
+                discover hidden hotspots.
               </p>
             </div>
             <div className="lg:col-span-7">
@@ -237,7 +244,8 @@ export default function HomePage() {
                 Who depends on whom
               </h3>
               <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                Spot the file everything relies on, and the circular imports that cause headaches in your CI pipeline.
+                Spot the file everything relies on, and the circular imports that cause headaches in
+                your CI pipeline.
               </p>
             </div>
           </div>
@@ -252,7 +260,8 @@ export default function HomePage() {
                 The architecture, drawn for you
               </h3>
               <p className="text-sm sm:text-base text-ink-muted leading-relaxed">
-                Components, layers and the services they use, as a clean flowchart you can paste directly into your README.
+                Components, layers and the services they use, as a clean flowchart you can paste
+                directly into your README.
               </p>
             </div>
             <div className="lg:col-span-7">
@@ -271,7 +280,8 @@ export default function HomePage() {
                   Show it off
                 </h3>
                 <p className="text-xs sm:text-sm text-ink-muted">
-                  A live SVG badge for your README, and a zero-install CLI command for your terminal.
+                  A live SVG badge for your README, and a zero-install CLI command for your
+                  terminal.
                 </p>
               </div>
               <DemoShowItOff />
@@ -283,9 +293,7 @@ export default function HomePage() {
         <section className="py-20 sm:py-24 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper-2">
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-2.5 max-w-xl mx-auto">
-              <StickerBadge variant="sun">
-                Target Audience
-              </StickerBadge>
+              <StickerBadge variant="sun">Target Audience</StickerBadge>
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
                 Who it&apos;s for
               </h2>
@@ -303,7 +311,8 @@ export default function HomePage() {
                   </div>
                   <h3 className="font-display font-bold text-xl text-ink">Students</h3>
                   <p className="text-sm text-ink-muted leading-relaxed">
-                    Polish your portfolio repos before placements. Turn vague project directories into production-ready showcases with tests, licenses, and architecture docs.
+                    Polish your portfolio repos before placements. Turn vague project directories
+                    into production-ready showcases with tests, licenses, and architecture docs.
                   </p>
                 </div>
                 <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-paper-2 text-xs font-mono text-ink">
@@ -337,7 +346,8 @@ export default function HomePage() {
                   </div>
                   <h3 className="font-display font-bold text-xl text-ink">Recruiters & Leads</h3>
                   <p className="text-sm text-ink-muted leading-relaxed">
-                    Judge a repo in 30 seconds. Verify genuine engineering hygiene, CI test coverage, and documentation.
+                    Judge a repo in 30 seconds. Verify genuine engineering hygiene, CI test
+                    coverage, and documentation.
                   </p>
                 </div>
                 <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-paper-2 inline-block w-fit text-xs font-mono text-ink">
@@ -353,7 +363,8 @@ export default function HomePage() {
                   </div>
                   <h3 className="font-display font-bold text-xl text-ink">Maintainers</h3>
                   <p className="text-sm text-ink-muted leading-relaxed">
-                    Fail CI when repository health drops. Run `npx repometric --min-score 80` in GitHub Actions to stop hygiene rot.
+                    Fail CI when repository health drops. Run `npx repometric --min-score 80` in
+                    GitHub Actions to stop hygiene rot.
                   </p>
                 </div>
                 <div className="font-mono text-xs bg-paper-2 p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-ink">
@@ -378,12 +389,36 @@ export default function HomePage() {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5">
               {[
-                { label: 'Activity', desc: 'Cadence & releases', icon: <Activity className="w-4 h-4 text-indigo-500" /> },
-                { label: 'Maintenance', desc: 'Issue resolution', icon: <GitPullRequest className="w-4 h-4 text-sky-500" /> },
-                { label: 'Community', desc: 'Governance & code', icon: <Users className="w-4 h-4 text-emerald-500" /> },
-                { label: 'Docs', desc: 'README & license', icon: <FileText className="w-4 h-4 text-amber-500" /> },
-                { label: 'Hygiene', desc: 'CI & git hygiene', icon: <ShieldCheck className="w-4 h-4 text-teal-500" /> },
-                { label: 'Dependencies', desc: 'Vulnerabilities', icon: <Boxes className="w-4 h-4 text-rose-500" /> },
+                {
+                  label: 'Activity',
+                  desc: 'Cadence & releases',
+                  icon: <Activity className="w-4 h-4 text-indigo-500" />,
+                },
+                {
+                  label: 'Maintenance',
+                  desc: 'Issue resolution',
+                  icon: <GitPullRequest className="w-4 h-4 text-sky-500" />,
+                },
+                {
+                  label: 'Community',
+                  desc: 'Governance & code',
+                  icon: <Users className="w-4 h-4 text-emerald-500" />,
+                },
+                {
+                  label: 'Docs',
+                  desc: 'README & license',
+                  icon: <FileText className="w-4 h-4 text-amber-500" />,
+                },
+                {
+                  label: 'Hygiene',
+                  desc: 'CI & git hygiene',
+                  icon: <ShieldCheck className="w-4 h-4 text-teal-500" />,
+                },
+                {
+                  label: 'Dependencies',
+                  desc: 'Vulnerabilities',
+                  icon: <Boxes className="w-4 h-4 text-rose-500" />,
+                },
               ].map((c) => (
                 <div
                   key={c.label}
@@ -415,9 +450,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto space-y-10">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-1">
-                <StickerBadge variant="sun">
-                  Sample Gallery
-                </StickerBadge>
+                <StickerBadge variant="sun">Sample Gallery</StickerBadge>
                 <h2 className="font-display font-extrabold text-3xl text-ink tracking-tight">
                   Try a pre-analyzed repo
                 </h2>
@@ -432,12 +465,54 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {[
-                { owner: 'facebook', repo: 'react', score: 88, grade: 'Good', variant: 'sky' as const, desc: 'Component library hub' },
-                { owner: 'expressjs', repo: 'express', score: 78, grade: 'Good', variant: 'sky' as const, desc: 'Fast, unopinionated web framework' },
-                { owner: 'pallets', repo: 'flask', score: 82, grade: 'Good', variant: 'sky' as const, desc: 'Python micro web framework' },
-                { owner: 'vercel', repo: 'next.js', score: 91, grade: 'Excellent', variant: 'lime' as const, desc: 'React framework for the web' },
-                { owner: 'tailwindlabs', repo: 'tailwindcss', score: 85, grade: 'Good', variant: 'sky' as const, desc: 'Utility-first CSS framework' },
-                { owner: 'torvalds', repo: 'linux', score: 72, grade: 'Needs work', variant: 'sun' as const, desc: 'Linux kernel tree' },
+                {
+                  owner: 'facebook',
+                  repo: 'react',
+                  score: 88,
+                  grade: 'Good',
+                  variant: 'sky' as const,
+                  desc: 'Component library hub',
+                },
+                {
+                  owner: 'expressjs',
+                  repo: 'express',
+                  score: 78,
+                  grade: 'Good',
+                  variant: 'sky' as const,
+                  desc: 'Fast, unopinionated web framework',
+                },
+                {
+                  owner: 'pallets',
+                  repo: 'flask',
+                  score: 82,
+                  grade: 'Good',
+                  variant: 'sky' as const,
+                  desc: 'Python micro web framework',
+                },
+                {
+                  owner: 'vercel',
+                  repo: 'next.js',
+                  score: 91,
+                  grade: 'Excellent',
+                  variant: 'lime' as const,
+                  desc: 'React framework for the web',
+                },
+                {
+                  owner: 'tailwindlabs',
+                  repo: 'tailwindcss',
+                  score: 85,
+                  grade: 'Good',
+                  variant: 'sky' as const,
+                  desc: 'Utility-first CSS framework',
+                },
+                {
+                  owner: 'torvalds',
+                  repo: 'linux',
+                  score: 72,
+                  grade: 'Needs work',
+                  variant: 'sun' as const,
+                  desc: 'Linux kernel tree',
+                },
               ].map((r) => (
                 <Link
                   key={`${r.owner}/${r.repo}`}
@@ -456,9 +531,7 @@ export default function HomePage() {
                     <div className="font-display font-extrabold text-xl text-ink truncate">
                       {r.repo}
                     </div>
-                    <p className="text-xs text-ink-muted line-clamp-2 leading-relaxed">
-                      {r.desc}
-                    </p>
+                    <p className="text-xs text-ink-muted line-clamp-2 leading-relaxed">{r.desc}</p>
                   </div>
 
                   <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
@@ -536,12 +609,13 @@ export default function HomePage() {
         </section>
 
         {/* 1.9 FAQ */}
-        <section id="faq" className="py-20 sm:py-24 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper-2">
+        <section
+          id="faq"
+          className="py-20 sm:py-24 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper-2"
+        >
           <div className="max-w-4xl mx-auto space-y-10">
             <div className="text-center space-y-2.5">
-              <StickerBadge variant="primary">
-                Frequently Answered
-              </StickerBadge>
+              <StickerBadge variant="primary">Frequently Answered</StickerBadge>
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-ink tracking-tight">
                 Frequently Asked Questions
               </h2>
@@ -560,7 +634,8 @@ export default function HomePage() {
                 Ready? Paste a repo link.
               </h2>
               <p className="text-sm text-ink-muted">
-                Inspect your score, get your prioritized fix list, and explore your interactive treemap now.
+                Inspect your score, get your prioritized fix list, and explore your interactive
+                treemap now.
               </p>
             </div>
             <div className="w-full max-w-xl z-10">

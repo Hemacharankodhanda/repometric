@@ -24,7 +24,9 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'How is the score calculated?',
     answer: (
       <span>
-        The 0–100 score is calculated across six weighted engineering categories: Activity, Maintenance, Community, Documentation, Hygiene, and Dependencies. Every single point deduction includes clear evidence. Read all 23 checks on our{' '}
+        The 0–100 score is calculated across six weighted engineering categories: Activity,
+        Maintenance, Community, Documentation, Hygiene, and Dependencies. Every single point
+        deduction includes clear evidence. Read all 23 checks on our{' '}
         <Link href="/methodology" className="font-semibold text-primary underline">
           Methodology page
         </Link>

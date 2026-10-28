@@ -43,26 +43,59 @@ test('Diagram tab: navigation, component inspection, list toggle, and SVG export
           { path: 'packages/core/package.json', size: 300, language: 'JSON', isTest: false },
           { path: 'packages/core/src/index.ts', size: 800, language: 'TypeScript', isTest: false },
           { path: 'packages/viz/package.json', size: 350, language: 'JSON', isTest: false },
-          { path: 'packages/viz/src/RepoMap.tsx', size: 2000, language: 'TypeScript', isTest: false },
+          {
+            path: 'packages/viz/src/RepoMap.tsx',
+            size: 2000,
+            language: 'TypeScript',
+            isTest: false,
+          },
         ],
         graph: {
           status: 'ready',
           data: {
             nodes: [
-              { id: 'apps/web/src/app/page.tsx', folder: 'apps/web/src/app', language: 'TypeScript', size: 1200, fanIn: 0, fanOut: 2, isTest: false },
-              { id: 'packages/core/src/index.ts', folder: 'packages/core/src', language: 'TypeScript', size: 800, fanIn: 1, fanOut: 0, isTest: false },
-              { id: 'packages/viz/src/RepoMap.tsx', folder: 'packages/viz/src', language: 'TypeScript', size: 2000, fanIn: 1, fanOut: 1, isTest: false },
+              {
+                id: 'apps/web/src/app/page.tsx',
+                folder: 'apps/web/src/app',
+                language: 'TypeScript',
+                size: 1200,
+                fanIn: 0,
+                fanOut: 2,
+                isTest: false,
+              },
+              {
+                id: 'packages/core/src/index.ts',
+                folder: 'packages/core/src',
+                language: 'TypeScript',
+                size: 800,
+                fanIn: 1,
+                fanOut: 0,
+                isTest: false,
+              },
+              {
+                id: 'packages/viz/src/RepoMap.tsx',
+                folder: 'packages/viz/src',
+                language: 'TypeScript',
+                size: 2000,
+                fanIn: 1,
+                fanOut: 1,
+                isTest: false,
+              },
             ],
             edges: [
-              { source: 'apps/web/src/app/page.tsx', target: 'packages/viz/src/RepoMap.tsx', kind: 'static' },
-              { source: 'apps/web/src/app/page.tsx', target: 'packages/core/src/index.ts', kind: 'static' },
+              {
+                source: 'apps/web/src/app/page.tsx',
+                target: 'packages/viz/src/RepoMap.tsx',
+                kind: 'static',
+              },
+              {
+                source: 'apps/web/src/app/page.tsx',
+                target: 'packages/core/src/index.ts',
+                kind: 'static',
+              },
             ],
-            externals: [
-              { name: 'react', importedBy: 2 },
-            ],
-            externalEdges: [
-              { source: 'apps/web/src/app/page.tsx', target: 'react' },
-            ],
+            externals: [{ name: 'react', importedBy: 2 }],
+            externalEdges: [{ source: 'apps/web/src/app/page.tsx', target: 'react' }],
             stats: {
               nodeCount: 3,
               edgeCount: 2,
@@ -96,7 +129,9 @@ test('Diagram tab: navigation, component inspection, list toggle, and SVG export
   await expect(diagramContainer).toBeVisible();
 
   // Wait for Mermaid SVG to render inside canvas container
-  const svg = diagramContainer.locator('[aria-label="Interactive architecture diagram canvas"] svg');
+  const svg = diagramContainer.locator(
+    '[aria-label="Interactive architecture diagram canvas"] svg',
+  );
   await expect(svg).toBeVisible({ timeout: 20000 });
 
   // 4. Click a component node in the diagram

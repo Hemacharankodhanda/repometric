@@ -17,12 +17,10 @@ const VARIANT_STYLES: Record<ChunkyButtonVariant, string> = {
     'bg-primary text-on-primary border border-primary/20 shadow-sm hover:shadow-md hover:shadow-primary/20 hover:brightness-105 active:scale-[0.98]',
   secondary:
     'bg-card text-ink border border-slate-200 dark:border-slate-800 shadow-sm hover:bg-paper-2 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98]',
-  lime:
-    'bg-lime text-slate-900 border border-lime/30 shadow-sm hover:brightness-105 active:scale-[0.98]',
+  lime: 'bg-lime text-slate-900 border border-lime/30 shadow-sm hover:brightness-105 active:scale-[0.98]',
   coral:
     'bg-coral text-white border border-coral/30 shadow-sm hover:brightness-105 active:scale-[0.98]',
-  ghost:
-    'bg-transparent text-ink hover:bg-ink/5 dark:hover:bg-white/10 active:scale-[0.98]',
+  ghost: 'bg-transparent text-ink hover:bg-ink/5 dark:hover:bg-white/10 active:scale-[0.98]',
 };
 
 const SIZE_STYLES: Record<ChunkyButtonSize, string> = {

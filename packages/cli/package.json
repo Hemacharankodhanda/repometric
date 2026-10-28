@@ -1,6 +1,22 @@
 {
   "name": "@repometric/cli",
   "version": "0.1.0",
+  "description": "Command-line interface for RepoMetric: analyze GitHub repositories for health, structure, and dependencies directly from your terminal.",
+  "author": "Hemacharan Kodhanda",
+  "license": "MIT",
+  "homepage": "https://github.com/Hemacharankodhanda/repometric#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hemacharankodhanda/repometric.git",
+    "directory": "packages/cli"
+  },
+  "keywords": [
+    "repometric",
+    "cli",
+    "github",
+    "health-score",
+    "code-analyzer"
+  ],
   "type": "module",
   "bin": {
     "repometric": "./dist/index.js",
@@ -8,6 +24,9 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

@@ -13,9 +13,7 @@ export function parsePythonImports(source: string): RawImport[] {
   const seen = new Set<string>();
 
   // Remove block comments/docstrings to prevent false positives
-  const sanitized = source
-    .replace(/"""[\s\S]*?"""/g, '')
-    .replace(/'''[\s\S]*?'''/g, '');
+  const sanitized = source.replace(/"""[\s\S]*?"""/g, '').replace(/'''[\s\S]*?'''/g, '');
 
   const lines = sanitized.split(/\r?\n/);
 

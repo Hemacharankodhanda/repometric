@@ -17,12 +17,7 @@ import {
   EyeOff,
 } from 'lucide-react';
 import type { GraphData, GraphNode } from '@repometric/core';
-import {
-  getLanguageColor,
-  getSizeColor,
-  formatBytes,
-  getTopLanguages,
-} from './colors';
+import { getLanguageColor, getSizeColor, formatBytes, getTopLanguages } from './colors';
 
 export interface DependencyGraphProps {
   data: GraphData;
@@ -127,9 +122,7 @@ export function DependencyGraph({
       nodeMap.set(node.id, node);
     }
 
-    const validEdges = data.edges.filter(
-      (e) => nodeMap.has(e.source) && nodeMap.has(e.target),
-    );
+    const validEdges = data.edges.filter((e) => nodeMap.has(e.source) && nodeMap.has(e.target));
 
     return {
       filteredNodes: Array.from(nodeMap.values()),
@@ -435,7 +428,14 @@ export function DependencyGraph({
     for (const link of links) {
       const s = typeof link.source === 'object' ? link.source : null;
       const t = typeof link.target === 'object' ? link.target : null;
-      if (!s || !t || s.x === undefined || s.y === undefined || t.x === undefined || t.y === undefined) {
+      if (
+        !s ||
+        !t ||
+        s.x === undefined ||
+        s.y === undefined ||
+        t.x === undefined ||
+        t.y === undefined
+      ) {
         continue;
       }
 
@@ -461,8 +461,10 @@ export function DependencyGraph({
         ctx.lineWidth = 1 / k;
         ctx.stroke();
       } else {
-        ctx.strokeStyle = link.kind === 'dynamic' ? 'rgba(74, 158, 222, 0.45)' : 'rgba(120, 140, 160, 0.28)';
-        ctx.lineWidth = (hoveredNodeId && (s.id === hoveredNodeId || t.id === hoveredNodeId)) ? 1.8 / k : 1 / k;
+        ctx.strokeStyle =
+          link.kind === 'dynamic' ? 'rgba(74, 158, 222, 0.45)' : 'rgba(120, 140, 160, 0.28)';
+        ctx.lineWidth =
+          hoveredNodeId && (s.id === hoveredNodeId || t.id === hoveredNodeId) ? 1.8 / k : 1 / k;
         if (link.kind === 'dynamic') {
           ctx.setLineDash([3 / k, 3 / k]);
         } else {
@@ -561,11 +563,7 @@ export function DependencyGraph({
           ctx.strokeText(fileName, node.x, textY);
 
           // Text fill
-          ctx.fillStyle = isSelected
-            ? '#0072b2'
-            : node.inCycle
-              ? '#b91c1c'
-              : '#0f172a';
+          ctx.fillStyle = isSelected ? '#0072b2' : node.inCycle ? '#b91c1c' : '#0f172a';
           ctx.fillText(fileName, node.x, textY);
         }
       }
@@ -793,9 +791,7 @@ export function DependencyGraph({
             type="button"
             onClick={() => setHideTests(!hideTests)}
             className={`h-8 px-2.5 rounded-control border-2 border-ink text-xs font-bold inline-flex items-center space-x-1.5 shadow-[1px_1px_0_var(--ink)] transition-all ${
-              hideTests
-                ? 'bg-primary text-on-primary'
-                : 'bg-card text-ink hover:bg-paper-2'
+              hideTests ? 'bg-primary text-on-primary' : 'bg-card text-ink hover:bg-paper-2'
             }`}
             title="Hide test files from graph"
           >
@@ -807,7 +803,10 @@ export function DependencyGraph({
         {/* Right Controls: Spacing, Labels, Color mode, view toggle, insights */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Spacing Selector */}
-          <div className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]" title="Spread graph nodes">
+          <div
+            className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]"
+            title="Spread graph nodes"
+          >
             <span className="text-[10px] text-ink-muted px-1.5 font-bold">Spread:</span>
             {[
               { label: '1x', val: 1.0 },
@@ -819,7 +818,9 @@ export function DependencyGraph({
                 type="button"
                 onClick={() => setSpacing(s.val)}
                 className={`px-1.5 py-0.5 rounded-xs text-[11px] font-mono transition-colors ${
-                  spacing === s.val ? 'bg-sky text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
+                  spacing === s.val
+                    ? 'bg-sky text-ink font-bold shadow-[1px_1px_0_var(--ink)]'
+                    : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 {s.label}
@@ -828,7 +829,10 @@ export function DependencyGraph({
           </div>
 
           {/* Labels Mode Selector */}
-          <div className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]" title="Toggle node labels">
+          <div
+            className="flex items-center border-2 border-ink rounded-control bg-card p-0.5 shadow-[1px_1px_0_var(--ink)]"
+            title="Toggle node labels"
+          >
             <span className="text-[10px] text-ink-muted px-1.5 font-bold">Labels:</span>
             {[
               { id: 'smart', label: 'Smart' },
@@ -840,7 +844,9 @@ export function DependencyGraph({
                 type="button"
                 onClick={() => setLabelMode(l.id as 'smart' | 'all' | 'off')}
                 className={`px-1.5 py-0.5 rounded-xs text-[11px] font-bold transition-colors ${
-                  labelMode === l.id ? 'bg-sun text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
+                  labelMode === l.id
+                    ? 'bg-sun text-ink font-bold shadow-[1px_1px_0_var(--ink)]'
+                    : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 {l.label}
@@ -854,7 +860,9 @@ export function DependencyGraph({
               type="button"
               onClick={() => setColorMode('language')}
               className={`px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
-                colorMode === 'language' ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
+                colorMode === 'language'
+                  ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]'
+                  : 'text-ink-muted hover:text-ink'
               }`}
             >
               Language
@@ -863,7 +871,9 @@ export function DependencyGraph({
               type="button"
               onClick={() => setColorMode('size')}
               className={`px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
-                colorMode === 'size' ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
+                colorMode === 'size'
+                  ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]'
+                  : 'text-ink-muted hover:text-ink'
               }`}
             >
               Size
@@ -872,7 +882,9 @@ export function DependencyGraph({
               type="button"
               onClick={() => setColorMode('fanIn')}
               className={`px-2 py-1 rounded-xs text-xs font-bold transition-colors ${
-                colorMode === 'fanIn' ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]' : 'text-ink-muted hover:text-ink'
+                colorMode === 'fanIn'
+                  ? 'bg-lime text-ink font-bold shadow-[1px_1px_0_var(--ink)]'
+                  : 'text-ink-muted hover:text-ink'
               }`}
             >
               Fan-In
@@ -889,7 +901,9 @@ export function DependencyGraph({
                   type="button"
                   onClick={() => setFocusDepth(d)}
                   className={`w-5 h-5 rounded-xs font-mono font-bold ${
-                    focusDepth === d ? 'bg-primary text-on-primary' : 'text-ink-muted hover:text-ink'
+                    focusDepth === d
+                      ? 'bg-primary text-on-primary'
+                      : 'text-ink-muted hover:text-ink'
                   }`}
                 >
                   {d}
@@ -910,9 +924,7 @@ export function DependencyGraph({
             type="button"
             onClick={() => setShowInsights(!showInsights)}
             className={`h-8 px-2.5 rounded-control border-2 border-ink text-xs font-bold inline-flex items-center space-x-1.5 shadow-[1px_1px_0_var(--ink)] transition-colors ${
-              showInsights
-                ? 'bg-sun text-ink'
-                : 'bg-card text-ink hover:bg-paper-2'
+              showInsights ? 'bg-sun text-ink' : 'bg-card text-ink hover:bg-paper-2'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -926,7 +938,11 @@ export function DependencyGraph({
             className="h-8 px-2.5 rounded-control border-2 border-ink bg-card hover:bg-paper-2 text-ink text-xs font-bold inline-flex items-center space-x-1 shadow-[1px_1px_0_var(--ink)]"
             title="Toggle accessible table view"
           >
-            {viewMode === 'canvas' ? <TableIcon className="w-3.5 h-3.5" /> : <Network className="w-3.5 h-3.5" />}
+            {viewMode === 'canvas' ? (
+              <TableIcon className="w-3.5 h-3.5" />
+            ) : (
+              <Network className="w-3.5 h-3.5" />
+            )}
             <span>{viewMode === 'canvas' ? 'Table' : 'Canvas'}</span>
           </button>
         </div>
@@ -1030,7 +1046,9 @@ export function DependencyGraph({
             {data.collapsedToFolders && (
               <div className="absolute top-3 left-3 px-3 py-1.5 rounded-control border border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300 text-xs flex items-center space-x-2">
                 <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
-                <span>Collapsed to folders ({data.nodes.length} folders) to maintain 60 fps budget.</span>
+                <span>
+                  Collapsed to folders ({data.nodes.length} folders) to maintain 60 fps budget.
+                </span>
               </div>
             )}
           </>
@@ -1120,21 +1138,27 @@ export function DependencyGraph({
                       }`}
                     >
                       <div className="flex items-center justify-between font-semibold">
-                        <span>Cycle #{idx + 1} ({cycle.length} files)</span>
+                        <span>
+                          Cycle #{idx + 1} ({cycle.length} files)
+                        </span>
                         <span className="text-[10px] font-mono">
                           {activeCycleIndex === idx ? 'Highlighted' : 'Click to highlight'}
                         </span>
                       </div>
                       <ul className="mt-1 space-y-0.5 text-[11px] font-mono text-ink-muted">
                         {cycle.map((f) => (
-                          <li key={f} className="truncate">• {f.split('/').pop()}</li>
+                          <li key={f} className="truncate">
+                            • {f.split('/').pop()}
+                          </li>
                         ))}
                       </ul>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-ink-muted text-[11px]">No circular dependencies found in parsed code.</p>
+                <p className="text-ink-muted text-[11px]">
+                  No circular dependencies found in parsed code.
+                </p>
               )}
             </div>
 
@@ -1152,7 +1176,9 @@ export function DependencyGraph({
                     }}
                     className="flex items-center justify-between p-1.5 rounded-control bg-surface hover:bg-paper border border-line cursor-pointer font-mono text-[11px]"
                   >
-                    <span className="truncate flex-1 mr-2 text-ink">{item.id.split('/').pop()}</span>
+                    <span className="truncate flex-1 mr-2 text-ink">
+                      {item.id.split('/').pop()}
+                    </span>
                     <span className="text-teal font-bold">{item.count}</span>
                   </li>
                 ))}

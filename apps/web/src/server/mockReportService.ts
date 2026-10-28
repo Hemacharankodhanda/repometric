@@ -157,7 +157,12 @@ function generateReactMock(): { files: FileNode[]; graph: GraphData } {
     { path: 'packages/react-dom/src/client/ReactDOM.js', size: 19400, fanIn: 4, fanOut: 5 },
     { path: 'packages/react-dom/src/client/ReactDOMRoot.js', size: 9800, fanIn: 3, fanOut: 4 },
     { path: 'packages/react-reconciler/src/ReactFiber.js', size: 36200, fanIn: 8, fanOut: 6 },
-    { path: 'packages/react-reconciler/src/ReactFiberWorkLoop.js', size: 68400, fanIn: 4, fanOut: 8 },
+    {
+      path: 'packages/react-reconciler/src/ReactFiberWorkLoop.js',
+      size: 68400,
+      fanIn: 4,
+      fanOut: 8,
+    },
     { path: 'packages/scheduler/src/Scheduler.js', size: 16800, fanIn: 6, fanOut: 2 },
   ];
 
@@ -196,15 +201,51 @@ function generateReactMock(): { files: FileNode[]; graph: GraphData } {
   });
 
   const edges = [
-    { source: 'packages/react/index.js', target: 'packages/react/src/React.js', kind: 'static' as const },
-    { source: 'packages/react/src/React.js', target: 'packages/react/src/ReactHooks.js', kind: 'static' as const },
-    { source: 'packages/react/src/React.js', target: 'packages/react/src/ReactElement.js', kind: 'static' as const },
-    { source: 'packages/react/src/ReactHooks.js', target: 'packages/react/src/ReactSharedInternals.js', kind: 'static' as const },
-    { source: 'packages/react-dom/index.js', target: 'packages/react-dom/src/client/ReactDOM.js', kind: 'static' as const },
-    { source: 'packages/react-dom/src/client/ReactDOM.js', target: 'packages/react-dom/src/client/ReactDOMRoot.js', kind: 'static' as const },
-    { source: 'packages/react-dom/src/client/ReactDOMRoot.js', target: 'packages/react-reconciler/src/ReactFiber.js', kind: 'static' as const },
-    { source: 'packages/react-reconciler/src/ReactFiberWorkLoop.js', target: 'packages/react-reconciler/src/ReactFiber.js', kind: 'static' as const },
-    { source: 'packages/react-reconciler/src/ReactFiberWorkLoop.js', target: 'packages/scheduler/src/Scheduler.js', kind: 'static' as const },
+    {
+      source: 'packages/react/index.js',
+      target: 'packages/react/src/React.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react/src/React.js',
+      target: 'packages/react/src/ReactHooks.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react/src/React.js',
+      target: 'packages/react/src/ReactElement.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react/src/ReactHooks.js',
+      target: 'packages/react/src/ReactSharedInternals.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react-dom/index.js',
+      target: 'packages/react-dom/src/client/ReactDOM.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react-dom/src/client/ReactDOM.js',
+      target: 'packages/react-dom/src/client/ReactDOMRoot.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react-dom/src/client/ReactDOMRoot.js',
+      target: 'packages/react-reconciler/src/ReactFiber.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react-reconciler/src/ReactFiberWorkLoop.js',
+      target: 'packages/react-reconciler/src/ReactFiber.js',
+      kind: 'static' as const,
+    },
+    {
+      source: 'packages/react-reconciler/src/ReactFiberWorkLoop.js',
+      target: 'packages/scheduler/src/Scheduler.js',
+      kind: 'static' as const,
+    },
   ];
 
   return {

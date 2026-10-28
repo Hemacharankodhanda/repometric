@@ -46,9 +46,9 @@
   --seq-5: #0369a1;
 
   /* Type */
-  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
-  --font-body: "Instrument Sans", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -63,7 +63,7 @@
   --press-ms: 120ms;
 }
 
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   --paper: #090d16;
   --paper-2: #0f172a;
   --card: #131b2e;
@@ -89,7 +89,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     --paper: #090d16;
     --paper-2: #0f172a;
     --card: #131b2e;
@@ -118,19 +118,26 @@
 /* Subtle engineering dot and grid patterns */
 .bg-dots {
   background-color: var(--paper-2);
-  background-image: radial-gradient(color-mix(in srgb, var(--ink) 6%, transparent) 1px, transparent 1px);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ink) 6%, transparent) 1px,
+    transparent 1px
+  );
   background-size: 24px 24px;
 }
 
 .bg-paper-dots {
-  background-image: radial-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ink) 5%, transparent) 1px,
+    transparent 1px
+  );
   background-size: 20px 20px;
 }
 
 .bg-grid-pattern {
   background-size: 32px 32px;
-  background-image: linear-gradient(to right, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
-                    linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px);
 }
 
 :focus-visible {

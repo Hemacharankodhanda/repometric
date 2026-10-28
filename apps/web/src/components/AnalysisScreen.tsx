@@ -29,11 +29,7 @@ export interface AnalysisScreenProps {
   speedMultiplier?: number;
 }
 
-export function AnalysisScreen({
-  repoName,
-  onComplete,
-  speedMultiplier = 1,
-}: AnalysisScreenProps) {
+export function AnalysisScreen({ repoName, onComplete, speedMultiplier = 1 }: AnalysisScreenProps) {
   const [steps, setSteps] = useState<StepItem[]>(INITIAL_STEPS);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [tipIndex, setTipIndex] = useState(0);

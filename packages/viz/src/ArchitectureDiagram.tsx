@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  useCallback,
-} from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import * as d3Zoom from 'd3-zoom';
 import * as d3Selection from 'd3-selection';
 import {
@@ -123,11 +117,7 @@ export function ArchitectureDiagram({
 
   // 2. Compile Mermaid flowchart
   const compiled = useMemo(() => {
-    return compileMermaid(
-      edgeAdjustedSpec,
-      { owner, repo, sha },
-      theme
-    );
+    return compileMermaid(edgeAdjustedSpec, { owner, repo, sha }, theme);
   }, [edgeAdjustedSpec, owner, repo, sha, theme]);
 
   // Track theme changes (dark/light mode)
@@ -290,14 +280,14 @@ export function ArchitectureDiagram({
               const scale = Math.min(
                 (clientWidth - 60) / bbox.width,
                 (clientHeight - 60) / bbox.height,
-                1.2
+                1.2,
               );
               const tx = (clientWidth - bbox.width * scale) / 2 - bbox.x * scale;
               const ty = (clientHeight - bbox.height * scale) / 2 - bbox.y * scale;
 
               svgSelection.call(
                 zoomBehavior.transform,
-                d3Zoom.zoomIdentity.translate(tx, ty).scale(scale)
+                d3Zoom.zoomIdentity.translate(tx, ty).scale(scale),
               );
             }
           } catch {
@@ -415,7 +405,7 @@ export function ArchitectureDiagram({
         const scale = Math.min(
           (clientWidth - 60) / bbox.width,
           (clientHeight - 60) / bbox.height,
-          1.2
+          1.2,
         );
         const tx = (clientWidth - bbox.width * scale) / 2 - bbox.x * scale;
         const ty = (clientHeight - bbox.height * scale) / 2 - bbox.y * scale;
@@ -425,7 +415,7 @@ export function ArchitectureDiagram({
           .duration(300)
           .call(
             d3Zoom.zoom<SVGSVGElement, unknown>().transform,
-            d3Zoom.zoomIdentity.translate(tx, ty).scale(scale)
+            d3Zoom.zoomIdentity.translate(tx, ty).scale(scale),
           );
       }
     } catch {
@@ -493,7 +483,7 @@ export function ArchitectureDiagram({
         textEl.setAttribute('fill', theme.ink);
         textEl.setAttribute(
           'font-family',
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         );
         textEl.setAttribute('font-size', '13px');
         textEl.setAttribute('font-weight', '500');
@@ -553,27 +543,24 @@ export function ArchitectureDiagram({
           ctx.fillText(
             `${owner}/${repo}  •  sha: ${sha.slice(0, 7)}  •  RepoMetric Architecture`,
             20 * scaleFactor,
-            baseHeight * scaleFactor + 28 * scaleFactor
+            baseHeight * scaleFactor + 28 * scaleFactor,
           );
 
-          canvas.toBlob(
-            (blob) => {
-              if (!blob) {
-                handleDownloadSvg();
-                return;
-              }
-              const pngUrl = URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = pngUrl;
-              a.download = `${repo}-architecture.png`;
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-              URL.revokeObjectURL(pngUrl);
-              triggerCopyFeedback('png');
-            },
-            'image/png'
-          );
+          canvas.toBlob((blob) => {
+            if (!blob) {
+              handleDownloadSvg();
+              return;
+            }
+            const pngUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = pngUrl;
+            a.download = `${repo}-architecture.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(pngUrl);
+            triggerCopyFeedback('png');
+          }, 'image/png');
         } catch (canvasErr) {
           console.warn('Canvas export restricted or tainted, falling back to SVG:', canvasErr);
           handleDownloadSvg();
@@ -828,7 +815,8 @@ export function ArchitectureDiagram({
                 Architecture Components ({spec.components.length})
               </h3>
               <p className="text-xs text-ink-muted">
-                Keyboard accessible table of all identified architectural layers, components, and module dependencies.
+                Keyboard accessible table of all identified architectural layers, components, and
+                module dependencies.
               </p>
             </div>
 
@@ -935,7 +923,9 @@ export function ArchitectureDiagram({
             <div className="flex items-start justify-between">
               <div>
                 <span className="text-[10px] uppercase font-mono tracking-wider text-ink-muted">
-                  {selectedComponent ? `${selectedComponent.layer} layer` : `${selectedExternal?.kind} external`}
+                  {selectedComponent
+                    ? `${selectedComponent.layer} layer`
+                    : `${selectedExternal?.kind} external`}
                 </span>
                 <h3 className="text-sm font-semibold text-ink">
                   {selectedComponent ? selectedComponent.label : selectedExternal?.label}
@@ -1046,7 +1036,8 @@ export function ArchitectureDiagram({
             <span>{spec.notes.join(' ')}</span>
           ) : (
             <span>
-              Flowchart showing {spec.components.length} components across layers and external dependencies.
+              Flowchart showing {spec.components.length} components across layers and external
+              dependencies.
             </span>
           )}
         </div>

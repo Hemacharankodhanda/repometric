@@ -145,8 +145,4 @@ export const releasesSignal: Signal = {
   },
 };
 
-export const ACTIVITY_SIGNALS: Signal[] = [
-  commits90dSignal,
-  lastCommitSignal,
-  releasesSignal,
-];
+export const ACTIVITY_SIGNALS: Signal[] = [commits90dSignal, lastCommitSignal, releasesSignal];

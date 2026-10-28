@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  evaluateSignal,
-  calculateCategoryScore,
-  aggregateScore,
-} from './engine';
+import { evaluateSignal, calculateCategoryScore, aggregateScore } from './engine';
 import { calculateGrade, clamp01 } from './config';
 import type { Signal, SignalContext } from './types';
 import type { SignalResult } from '../types';
@@ -183,22 +179,70 @@ describe('Scoring Framework & Normalization Engine (T1.3)', () => {
       // 1 category (dependencies, weight 10) is excluded (categoryEarned === null)
       const evaluated = [
         calculateCategoryScore('activity', [
-          { id: '1', categoryId: 'activity', label: 'C', earned: 20, max: 20, status: 'pass', evidence: 'ok' },
+          {
+            id: '1',
+            categoryId: 'activity',
+            label: 'C',
+            earned: 20,
+            max: 20,
+            status: 'pass',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('maintenance', [
-          { id: '2', categoryId: 'maintenance', label: 'M', earned: 20, max: 20, status: 'pass', evidence: 'ok' },
+          {
+            id: '2',
+            categoryId: 'maintenance',
+            label: 'M',
+            earned: 20,
+            max: 20,
+            status: 'pass',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('community', [
-          { id: '3', categoryId: 'community', label: 'Com', earned: 15, max: 15, status: 'pass', evidence: 'ok' },
+          {
+            id: '3',
+            categoryId: 'community',
+            label: 'Com',
+            earned: 15,
+            max: 15,
+            status: 'pass',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('documentation', [
-          { id: '4', categoryId: 'documentation', label: 'D', earned: 20, max: 20, status: 'pass', evidence: 'ok' },
+          {
+            id: '4',
+            categoryId: 'documentation',
+            label: 'D',
+            earned: 20,
+            max: 20,
+            status: 'pass',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('hygiene', [
-          { id: '5', categoryId: 'hygiene', label: 'H', earned: 15, max: 15, status: 'pass', evidence: 'ok' },
+          {
+            id: '5',
+            categoryId: 'hygiene',
+            label: 'H',
+            earned: 15,
+            max: 15,
+            status: 'pass',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('dependencies', [
-          { id: '6', categoryId: 'dependencies', label: 'Dep', earned: 0, max: 10, status: 'na', evidence: 'na' },
+          {
+            id: '6',
+            categoryId: 'dependencies',
+            label: 'Dep',
+            earned: 0,
+            max: 10,
+            status: 'na',
+            evidence: 'na',
+          },
         ]),
       ];
 
@@ -216,23 +260,71 @@ describe('Scoring Framework & Normalization Engine (T1.3)', () => {
       // Suppose each included category earned 50%
       const evaluated = [
         calculateCategoryScore('activity', [
-          { id: '1', categoryId: 'activity', label: 'C', earned: 10, max: 20, status: 'partial', evidence: 'ok' },
+          {
+            id: '1',
+            categoryId: 'activity',
+            label: 'C',
+            earned: 10,
+            max: 20,
+            status: 'partial',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('maintenance', [
-          { id: '2', categoryId: 'maintenance', label: 'M', earned: 10, max: 20, status: 'partial', evidence: 'ok' },
+          {
+            id: '2',
+            categoryId: 'maintenance',
+            label: 'M',
+            earned: 10,
+            max: 20,
+            status: 'partial',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('community', [
-          { id: '3', categoryId: 'community', label: 'Com', earned: 7.5, max: 15, status: 'partial', evidence: 'ok' },
+          {
+            id: '3',
+            categoryId: 'community',
+            label: 'Com',
+            earned: 7.5,
+            max: 15,
+            status: 'partial',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('documentation', [
-          { id: '4', categoryId: 'documentation', label: 'D', earned: 10, max: 20, status: 'partial', evidence: 'ok' },
+          {
+            id: '4',
+            categoryId: 'documentation',
+            label: 'D',
+            earned: 10,
+            max: 20,
+            status: 'partial',
+            evidence: 'ok',
+          },
         ]),
         calculateCategoryScore('hygiene', [
-          { id: '5', categoryId: 'hygiene', label: 'H', earned: 7.5, max: 15, status: 'partial', evidence: 'ok' },
+          {
+            id: '5',
+            categoryId: 'hygiene',
+            label: 'H',
+            earned: 7.5,
+            max: 15,
+            status: 'partial',
+            evidence: 'ok',
+          },
         ]),
         // Excluded category
         calculateCategoryScore('dependencies', [
-          { id: '6', categoryId: 'dependencies', label: 'Dep', earned: 0, max: 10, status: 'na', evidence: 'na' },
+          {
+            id: '6',
+            categoryId: 'dependencies',
+            label: 'Dep',
+            earned: 0,
+            max: 10,
+            status: 'na',
+            evidence: 'na',
+          },
         ]),
       ];
 
@@ -248,7 +340,15 @@ describe('Scoring Framework & Normalization Engine (T1.3)', () => {
     it('returns score 0 when all categories are excluded', () => {
       const evaluated = [
         calculateCategoryScore('activity', [
-          { id: '1', categoryId: 'activity', label: 'A', earned: 0, max: 10, status: 'na', evidence: 'na' },
+          {
+            id: '1',
+            categoryId: 'activity',
+            label: 'A',
+            earned: 0,
+            max: 10,
+            status: 'na',
+            evidence: 'na',
+          },
         ]),
       ];
 

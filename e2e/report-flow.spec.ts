@@ -1,8 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('landing page to analysis screen, report page, tabs, and theme toggle', async ({
-  page,
-}) => {
+test('landing page to analysis screen, report page, tabs, and theme toggle', async ({ page }) => {
   // Prevent tour popup from interrupting initial tab clicks
   await page.addInitScript(() => {
     localStorage.setItem('repometric_tour_seen', 'true');
@@ -32,12 +30,54 @@ test('landing page to analysis screen, report page, tabs, and theme toggle', asy
           score: 68,
           grade: 'needs-work',
           categories: [
-            { id: 'activity', label: 'Activity', weight: 20, earned: 14, excluded: false, signals: [] },
-            { id: 'maintenance', label: 'Maintenance', weight: 20, earned: 12, excluded: false, signals: [] },
-            { id: 'community', label: 'Community', weight: 15, earned: 6, excluded: false, signals: [] },
-            { id: 'documentation', label: 'Documentation', weight: 20, earned: 16, excluded: false, signals: [] },
-            { id: 'hygiene', label: 'Hygiene', weight: 15, earned: 8, excluded: false, signals: [] },
-            { id: 'dependencies', label: 'Dependencies', weight: 10, earned: 8, excluded: false, signals: [] },
+            {
+              id: 'activity',
+              label: 'Activity',
+              weight: 20,
+              earned: 14,
+              excluded: false,
+              signals: [],
+            },
+            {
+              id: 'maintenance',
+              label: 'Maintenance',
+              weight: 20,
+              earned: 12,
+              excluded: false,
+              signals: [],
+            },
+            {
+              id: 'community',
+              label: 'Community',
+              weight: 15,
+              earned: 6,
+              excluded: false,
+              signals: [],
+            },
+            {
+              id: 'documentation',
+              label: 'Documentation',
+              weight: 20,
+              earned: 16,
+              excluded: false,
+              signals: [],
+            },
+            {
+              id: 'hygiene',
+              label: 'Hygiene',
+              weight: 15,
+              earned: 8,
+              excluded: false,
+              signals: [],
+            },
+            {
+              id: 'dependencies',
+              label: 'Dependencies',
+              weight: 10,
+              earned: 8,
+              excluded: false,
+              signals: [],
+            },
           ],
           fixes: [
             {
@@ -56,18 +96,44 @@ test('landing page to analysis screen, report page, tabs, and theme toggle', asy
           coreVersion: '0.1.0',
         },
         files: [
-          { path: 'packages/react/src/React.js', size: 8400, language: 'JavaScript', isTest: false },
-          { path: 'packages/react/__tests__/React-test.js', size: 4200, language: 'JavaScript', isTest: true },
+          {
+            path: 'packages/react/src/React.js',
+            size: 8400,
+            language: 'JavaScript',
+            isTest: false,
+          },
+          {
+            path: 'packages/react/__tests__/React-test.js',
+            size: 4200,
+            language: 'JavaScript',
+            isTest: true,
+          },
         ],
         graph: {
           status: 'ready',
           data: {
             nodes: [
-              { id: 'packages/react/src/React.js', folder: 'packages/react/src', language: 'JavaScript', size: 8400, fanIn: 2, fanOut: 2, isTest: false },
+              {
+                id: 'packages/react/src/React.js',
+                folder: 'packages/react/src',
+                language: 'JavaScript',
+                size: 8400,
+                fanIn: 2,
+                fanOut: 2,
+                isTest: false,
+              },
             ],
             edges: [],
             externals: [],
-            stats: { nodeCount: 1, edgeCount: 0, unresolvedCount: 0, cycles: [], orphans: [], topFanIn: [], topFanOut: [] },
+            stats: {
+              nodeCount: 1,
+              edgeCount: 0,
+              unresolvedCount: 0,
+              cycles: [],
+              orphans: [],
+              topFanIn: [],
+              topFanOut: [],
+            },
             truncated: false,
             collapsedToFolders: false,
           },

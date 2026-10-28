@@ -47,17 +47,38 @@ test('mobile 375px responsive layout with no horizontal overflow', async ({ page
           coreVersion: '0.1.0',
         },
         files: [
-          { path: 'packages/react/src/React.js', size: 8400, language: 'JavaScript', isTest: false },
+          {
+            path: 'packages/react/src/React.js',
+            size: 8400,
+            language: 'JavaScript',
+            isTest: false,
+          },
         ],
         graph: {
           status: 'ready',
           data: {
             nodes: [
-              { id: 'packages/react/src/React.js', folder: 'packages/react/src', language: 'JavaScript', size: 8400, fanIn: 1, fanOut: 0, isTest: false },
+              {
+                id: 'packages/react/src/React.js',
+                folder: 'packages/react/src',
+                language: 'JavaScript',
+                size: 8400,
+                fanIn: 1,
+                fanOut: 0,
+                isTest: false,
+              },
             ],
             edges: [],
             externals: [],
-            stats: { nodeCount: 1, edgeCount: 0, unresolvedCount: 0, cycles: [], orphans: [], topFanIn: [], topFanOut: [] },
+            stats: {
+              nodeCount: 1,
+              edgeCount: 0,
+              unresolvedCount: 0,
+              cycles: [],
+              orphans: [],
+              topFanIn: [],
+              topFanOut: [],
+            },
             truncated: false,
             collapsedToFolders: false,
           },

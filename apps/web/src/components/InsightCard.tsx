@@ -31,7 +31,10 @@ export function InsightCard({
 }: InsightCardProps) {
   const bgClass = VARIANT_BG[variant] || 'bg-card';
   return (
-    <Card hoverLift className={`p-5 flex flex-col justify-between space-y-3 ${bgClass} ${className}`}>
+    <Card
+      hoverLift
+      className={`p-5 flex flex-col justify-between space-y-3 ${bgClass} ${className}`}
+    >
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
           {label}
@@ -43,11 +46,7 @@ export function InsightCard({
         <div className="font-display font-extrabold text-2xl sm:text-3xl text-ink tracking-tight break-all">
           {value}
         </div>
-        {subtext && (
-          <p className="text-xs text-ink-muted leading-tight font-normal">
-            {subtext}
-          </p>
-        )}
+        {subtext && <p className="text-xs text-ink-muted leading-tight font-normal">{subtext}</p>}
       </div>
 
       {badge && (

@@ -167,11 +167,10 @@ export class GitHubClient {
     const remaining = response.headers.get('x-ratelimit-remaining');
     const resetHeader = response.headers.get('x-ratelimit-reset');
 
-    if (
-      response.status === 429 ||
-      (response.status === 403 && remaining === '0')
-    ) {
-      const resetSeconds = resetHeader ? parseInt(resetHeader, 10) : Math.floor(Date.now() / 1000) + 3600;
+    if (response.status === 429 || (response.status === 403 && remaining === '0')) {
+      const resetSeconds = resetHeader
+        ? parseInt(resetHeader, 10)
+        : Math.floor(Date.now() / 1000) + 3600;
       throw new RateLimitError(new Date(resetSeconds * 1000));
     }
 
@@ -190,7 +189,10 @@ export class GitHubClient {
     }
 
     if (!response.ok) {
-      throw new UpstreamError(`GitHub API error ${response.status}: ${response.statusText}`, response.status);
+      throw new UpstreamError(
+        `GitHub API error ${response.status}: ${response.statusText}`,
+        response.status,
+      );
     }
 
     const etag = response.headers.get('etag');
@@ -212,7 +214,10 @@ export class GitHubClient {
       const response = await this.fetchFn(rawUrl);
       if (response.status === 404) return null;
       if (!response.ok) {
-        throw new UpstreamError(`Failed to fetch file from raw: ${response.statusText}`, response.status);
+        throw new UpstreamError(
+          `Failed to fetch file from raw: ${response.statusText}`,
+          response.status,
+        );
       }
       return await response.text();
     } catch (err) {
@@ -401,7 +406,9 @@ export class GitHubClient {
     }));
 
     // 6. Fetch Issues and PRs (last 180 days)
-    const sixMonthsAgo = new Date(new Date(now).getTime() - 180 * 24 * 60 * 60 * 1000).toISOString();
+    const sixMonthsAgo = new Date(
+      new Date(now).getTime() - 180 * 24 * 60 * 60 * 1000,
+    ).toISOString();
     const issuesData = await this.request<GitHubIssueResponse[]>(
       `/repos/${owner}/${name}/issues?state=all&since=${encodeURIComponent(sixMonthsAgo)}&per_page=100`,
     );

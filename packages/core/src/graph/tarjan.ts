@@ -39,7 +39,7 @@ export function findCycles(adj: Map<string, Set<string>>): string[][] {
       // A component is a cycle if it has > 1 node OR it is a self-loop
       if (component.length > 1) {
         sccs.push(component);
-      } else if (component.length === 1 && (adj.get(component[0])?.has(component[0]))) {
+      } else if (component.length === 1 && adj.get(component[0])?.has(component[0])) {
         sccs.push(component);
       }
     }

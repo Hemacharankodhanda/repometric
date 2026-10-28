@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { RepoSnapshot } from '../../types';
-import {
-  busFactorSignal,
-  communityFilesSignal,
-  contributorsSignal,
-} from './community';
+import { busFactorSignal, communityFilesSignal, contributorsSignal } from './community';
 
 function createMockSnapshot(overrides: Partial<RepoSnapshot> = {}): RepoSnapshot {
   return {
@@ -197,7 +193,12 @@ describe('Community Signals (T2.2)', () => {
         tree: [
           { path: 'CONTRIBUTING.md', size: 500, language: 'Markdown', isTest: false },
           { path: 'CODE_OF_CONDUCT.md', size: 500, language: 'Markdown', isTest: false },
-          { path: '.github/issue_template/bug_report.md', size: 200, language: 'Markdown', isTest: false },
+          {
+            path: '.github/issue_template/bug_report.md',
+            size: 200,
+            language: 'Markdown',
+            isTest: false,
+          },
         ],
       });
       const res = communityFilesSignal.compute({ snapshot, now: new Date(snapshot.now) });

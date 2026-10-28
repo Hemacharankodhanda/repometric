@@ -1,6 +1,15 @@
 {
   "name": "@repometric/viz",
   "version": "0.1.0",
+  "description": "High-performance Canvas visualizers for RepoMetric: zoomable treemap, force-directed dependency graph, and architecture diagrams.",
+  "author": "Hemacharan Kodhanda",
+  "license": "MIT",
+  "homepage": "https://github.com/Hemacharankodhanda/repometric#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hemacharankodhanda/repometric.git",
+    "directory": "packages/viz"
+  },
   "type": "module",
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",

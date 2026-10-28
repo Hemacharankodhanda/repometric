@@ -1,9 +1,4 @@
-import type {
-  CategoryId,
-  CategoryResult,
-  Grade,
-  SignalResult,
-} from '../types';
+import type { CategoryId, CategoryResult, Grade, SignalResult } from '../types';
 import { CATEGORIES, CATEGORY_WEIGHTS, calculateGrade } from './config';
 import type { Signal, SignalContext } from './types';
 
@@ -76,8 +71,7 @@ export function calculateCategoryScore(
     sumEarned += sig.earned;
   }
 
-  const categoryEarned =
-    applicableMax === 0 ? null : (weight * sumEarned) / applicableMax;
+  const categoryEarned = applicableMax === 0 ? null : (weight * sumEarned) / applicableMax;
 
   return {
     id: categoryId,
@@ -128,8 +122,7 @@ export function aggregateScore(evaluatedCategories: EvaluatedCategory[]): ScoreS
     }
   }
 
-  const rawScore =
-    totalWeight > 0 ? (100 * totalEarned) / totalWeight : 0;
+  const rawScore = totalWeight > 0 ? (100 * totalEarned) / totalWeight : 0;
   const score = Math.min(100, Math.max(0, Math.round(rawScore)));
   const grade = calculateGrade(score);
 

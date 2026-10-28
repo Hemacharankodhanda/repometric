@@ -11,11 +11,7 @@ import {
   TooLargeError,
   UpstreamError,
 } from '@repometric/core';
-import {
-  checkRateLimit,
-  getStoredAnalysis,
-  saveAnalysis,
-} from '../../../server/analysisStore';
+import { checkRateLimit, getStoredAnalysis, saveAnalysis } from '../../../server/analysisStore';
 
 export const maxDuration = 60;
 
@@ -24,11 +20,13 @@ const requestSchema = z.object({
   sha: z.string().optional(),
 });
 
-function formatError(code: string, message: string, status: number, headers?: Record<string, string>) {
-  return NextResponse.json(
-    { error: { code, message } },
-    { status, headers },
-  );
+function formatError(
+  code: string,
+  message: string,
+  status: number,
+  headers?: Record<string, string>,
+) {
+  return NextResponse.json({ error: { code, message } }, { status, headers });
 }
 
 export async function POST(req: NextRequest) {
@@ -112,10 +110,7 @@ export async function POST(req: NextRequest) {
     // Determine graph status per VISUALIZER_SPEC.md:
     // 'unsupported' if repo has > 20,000 files or no JS/TS/Python source files
     const hasCode = snapshot.tree.some(
-      (f) =>
-        f.language &&
-        ['TypeScript', 'JavaScript', 'Python'].includes(f.language) &&
-        !f.isTest,
+      (f) => f.language && ['TypeScript', 'JavaScript', 'Python'].includes(f.language) && !f.isTest,
     );
     const isTooLarge = snapshot.tree.length > 20000;
 
@@ -155,11 +150,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err: unknown) {
     if (err instanceof RepoNotFoundError) {
-      return formatError(
-        'NOT_FOUND',
-        `Repository "${err.owner}/${err.name}" does not exist.`,
-        404,
-      );
+      return formatError('NOT_FOUND', `Repository "${err.owner}/${err.name}" does not exist.`, 404);
     }
     if (err instanceof PrivateRepoError) {
       return formatError(
@@ -178,11 +169,7 @@ export async function POST(req: NextRequest) {
       );
     }
     if (err instanceof TooLargeError) {
-      return formatError(
-        'TOO_LARGE',
-        'Repository exceeds supported size limits.',
-        413,
-      );
+      return formatError('TOO_LARGE', 'Repository exceeds supported size limits.', 413);
     }
     if (err instanceof UpstreamError) {
       return formatError(

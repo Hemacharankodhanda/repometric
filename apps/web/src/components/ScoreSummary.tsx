@@ -67,16 +67,17 @@ export function ScoreSummary({
 
   const { label: gradeLabel, variant: gradeVariant } = getGradeBadge(score);
   const tillyMood = getTillyMood(score);
-  const targetProjected = projectedScore !== undefined && projectedScore > score ? projectedScore : null;
+  const targetProjected =
+    projectedScore !== undefined && projectedScore > score ? projectedScore : null;
 
   const defaultVerdict =
     score >= 90
       ? 'Exceptional repo hygiene! Comprehensive documentation, robust CI, and clean module boundaries.'
       : score >= 75
-      ? 'Solid engineering foundations. Fixing the prioritized items below will lift health into the 90s.'
-      : score >= 55
-      ? 'Functional codebase that needs work. Adding a license, tests, and CI will deliver quick score gains.'
-      : 'At risk. Missing core open-source essentials such as tests, license, or activity documentation.';
+        ? 'Solid engineering foundations. Fixing the prioritized items below will lift health into the 90s.'
+        : score >= 55
+          ? 'Functional codebase that needs work. Adding a license, tests, and CI will deliver quick score gains.'
+          : 'At risk. Missing core open-source essentials such as tests, license, or activity documentation.';
 
   const finalVerdict = verdict || defaultVerdict;
 
@@ -86,13 +87,7 @@ export function ScoreSummary({
   const strokeDashoffset = circumference - (circumference * displayScore) / 100;
 
   const strokeColor =
-    score >= 90
-      ? '#10b981'
-      : score >= 75
-      ? '#06b6d4'
-      : score >= 55
-      ? '#f59e0b'
-      : '#f43f5e';
+    score >= 90 ? '#10b981' : score >= 75 ? '#06b6d4' : score >= 55 ? '#f59e0b' : '#f43f5e';
 
   return (
     <div
@@ -176,7 +171,9 @@ export function ScoreSummary({
               <span className="text-primary-text flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5 text-primary" />
                 Projected: <span className="font-bold text-primary">{targetProjected}</span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold">(+{targetProjected - score} pts)</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+                  (+{targetProjected - score} pts)
+                </span>
               </span>
             </div>
             <div className="h-2.5 w-full rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden flex">

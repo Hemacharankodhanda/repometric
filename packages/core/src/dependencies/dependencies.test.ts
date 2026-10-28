@@ -1,15 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import type { RepoSnapshot } from '../types';
-import {
-  parsePackageJson,
-  parsePyprojectToml,
-  parseRequirementsTxt,
-} from './manifests';
-import {
-  fetchNpmPackageInfo,
-  fetchPyPiPackageInfo,
-  lookupDependencies,
-} from './registry';
+import { parsePackageJson, parsePyprojectToml, parseRequirementsTxt } from './manifests';
+import { fetchNpmPackageInfo, fetchPyPiPackageInfo, lookupDependencies } from './registry';
 import {
   deprecatedDepsSignal,
   lockfileSignal,
@@ -201,7 +193,10 @@ black = "^23.3.0"
         }),
       });
 
-      const infoNormal = await fetchPyPiPackageInfo('requests', mockFetchNormal as unknown as typeof fetch);
+      const infoNormal = await fetchPyPiPackageInfo(
+        'requests',
+        mockFetchNormal as unknown as typeof fetch,
+      );
       expect(infoNormal).toEqual({ latest: '2.28.1', deprecated: false });
 
       const mockFetchDeprecated = vi.fn().mockResolvedValue({
@@ -215,7 +210,10 @@ black = "^23.3.0"
         }),
       });
 
-      const infoDeprecated = await fetchPyPiPackageInfo('old-py-pkg', mockFetchDeprecated as unknown as typeof fetch);
+      const infoDeprecated = await fetchPyPiPackageInfo(
+        'old-py-pkg',
+        mockFetchDeprecated as unknown as typeof fetch,
+      );
       expect(infoDeprecated).toEqual({ latest: '1.0.0', deprecated: true });
     });
 

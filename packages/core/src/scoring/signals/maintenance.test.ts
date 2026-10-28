@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { RepoSnapshot } from '../../types';
-import {
-  firstResponseSignal,
-  prMergeRateSignal,
-  staleIssuesSignal,
-} from './maintenance';
+import { firstResponseSignal, prMergeRateSignal, staleIssuesSignal } from './maintenance';
 
 function createMockSnapshot(overrides: Partial<RepoSnapshot> = {}): RepoSnapshot {
   return {
@@ -312,7 +308,6 @@ describe('Maintenance Signals (T2.1)', () => {
     });
 
     it('evaluates boundary >= 70% merge rate: 6 points, pass', () => {
-
       const pulls = [
         ...Array(7)
           .fill(null)
@@ -336,7 +331,10 @@ describe('Maintenance Signals (T2.1)', () => {
           })),
       ];
       const snapshot70 = createMockSnapshot({ pulls });
-      const res = prMergeRateSignal.compute({ snapshot: snapshot70, now: new Date(snapshot70.now) });
+      const res = prMergeRateSignal.compute({
+        snapshot: snapshot70,
+        now: new Date(snapshot70.now),
+      });
       expect(res.earned).toBe(6);
       expect(res.status).toBe('pass');
     });

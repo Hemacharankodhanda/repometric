@@ -1,9 +1,4 @@
-import type {
-  FileNode,
-  GraphData,
-  GraphEdge,
-  GraphNode,
-} from '../types';
+import type { FileNode, GraphData, GraphEdge, GraphNode } from '../types';
 import type { TsConfigPaths } from './types';
 import { parseJsImports } from './jsParser';
 import { parsePythonImports } from './pyParser';
@@ -88,9 +83,7 @@ export async function buildGraphData(
     if (!adj.has(file.path)) adj.set(file.path, new Set());
 
     const isPython = file.path.endsWith('.py');
-    const rawImports = isPython
-      ? parsePythonImports(content)
-      : await parseJsImports(content);
+    const rawImports = isPython ? parsePythonImports(content) : await parseJsImports(content);
 
     for (const raw of rawImports) {
       const resolved = isPython
@@ -186,8 +179,10 @@ export async function buildGraphData(
 
     // Map edges to folder-level edges
     for (const edge of edges) {
-      const sourceFolder = (posixDirname(edge.source) || '.') === '.' ? 'root' : posixDirname(edge.source);
-      const targetFolder = (posixDirname(edge.target) || '.') === '.' ? 'root' : posixDirname(edge.target);
+      const sourceFolder =
+        (posixDirname(edge.source) || '.') === '.' ? 'root' : posixDirname(edge.source);
+      const targetFolder =
+        (posixDirname(edge.target) || '.') === '.' ? 'root' : posixDirname(edge.target);
 
       if (sourceFolder !== targetFolder) {
         const key = `${sourceFolder}->${targetFolder}`;

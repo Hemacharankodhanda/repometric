@@ -32,12 +32,10 @@ export function EmptyState({
         <h3 className="font-display font-bold text-lg sm:text-xl text-ink tracking-tight">
           {title}
         </h3>
-        <p className="text-sm text-ink-muted leading-relaxed max-w-sm">
-          {description}
-        </p>
+        <p className="text-sm text-ink-muted leading-relaxed max-w-sm">{description}</p>
       </div>
 
-      {(actionText && (onAction || actionHref)) && (
+      {actionText && (onAction || actionHref) && (
         <div className="pt-2">
           {actionHref ? (
             <a href={actionHref}>
@@ -85,14 +83,8 @@ export function ErrorState({
         <h3 className="font-display font-bold text-lg sm:text-xl text-coral-text tracking-tight">
           {title}
         </h3>
-        <p className="text-sm font-medium text-ink leading-relaxed">
-          {message}
-        </p>
-        {solution && (
-          <p className="text-xs text-ink-muted leading-relaxed">
-            {solution}
-          </p>
-        )}
+        <p className="text-sm font-medium text-ink leading-relaxed">{message}</p>
+        {solution && <p className="text-xs text-ink-muted leading-relaxed">{solution}</p>}
       </div>
 
       {onRetry && (

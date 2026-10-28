@@ -34,14 +34,14 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
   };
 
   return (
-    <div className={`inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-800 bg-paper-2 p-0.5 shadow-sm ${className}`}>
+    <div
+      className={`inline-flex items-center rounded-lg border border-slate-200 dark:border-slate-800 bg-paper-2 p-0.5 shadow-sm ${className}`}
+    >
       <button
         type="button"
         onClick={() => changeTheme('light')}
         className={`p-1.5 rounded-md transition-all ${
-          theme === 'light'
-            ? 'bg-card text-amber-500 shadow-sm'
-            : 'text-ink-muted hover:text-ink'
+          theme === 'light' ? 'bg-card text-amber-500 shadow-sm' : 'text-ink-muted hover:text-ink'
         }`}
         title="Light mode"
         aria-label="Light mode"
@@ -65,9 +65,7 @@ export function ThemeToggle({ className = '' }: { className?: string }) {
         type="button"
         onClick={() => changeTheme('system')}
         className={`p-1.5 rounded-md transition-all ${
-          theme === 'system'
-            ? 'bg-card text-primary shadow-sm'
-            : 'text-ink-muted hover:text-ink'
+          theme === 'system' ? 'bg-card text-primary shadow-sm' : 'text-ink-muted hover:text-ink'
         }`}
         title="System preference"
         aria-label="System preference"

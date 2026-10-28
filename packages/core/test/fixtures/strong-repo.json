@@ -24,11 +24,36 @@
     { "path": "docs/intro.md", "size": 1500, "language": "Markdown", "isTest": false },
     { "path": "CONTRIBUTING.md", "size": 1200, "language": "Markdown", "isTest": false },
     { "path": "CODE_OF_CONDUCT.md", "size": 900, "language": "Markdown", "isTest": false },
-    { "path": ".github/pull_request_template.md", "size": 500, "language": "Markdown", "isTest": false },
-    { "path": "packages/react/src/React.js", "size": 4500, "language": "JavaScript", "isTest": false },
-    { "path": "packages/react/src/__tests__/React-test.js", "size": 6000, "language": "JavaScript", "isTest": true },
-    { "path": "packages/react-dom/src/__tests__/ReactDOM-test.js", "size": 8000, "language": "JavaScript", "isTest": true },
-    { "path": "packages/scheduler/src/__tests__/Scheduler-test.js", "size": 4000, "language": "JavaScript", "isTest": true }
+    {
+      "path": ".github/pull_request_template.md",
+      "size": 500,
+      "language": "Markdown",
+      "isTest": false
+    },
+    {
+      "path": "packages/react/src/React.js",
+      "size": 4500,
+      "language": "JavaScript",
+      "isTest": false
+    },
+    {
+      "path": "packages/react/src/__tests__/React-test.js",
+      "size": 6000,
+      "language": "JavaScript",
+      "isTest": true
+    },
+    {
+      "path": "packages/react-dom/src/__tests__/ReactDOM-test.js",
+      "size": 8000,
+      "language": "JavaScript",
+      "isTest": true
+    },
+    {
+      "path": "packages/scheduler/src/__tests__/Scheduler-test.js",
+      "size": 4000,
+      "language": "JavaScript",
+      "isTest": true
+    }
   ],
   "readme": "# React\n\nReact is a world-class JavaScript library for building modern, resilient, declarative user interfaces on the web and native mobile platforms.\n\n## Installation and Setup\n\n```bash\nnpm install react react-dom\n```\n\n## Usage and Examples\n\n```javascript\nimport React from 'react';\nfunction App() { return <h1>Hello World</h1>; }\n```\n\n## Visual Overview\n\n![React Architecture](https://react.dev/images/architecture.png)\n\n## License\n\nReact is licensed under the permissive MIT license. See LICENSE file for details.\n",
   "commits": [

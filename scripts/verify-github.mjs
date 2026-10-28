@@ -17,7 +17,10 @@ function loadEnvFile(filePath) {
     const idx = trimmed.indexOf('=');
     if (idx !== -1) {
       const key = trimmed.slice(0, idx).trim();
-      const val = trimmed.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+      const val = trimmed
+        .slice(idx + 1)
+        .trim()
+        .replace(/^["']|["']$/g, '');
       env[key] = val;
     }
   }
@@ -41,7 +44,7 @@ if (!token) {
 
 async function verify() {
   const headers = {
-    'Accept': 'application/vnd.github.v3+json',
+    Accept: 'application/vnd.github.v3+json',
     'User-Agent': 'RepoMetric-Verifier',
   };
   if (token) {
@@ -50,9 +53,11 @@ async function verify() {
 
   try {
     const res = await fetch('https://api.github.com/rate_limit', { headers });
-    
+
     if (res.status === 401) {
-      console.error('❌ GITHUB_TOKEN is invalid or expired. GitHub returned HTTP 401 Unauthorized.');
+      console.error(
+        '❌ GITHUB_TOKEN is invalid or expired. GitHub returned HTTP 401 Unauthorized.',
+      );
       console.error('   Please generate a new token and update apps/web/.env.local.');
       process.exit(1);
     }
@@ -74,7 +79,9 @@ async function verify() {
     if (token && core.limit >= 5000) {
       console.log('\n🎉 Authenticated correctly: Token provides full 5,000 requests/hour limit.');
     } else if (!token) {
-      console.log('\n💡 Tip: Add GITHUB_TOKEN to apps/web/.env.local to raise limit from 60 to 5,000/hr.');
+      console.log(
+        '\n💡 Tip: Add GITHUB_TOKEN to apps/web/.env.local to raise limit from 60 to 5,000/hr.',
+      );
     }
   } catch (err) {
     console.error('❌ Network error connecting to GitHub API:', err.message);

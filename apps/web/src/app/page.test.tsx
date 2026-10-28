@@ -4,7 +4,10 @@ import { parseRepoInput } from '../components/RepoInput';
 describe('RepoInput parser', () => {
   it('parses owner/repo syntax correctly', () => {
     expect(parseRepoInput('facebook/react')).toEqual({ owner: 'facebook', repo: 'react' });
-    expect(parseRepoInput('  ExpressJS/Express  ')).toEqual({ owner: 'expressjs', repo: 'express' });
+    expect(parseRepoInput('  ExpressJS/Express  ')).toEqual({
+      owner: 'expressjs',
+      repo: 'express',
+    });
   });
 
   it('parses full GitHub URLs', () => {

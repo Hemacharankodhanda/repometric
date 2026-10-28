@@ -2,6 +2,14 @@
   "name": "@repometric/web",
   "version": "0.1.0",
   "private": true,
+  "description": "Next.js web application for RepoMetric with interactive visualizers, health scoring, and GitHub integration.",
+  "author": "Hemacharan Kodhanda",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hemacharankodhanda/repometric.git",
+    "directory": "apps/web"
+  },
   "type": "module",
   "scripts": {
     "dev": "next dev",

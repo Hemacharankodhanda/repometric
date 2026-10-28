@@ -52,7 +52,9 @@ describe('compileMermaid', () => {
     expect(cKeys.length).toBeGreaterThanOrEqual(3);
     const webNode = Object.values(result.nodeMap).find((n) => n.path === 'apps/web');
     expect(webNode).toBeDefined();
-    expect(webNode?.url).toContain('https://github.com/repometric/test-repo/tree/1234567890abcdef/apps/web');
+    expect(webNode?.url).toContain(
+      'https://github.com/repometric/test-repo/tree/1234567890abcdef/apps/web',
+    );
   });
 
   it('compiles nextjs fixture with subgraphs and database external', () => {

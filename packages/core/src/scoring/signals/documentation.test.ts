@@ -413,7 +413,8 @@ const b = 2;
 
     it('evaluates boundary 5.0% (0.05 <= d <= 0.35): 3 points, pass', () => {
       // 5 comments out of 100 non-blank lines = 5.0%
-      const content = Array(5).fill('// C').join('\n') + '\n' + Array(95).fill('const x = 1;').join('\n');
+      const content =
+        Array(5).fill('// C').join('\n') + '\n' + Array(95).fill('const x = 1;').join('\n');
       const snapshot = createMockSnapshot({
         sampledSources: [{ path: 'src/main.ts', content }],
       });
@@ -424,7 +425,8 @@ const b = 2;
 
     it('evaluates optimal 20% (0.05 <= d <= 0.35): 3 points, pass', () => {
       // 20 comments out of 100 lines = 20.0%
-      const content = Array(20).fill('// C').join('\n') + '\n' + Array(80).fill('const x = 1;').join('\n');
+      const content =
+        Array(20).fill('// C').join('\n') + '\n' + Array(80).fill('const x = 1;').join('\n');
       const snapshot = createMockSnapshot({
         sampledSources: [{ path: 'src/main.ts', content }],
       });
@@ -435,7 +437,8 @@ const b = 2;
 
     it('evaluates boundary 35.0% (0.05 <= d <= 0.35): 3 points, pass', () => {
       // 35 comments out of 100 lines = 35.0%
-      const content = Array(35).fill('// C').join('\n') + '\n' + Array(65).fill('const x = 1;').join('\n');
+      const content =
+        Array(35).fill('// C').join('\n') + '\n' + Array(65).fill('const x = 1;').join('\n');
       const snapshot = createMockSnapshot({
         sampledSources: [{ path: 'src/main.ts', content }],
       });
@@ -446,7 +449,8 @@ const b = 2;
 
     it('evaluates boundary 35.1%+ (d > 0.35): 1.5 points, partial', () => {
       // 36 comments out of 100 lines = 36.0%
-      const content = Array(36).fill('// C').join('\n') + '\n' + Array(64).fill('const x = 1;').join('\n');
+      const content =
+        Array(36).fill('// C').join('\n') + '\n' + Array(64).fill('const x = 1;').join('\n');
       const snapshot = createMockSnapshot({
         sampledSources: [{ path: 'src/main.ts', content }],
       });

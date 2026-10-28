@@ -65,7 +65,7 @@ describe('buildDiagramSpec', () => {
     expect(spec.externals).toEqual([]);
     expect(spec.externalEdges).toEqual([]);
     expect(spec.notes).toContain(
-      'No dependency data for this repository, so connections are not shown.'
+      'No dependency data for this repository, so connections are not shown.',
     );
     expect(spec.components.length).toBe(3);
   });
@@ -85,9 +85,33 @@ describe('buildDiagramSpec', () => {
     ];
     const graph: GraphData = {
       nodes: [
-        { id: 'src/app/page.tsx', folder: 'src/app', language: 'TypeScript', size: 100, fanIn: 0, fanOut: 2, isTest: false },
-        { id: 'src/lib/calc.ts', folder: 'src/lib', language: 'TypeScript', size: 100, fanIn: 1, fanOut: 1, isTest: false },
-        { id: 'src/utils/math.ts', folder: 'src/utils', language: 'TypeScript', size: 100, fanIn: 2, fanOut: 0, isTest: false },
+        {
+          id: 'src/app/page.tsx',
+          folder: 'src/app',
+          language: 'TypeScript',
+          size: 100,
+          fanIn: 0,
+          fanOut: 2,
+          isTest: false,
+        },
+        {
+          id: 'src/lib/calc.ts',
+          folder: 'src/lib',
+          language: 'TypeScript',
+          size: 100,
+          fanIn: 1,
+          fanOut: 1,
+          isTest: false,
+        },
+        {
+          id: 'src/utils/math.ts',
+          folder: 'src/utils',
+          language: 'TypeScript',
+          size: 100,
+          fanIn: 2,
+          fanOut: 0,
+          isTest: false,
+        },
       ],
       edges: [
         // 10 imports from app to lib

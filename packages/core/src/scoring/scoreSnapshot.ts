@@ -7,21 +7,9 @@ import {
   type EvaluatedCategory,
 } from './engine';
 import { generateFixes } from './fixes';
-import {
-  commits90dSignal,
-  lastCommitSignal,
-  releasesSignal,
-} from './signals/activity';
-import {
-  busFactorSignal,
-  communityFilesSignal,
-  contributorsSignal,
-} from './signals/community';
-import {
-  deprecatedDepsSignal,
-  lockfileSignal,
-  outdatedDepsSignal,
-} from './signals/dependencies';
+import { commits90dSignal, lastCommitSignal, releasesSignal } from './signals/activity';
+import { busFactorSignal, communityFilesSignal, contributorsSignal } from './signals/community';
+import { deprecatedDepsSignal, lockfileSignal, outdatedDepsSignal } from './signals/dependencies';
 import {
   commentsSignal,
   docsFolderSignal,
@@ -37,11 +25,7 @@ import {
   secretsSignal,
   testsSignal,
 } from './signals/hygiene';
-import {
-  firstResponseSignal,
-  prMergeRateSignal,
-  staleIssuesSignal,
-} from './signals/maintenance';
+import { firstResponseSignal, prMergeRateSignal, staleIssuesSignal } from './signals/maintenance';
 import type { Signal } from './types';
 
 export const ALL_SIGNALS_BY_CATEGORY: Record<CategoryId, Signal[]> = {
@@ -55,14 +39,7 @@ export const ALL_SIGNALS_BY_CATEGORY: Record<CategoryId, Signal[]> = {
     docsFolderSignal,
     commentsSignal,
   ],
-  hygiene: [
-    testsSignal,
-    ciSignal,
-    lintFormatSignal,
-    gitignoreSignal,
-    licenseSignal,
-    secretsSignal,
-  ],
+  hygiene: [testsSignal, ciSignal, lintFormatSignal, gitignoreSignal, licenseSignal, secretsSignal],
   dependencies: [lockfileSignal, outdatedDepsSignal, deprecatedDepsSignal],
 };
 

@@ -69,9 +69,7 @@ describe('Hygiene Signals', () => {
 
     it('returns 2 points when 1-2 test files exist', () => {
       const snapshot1 = createMockSnapshot({
-        tree: [
-          { path: 'src/index.test.ts', size: 100, language: 'TypeScript', isTest: true },
-        ],
+        tree: [{ path: 'src/index.test.ts', size: 100, language: 'TypeScript', isTest: true }],
       });
       const res1 = testsSignal.compute({ snapshot: snapshot1, now: new Date(snapshot1.now) });
       expect(res1.earned).toBe(2);
@@ -115,9 +113,7 @@ describe('Hygiene Signals', () => {
 
     it('returns 4 points if CI config is in tree', () => {
       const snapshot = createMockSnapshot({
-        tree: [
-          { path: '.github/workflows/ci.yml', size: 200, language: 'YAML', isTest: false },
-        ],
+        tree: [{ path: '.github/workflows/ci.yml', size: 200, language: 'YAML', isTest: false }],
       });
       const res = ciSignal.compute({ snapshot, now: new Date(snapshot.now) });
       expect(res.earned).toBe(4);

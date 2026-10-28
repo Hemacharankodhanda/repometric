@@ -84,11 +84,7 @@ interface AnalysisDataState {
   isMock: boolean;
 }
 
-export default function ReportPage({
-  params,
-}: {
-  params: { owner: string; repo: string };
-}) {
+export default function ReportPage({ params }: { params: { owner: string; repo: string } }) {
   const { owner, repo } = params;
   const searchParams = useSearchParams();
 
@@ -385,7 +381,10 @@ export default function ReportPage({
             <EmptyState
               mood="lost"
               title="Couldn't find that repo"
-              description={fetchError?.message || "Couldn't find that repo. Check the spelling, and make sure it's public on GitHub."}
+              description={
+                fetchError?.message ||
+                "Couldn't find that repo. Check the spelling, and make sure it's public on GitHub."
+              }
               actionText="Try another repo"
               actionHref="/"
             />
@@ -419,7 +418,9 @@ export default function ReportPage({
             <ErrorState
               mood="worried"
               title="Rate limit reached"
-              message={fetchError?.message || "GitHub API rate limit reached. Resets in 14 minutes."}
+              message={
+                fetchError?.message || 'GitHub API rate limit reached. Resets in 14 minutes.'
+              }
               solution="Add your optional personal GitHub token to raise your limit to 5,000 requests per hour."
               retryText="Go back home"
               onRetry={() => (window.location.href = '/')}
@@ -471,7 +472,9 @@ export default function ReportPage({
           <ErrorState
             mood="worried"
             title="Analysis failed"
-            message={fetchError?.message || "An unexpected error occurred while analyzing this repository."}
+            message={
+              fetchError?.message || 'An unexpected error occurred while analyzing this repository.'
+            }
             solution="Check that the repository exists and is accessible, then try again."
             retryText="Try again"
             onRetry={() => setReanalyzeTrigger((c) => c + 1)}
@@ -502,18 +505,11 @@ export default function ReportPage({
     <div className="min-h-screen flex flex-col bg-paper selection:bg-lime selection:text-ink">
       {/* Toast Notification */}
       {toastMessage && (
-        <Toast
-          message={toastMessage}
-          onClose={() => setToastMessage(null)}
-          duration={3000}
-        />
+        <Toast message={toastMessage} onClose={() => setToastMessage(null)} duration={3000} />
       )}
 
       {/* First-Run Coach-Mark Tour */}
-      <CoachMarkTour
-        forceOpen={forceTour || showTour}
-        onComplete={() => setShowTour(false)}
-      />
+      <CoachMarkTour forceOpen={forceTour || showTour} onComplete={() => setShowTour(false)} />
 
       <Header>
         <RepoInput defaultValue={`${owner}/${repo}`} showChips={false} compact />
@@ -530,7 +526,9 @@ export default function ReportPage({
               rel="noopener noreferrer"
               className="flex items-center space-x-2 font-mono text-base sm:text-lg font-bold text-ink hover:text-primary transition-colors"
             >
-              <span>{owner}/{repo}</span>
+              <span>
+                {owner}/{repo}
+              </span>
               <ExternalLink className="w-4 h-4 text-ink-muted" />
             </a>
 
@@ -579,20 +577,12 @@ export default function ReportPage({
 
         {/* 3. Summary Card with score count-up, grade, verdict & projected bar */}
         <div id="tour-score">
-          <ScoreSummary
-            score={currentScore}
-            projectedScore={projectedScore}
-            className="w-full"
-          />
+          <ScoreSummary score={currentScore} projectedScore={projectedScore} className="w-full" />
         </div>
 
         {/* 4. Tabs: Overview, Fixes, Map, Graph, Diagram */}
         <div className="space-y-4">
-          <Tabs
-            value={activeTab}
-            onValueChange={handleTabChange}
-            className="w-full space-y-4"
-          >
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full space-y-4">
             <div className="flex items-center justify-between overflow-x-auto no-scrollbar">
               <TabsList className="flex items-center space-x-1 bg-slate-100 dark:bg-slate-900/80 p-1 rounded-xl border border-slate-200/80 dark:border-slate-800/80">
                 <TabsTrigger value="overview" className="flex items-center space-x-1.5">
@@ -614,11 +604,7 @@ export default function ReportPage({
                   )}
                 </TabsTrigger>
 
-                <TabsTrigger
-                  id="tour-map"
-                  value="map"
-                  className="flex items-center space-x-1.5"
-                >
+                <TabsTrigger id="tour-map" value="map" className="flex items-center space-x-1.5">
                   <span>Map</span>
                 </TabsTrigger>
 
@@ -664,11 +650,7 @@ export default function ReportPage({
                     </p>
                   </div>
 
-                  <ChunkyButton
-                    variant="lime"
-                    size="sm"
-                    onClick={() => handleTabChange('fixes')}
-                  >
+                  <ChunkyButton variant="lime" size="sm" onClick={() => handleTabChange('fixes')}>
                     View all {baseReport.fixes.length} fixes
                   </ChunkyButton>
                 </div>
@@ -700,7 +682,9 @@ export default function ReportPage({
                   <InsightCard
                     variant="sky"
                     label="Most depended-on file"
-                    value={mostDepended ? (mostDepended.id.split('/').pop() || mostDepended.id) : 'None'}
+                    value={
+                      mostDepended ? mostDepended.id.split('/').pop() || mostDepended.id : 'None'
+                    }
                     subtext={
                       mostDepended
                         ? `Imported by ${mostDepended.fanIn} modules (${mostDepended.id})`
@@ -713,9 +697,19 @@ export default function ReportPage({
                     variant={cycleCount === 0 ? 'lime' : 'coral'}
                     label="Circular dependencies"
                     value={`${cycleCount} cycle${cycleCount === 1 ? '' : 's'}`}
-                    subtext={cycleCount === 0 ? 'Clean acyclic import tree' : 'Mutual import loops detected'}
+                    subtext={
+                      cycleCount === 0
+                        ? 'Clean acyclic import tree'
+                        : 'Mutual import loops detected'
+                    }
                     badge={cycleCount === 0 ? 'Clean' : 'Needs attention'}
-                    icon={cycleCount === 0 ? <Check className="w-4 h-4 text-emerald-500" /> : <AlertTriangle className="w-4 h-4 text-rose-500" />}
+                    icon={
+                      cycleCount === 0 ? (
+                        <Check className="w-4 h-4 text-emerald-500" />
+                      ) : (
+                        <AlertTriangle className="w-4 h-4 text-rose-500" />
+                      )
+                    }
                   />
                   <InsightCard
                     variant="sun"
@@ -739,7 +733,13 @@ export default function ReportPage({
                         : 'No test files detected in repository tree'
                     }
                     badge={testFileCount > 0 ? 'Protected' : 'Quick win'}
-                    icon={testFileCount > 0 ? <Check className="w-4 h-4 text-primary" /> : <AlertTriangle className="w-4 h-4 text-rose-500" />}
+                    icon={
+                      testFileCount > 0 ? (
+                        <Check className="w-4 h-4 text-primary" />
+                      ) : (
+                        <AlertTriangle className="w-4 h-4 text-rose-500" />
+                      )
+                    }
                   />
                 </div>
               </div>
@@ -760,16 +760,18 @@ export default function ReportPage({
 
               {/* Template Copy Quick-Actions */}
               <div className="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-paper-2 p-3 flex flex-wrap items-center justify-between gap-2">
-                <span className="text-xs font-semibold text-ink">
-                  ⚡ Quick starter templates:
-                </span>
+                <span className="text-xs font-semibold text-ink">⚡ Quick starter templates:</span>
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('license')}
                     className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-card hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-sm transition-all"
                   >
-                    {templateCopied === 'license' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-ink-muted" />}
+                    {templateCopied === 'license' ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-ink-muted" />
+                    )}
                     <span>LICENSE</span>
                   </button>
                   <button
@@ -777,7 +779,11 @@ export default function ReportPage({
                     onClick={() => handleCopyTemplate('gitignore')}
                     className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-card hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-sm transition-all"
                   >
-                    {templateCopied === 'gitignore' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-ink-muted" />}
+                    {templateCopied === 'gitignore' ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-ink-muted" />
+                    )}
                     <span>.gitignore</span>
                   </button>
                   <button
@@ -785,7 +791,11 @@ export default function ReportPage({
                     onClick={() => handleCopyTemplate('ci')}
                     className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-card hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-sm transition-all"
                   >
-                    {templateCopied === 'ci' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-ink-muted" />}
+                    {templateCopied === 'ci' ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-500" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-ink-muted" />
+                    )}
                     <span>CI workflow</span>
                   </button>
                 </div>
@@ -829,8 +839,14 @@ export default function ReportPage({
                     className="flex items-center space-x-1"
                     title={isFullscreen ? 'Exit full screen' : 'View full screen'}
                   >
-                    {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
-                    <span className="hidden sm:inline">{isFullscreen ? 'Exit full screen' : 'Full screen'}</span>
+                    {isFullscreen ? (
+                      <Minimize2 className="w-3.5 h-3.5" />
+                    ) : (
+                      <Maximize2 className="w-3.5 h-3.5" />
+                    )}
+                    <span className="hidden sm:inline">
+                      {isFullscreen ? 'Exit full screen' : 'Full screen'}
+                    </span>
                   </ChunkyButton>
                 </div>
 

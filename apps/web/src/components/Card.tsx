@@ -6,12 +6,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   hoverLift?: boolean;
 }
 
-export function Card({
-  children,
-  className = '',
-  hoverLift = false,
-  ...props
-}: CardProps) {
+export function Card({ children, className = '', hoverLift = false, ...props }: CardProps) {
   return (
     <div
       className={`rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card p-6 shadow-sm ${

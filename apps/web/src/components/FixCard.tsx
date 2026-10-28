@@ -24,12 +24,7 @@ export function getEffortDescription(effort: 'S' | 'M' | 'L'): string {
   }
 }
 
-export function FixCard({
-  fix,
-  isDone = false,
-  onToggleDone,
-  className = '',
-}: FixCardProps) {
+export function FixCard({ fix, isDone = false, onToggleDone, className = '' }: FixCardProps) {
   const [expanded, setExpanded] = useState(false);
   const effortDesc = getEffortDescription(fix.effort);
 
@@ -59,7 +54,13 @@ export function FixCard({
           </button>
 
           {/* Points Gain Sticker */}
-          <StickerBadge variant={isDone ? 'card' : 'lime'} size="sm" rotate="none" className="shrink-0" dot={!isDone}>
+          <StickerBadge
+            variant={isDone ? 'card' : 'lime'}
+            size="sm"
+            rotate="none"
+            className="shrink-0"
+            dot={!isDone}
+          >
             +{fix.pointsGain.toFixed(1)} pts
           </StickerBadge>
 

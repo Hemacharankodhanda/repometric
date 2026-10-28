@@ -174,7 +174,10 @@ export function RepoInput({
 
         {/* Inline friendly validation message */}
         {error && (
-          <div className="mt-2.5 flex items-center space-x-1.5 text-xs text-coral-text font-medium" role="alert">
+          <div
+            className="mt-2.5 flex items-center space-x-1.5 text-xs text-coral-text font-medium"
+            role="alert"
+          >
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>

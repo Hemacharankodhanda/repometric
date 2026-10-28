@@ -34,9 +34,7 @@
   ],
   "issues": [],
   "pulls": [],
-  "releases": [
-    { "publishedAt": "2026-02-01T12:00:00Z" }
-  ],
+  "releases": [{ "publishedAt": "2026-02-01T12:00:00Z" }],
   "sampledSources": [
     {
       "path": "src/parser.ts",

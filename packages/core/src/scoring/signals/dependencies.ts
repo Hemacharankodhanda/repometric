@@ -143,11 +143,7 @@ export const outdatedDepsSignal: Signal = {
       if (regInfo && regInfo.latest) {
         const declaredMajor = parseMajorVersion(dep.range);
         const latestMajor = parseMajorVersion(regInfo.latest);
-        if (
-          declaredMajor !== null &&
-          latestMajor !== null &&
-          latestMajor > declaredMajor
-        ) {
+        if (declaredMajor !== null && latestMajor !== null && latestMajor > declaredMajor) {
           behindCount++;
         }
       }

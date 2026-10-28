@@ -133,9 +133,7 @@ export function HeroPreview() {
               <span className="font-medium text-[11px] sm:text-xs text-white truncate bg-black/35 backdrop-blur-sm px-1.5 py-0.5 rounded inline-block w-fit max-w-full">
                 {tile.name}
               </span>
-              <span className="font-mono text-[10px] text-white/90 font-medium">
-                {tile.size}
-              </span>
+              <span className="font-mono text-[10px] text-white/90 font-medium">{tile.size}</span>
             </div>
           );
         })}
@@ -145,7 +143,8 @@ export function HeroPreview() {
       <div className="flex items-center justify-between text-xs text-ink-muted min-h-[22px]">
         {hoveredTile ? (
           <span className="font-mono text-ink font-medium">
-            <span className="font-semibold text-primary">{hoveredTile.path}</span> ({hoveredTile.size} • {hoveredTile.lang})
+            <span className="font-semibold text-primary">{hoveredTile.path}</span> (
+            {hoveredTile.size} • {hoveredTile.lang})
           </span>
         ) : (
           <span className="flex items-center gap-1.5">

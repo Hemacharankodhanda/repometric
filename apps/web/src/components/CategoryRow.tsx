@@ -53,10 +53,14 @@ const CATEGORY_STYLES: Record<string, { bg: string; text: string; icon: React.Re
 const CATEGORY_EXPLANATIONS: Record<string, string> = {
   activity: 'Measures recent commit frequency, cadence consistency, and release velocity.',
   maintenance: 'Checks issue and pull-request triage speed, close rates, and stale backlog health.',
-  community: 'Evaluates contributor diversity, open governance, contributing guidelines, and code of conduct.',
-  documentation: 'Inspects README comprehensiveness, quickstart clarity, examples, and license existence.',
-  hygiene: 'Verifies automated CI testing, .gitignore structure, secrets hygiene, and branch protection.',
-  dependencies: 'Analyzes outdated package counts, pinned dependencies, security vulnerabilities, and bloat.',
+  community:
+    'Evaluates contributor diversity, open governance, contributing guidelines, and code of conduct.',
+  documentation:
+    'Inspects README comprehensiveness, quickstart clarity, examples, and license existence.',
+  hygiene:
+    'Verifies automated CI testing, .gitignore structure, secrets hygiene, and branch protection.',
+  dependencies:
+    'Analyzes outdated package counts, pinned dependencies, security vulnerabilities, and bloat.',
 };
 
 function getSignalIcon(status: SignalStatus) {
@@ -88,11 +92,7 @@ export function CategoryRow({ category }: { category: CategoryResult }) {
   };
 
   const progressColor =
-    percentage >= 75
-      ? 'bg-emerald-500'
-      : percentage >= 50
-      ? 'bg-amber-500'
-      : 'bg-rose-500';
+    percentage >= 75 ? 'bg-emerald-500' : percentage >= 50 ? 'bg-amber-500' : 'bg-rose-500';
 
   return (
     <div className="rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all overflow-hidden">
@@ -100,7 +100,9 @@ export function CategoryRow({ category }: { category: CategoryResult }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-2.5">
             <div className="flex items-center space-x-2.5">
-              <span className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${catStyle.bg} ${catStyle.text}`}>
+              <span
+                className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${catStyle.bg} ${catStyle.text}`}
+              >
                 {catStyle.icon}
               </span>
               <span className="text-sm sm:text-base font-semibold text-ink">{category.label}</span>

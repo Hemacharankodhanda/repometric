@@ -19,9 +19,7 @@
     { "path": "src/index.js", "size": 200, "language": "JavaScript", "isTest": false }
   ],
   "readme": "# Legacy Tool\n\nThis is an old repository that was abandoned long ago.\n\n## Usage\n\n```bash\nnode src/index.js\n```\n",
-  "commits": [
-    { "date": "2024-01-10T10:00:00Z", "authorLogin": "ghost" }
-  ],
+  "commits": [{ "date": "2024-01-10T10:00:00Z", "authorLogin": "ghost" }],
   "issues": [
     {
       "number": 1,

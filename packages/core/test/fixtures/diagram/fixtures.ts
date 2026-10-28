@@ -12,19 +12,52 @@ export const monorepoFiles: FileNode[] = [
   { path: 'packages/core/src/engine.ts', size: 2100, language: 'TypeScript', isTest: false },
   { path: 'packages/viz/package.json', size: 450, language: 'JSON', isTest: false },
   { path: 'packages/viz/src/RepoMap.tsx', size: 3000, language: 'TypeScript', isTest: false },
-  { path: 'packages/viz/src/DependencyGraph.tsx', size: 4000, language: 'TypeScript', isTest: false },
+  {
+    path: 'packages/viz/src/DependencyGraph.tsx',
+    size: 4000,
+    language: 'TypeScript',
+    isTest: false,
+  },
 ];
 
 export const monorepoGraph: GraphData = {
   nodes: [
-    { id: 'apps/web/src/app/page.tsx', folder: 'apps/web/src/app', language: 'TypeScript', size: 1200, fanIn: 0, fanOut: 2, isTest: false },
-    { id: 'packages/viz/src/RepoMap.tsx', folder: 'packages/viz/src', language: 'TypeScript', size: 3000, fanIn: 1, fanOut: 1, isTest: false },
-    { id: 'packages/core/src/index.ts', folder: 'packages/core/src', language: 'TypeScript', size: 1500, fanIn: 2, fanOut: 0, isTest: false },
+    {
+      id: 'apps/web/src/app/page.tsx',
+      folder: 'apps/web/src/app',
+      language: 'TypeScript',
+      size: 1200,
+      fanIn: 0,
+      fanOut: 2,
+      isTest: false,
+    },
+    {
+      id: 'packages/viz/src/RepoMap.tsx',
+      folder: 'packages/viz/src',
+      language: 'TypeScript',
+      size: 3000,
+      fanIn: 1,
+      fanOut: 1,
+      isTest: false,
+    },
+    {
+      id: 'packages/core/src/index.ts',
+      folder: 'packages/core/src',
+      language: 'TypeScript',
+      size: 1500,
+      fanIn: 2,
+      fanOut: 0,
+      isTest: false,
+    },
   ],
   edges: [
     { source: 'apps/web/src/app/page.tsx', target: 'packages/viz/src/RepoMap.tsx', kind: 'static' },
     { source: 'apps/web/src/app/page.tsx', target: 'packages/core/src/index.ts', kind: 'static' },
-    { source: 'packages/viz/src/RepoMap.tsx', target: 'packages/core/src/index.ts', kind: 'static' },
+    {
+      source: 'packages/viz/src/RepoMap.tsx',
+      target: 'packages/core/src/index.ts',
+      kind: 'static',
+    },
   ],
   externals: [
     { name: 'react', importedBy: 4 },
@@ -62,9 +95,33 @@ export const nextjsFiles: FileNode[] = [
 
 export const nextjsGraph: GraphData = {
   nodes: [
-    { id: 'src/app/page.tsx', folder: 'src/app', language: 'TypeScript', size: 900, fanIn: 0, fanOut: 2, isTest: false },
-    { id: 'src/components/Button.tsx', folder: 'src/components', language: 'TypeScript', size: 600, fanIn: 1, fanOut: 0, isTest: false },
-    { id: 'src/lib/db.ts', folder: 'src/lib', language: 'TypeScript', size: 1400, fanIn: 1, fanOut: 0, isTest: false },
+    {
+      id: 'src/app/page.tsx',
+      folder: 'src/app',
+      language: 'TypeScript',
+      size: 900,
+      fanIn: 0,
+      fanOut: 2,
+      isTest: false,
+    },
+    {
+      id: 'src/components/Button.tsx',
+      folder: 'src/components',
+      language: 'TypeScript',
+      size: 600,
+      fanIn: 1,
+      fanOut: 0,
+      isTest: false,
+    },
+    {
+      id: 'src/lib/db.ts',
+      folder: 'src/lib',
+      language: 'TypeScript',
+      size: 1400,
+      fanIn: 1,
+      fanOut: 0,
+      isTest: false,
+    },
   ],
   edges: [
     { source: 'src/app/page.tsx', target: 'src/components/Button.tsx', kind: 'static' },
@@ -103,9 +160,33 @@ export const pythonCycleFiles: FileNode[] = [
 
 export const pythonCycleGraph: GraphData = {
   nodes: [
-    { id: 'app/api/views.py', folder: 'app/api', language: 'Python', size: 1200, fanIn: 0, fanOut: 1, isTest: false },
-    { id: 'app/services/billing.py', folder: 'app/services', language: 'Python', size: 1800, fanIn: 2, fanOut: 1, isTest: false },
-    { id: 'app/models/user.py', folder: 'app/models', language: 'Python', size: 1400, fanIn: 1, fanOut: 1, isTest: false },
+    {
+      id: 'app/api/views.py',
+      folder: 'app/api',
+      language: 'Python',
+      size: 1200,
+      fanIn: 0,
+      fanOut: 1,
+      isTest: false,
+    },
+    {
+      id: 'app/services/billing.py',
+      folder: 'app/services',
+      language: 'Python',
+      size: 1800,
+      fanIn: 2,
+      fanOut: 1,
+      isTest: false,
+    },
+    {
+      id: 'app/models/user.py',
+      folder: 'app/models',
+      language: 'Python',
+      size: 1400,
+      fanIn: 1,
+      fanOut: 1,
+      isTest: false,
+    },
   ],
   edges: [
     { source: 'app/api/views.py', target: 'app/services/billing.py', kind: 'static' },

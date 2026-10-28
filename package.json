@@ -1,7 +1,28 @@
 {
-  "name": "repo-analyzer-monorepo",
+  "name": "repometric",
   "version": "0.1.0",
   "private": true,
+  "description": "Deterministic 0-100 GitHub repository health scoring, zoomable repo treemap, and interactive dependency visualizers.",
+  "author": "Hemacharan Kodhanda",
+  "license": "MIT",
+  "homepage": "https://github.com/Hemacharankodhanda/repometric#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hemacharankodhanda/repometric.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hemacharankodhanda/repometric/issues"
+  },
+  "keywords": [
+    "github",
+    "health-score",
+    "code-quality",
+    "treemap",
+    "dependency-graph",
+    "repometric",
+    "static-analysis",
+    "architecture-diagram"
+  ],
   "packageManager": "pnpm@12.14.0",
   "scripts": {
     "dev": "pnpm --filter @repometric/web dev",

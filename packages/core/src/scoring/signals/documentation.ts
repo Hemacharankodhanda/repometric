@@ -50,11 +50,14 @@ export interface ReadmeAnalysis {
 }
 
 const INSTALL_HEADING_REGEX = /^#{1,6}\s+.*(install|setup|getting started|quick ?start)/im;
-const INSTALL_CMD_REGEX = /(npm|pnpm|yarn|bun)\s+(install|i|add)|pip3?\s+install|poetry\s+add|cargo\s+add|go\s+get|brew\s+install|gem\s+install|apt-get\s+install|docker\s+pull/i;
+const INSTALL_CMD_REGEX =
+  /(npm|pnpm|yarn|bun)\s+(install|i|add)|pip3?\s+install|poetry\s+add|cargo\s+add|go\s+get|brew\s+install|gem\s+install|apt-get\s+install|docker\s+pull/i;
 const USAGE_HEADING_REGEX = /^#{1,6}\s+.*(usage|example|how to|demo)/im;
 const LICENSE_HEADING_REGEX = /^#{1,6}\s+.*license/im;
-const LICENSE_BADGE_REGEX = /(!\[.*?license.*?\]\(.*?\)|<img[^>]*license[^>]*>|shields\.io\/[^)\s]*license)/i;
-const VISUAL_MEDIA_REGEX = /(!\[.*?\]\(.*?\)|<img\b|<video\b|\.(mp4|webm|mov|svg|png|gif|jpe?g)\b)/i;
+const LICENSE_BADGE_REGEX =
+  /(!\[.*?license.*?\]\(.*?\)|<img[^>]*license[^>]*>|shields\.io\/[^)\s]*license)/i;
+const VISUAL_MEDIA_REGEX =
+  /(!\[.*?\]\(.*?\)|<img\b|<video\b|\.(mp4|webm|mov|svg|png|gif|jpe?g)\b)/i;
 
 /**
  * Analyzes README markdown content for key sections.
@@ -77,7 +80,9 @@ export function analyzeReadme(content: string, homepage: string | null): ReadmeA
       // Skip pure headings
       if (/^#{1,6}\s+/.test(p)) return false;
       // Skip pure badge blocks or images
-      const withoutBadges = p.replace(/\[!\[.*?\]\(.*?\)\]\(.*?\)|!\[.*?\]\(.*?\)|<img[^>]*>/g, '').trim();
+      const withoutBadges = p
+        .replace(/\[!\[.*?\]\(.*?\)\]\(.*?\)|!\[.*?\]\(.*?\)|<img[^>]*>/g, '')
+        .trim();
       return withoutBadges.length > 0;
     });
 
@@ -108,8 +113,7 @@ export function analyzeReadme(content: string, homepage: string | null): ReadmeA
   // Usage or examples: heading or second code fence
   const hasUsageHeading = USAGE_HEADING_REGEX.test(content);
   const hasUsage =
-    hasUsageHeading ||
-    (hasInstallCodeFence ? codeFenceCount >= 2 : codeFenceCount >= 1);
+    hasUsageHeading || (hasInstallCodeFence ? codeFenceCount >= 2 : codeFenceCount >= 1);
 
   // Visuals: image/video link or homepage URL set
   const hasVisualLink = VISUAL_MEDIA_REGEX.test(content);
@@ -235,7 +239,9 @@ export const metadataSignal: Signal = {
   label: 'Repository metadata',
   max: 3,
   compute({ snapshot }: SignalContext): SignalResult {
-    const hasDescription = Boolean(snapshot.meta.description && snapshot.meta.description.trim().length > 0);
+    const hasDescription = Boolean(
+      snapshot.meta.description && snapshot.meta.description.trim().length > 0,
+    );
     const topicsCount = snapshot.meta.topics ? snapshot.meta.topics.length : 0;
     const hasTopics = topicsCount >= 3;
 
@@ -415,7 +421,9 @@ export const commentsSignal: Signal = {
       };
     }
 
-    const { commentLines, nonBlankLines, density } = calculateCommentDensity(snapshot.sampledSources);
+    const { commentLines, nonBlankLines, density } = calculateCommentDensity(
+      snapshot.sampledSources,
+    );
 
     if (nonBlankLines === 0) {
       return {

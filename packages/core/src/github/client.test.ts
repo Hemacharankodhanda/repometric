@@ -236,9 +236,7 @@ describe('GitHubClient and target normalization (T1.2)', () => {
     });
 
     it('normalizes full github URLs with .git and trailing slashes', () => {
-      expect(
-        normalizeRepoTarget('https://github.com/vercel/next.js.git/'),
-      ).toEqual({
+      expect(normalizeRepoTarget('https://github.com/vercel/next.js.git/')).toEqual({
         owner: 'vercel',
         name: 'next.js',
       });
@@ -325,21 +323,21 @@ describe('GitHubClient and target normalization (T1.2)', () => {
     });
 
     it('throws RepoNotFoundError on 404', async () => {
-      await expect(
-        client.getSnapshot('test-owner', 'not-found-repo'),
-      ).rejects.toThrow(RepoNotFoundError);
+      await expect(client.getSnapshot('test-owner', 'not-found-repo')).rejects.toThrow(
+        RepoNotFoundError,
+      );
     });
 
     it('throws PrivateRepoError on 403 private', async () => {
-      await expect(
-        client.getSnapshot('test-owner', 'private-repo'),
-      ).rejects.toThrow(PrivateRepoError);
+      await expect(client.getSnapshot('test-owner', 'private-repo')).rejects.toThrow(
+        PrivateRepoError,
+      );
     });
 
     it('throws RateLimitError on rate limit exhaustion', async () => {
-      await expect(
-        client.getSnapshot('test-owner', 'rate-limited-repo'),
-      ).rejects.toThrow(RateLimitError);
+      await expect(client.getSnapshot('test-owner', 'rate-limited-repo')).rejects.toThrow(
+        RateLimitError,
+      );
 
       try {
         await client.getSnapshot('test-owner', 'rate-limited-repo');

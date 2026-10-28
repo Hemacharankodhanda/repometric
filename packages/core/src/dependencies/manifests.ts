@@ -107,7 +107,9 @@ export function parsePyprojectToml(content: string | null): ParsedManifest {
       currentSection === 'project.optional-dependencies' ||
       currentSection === 'project'
     ) {
-      const itemMatch = line.match(/^["']([a-zA-Z0-9_.-]+)(?:\[.*?\])?\s*([~>=<!=][^"';]*)?(?:;.*)?["']/);
+      const itemMatch = line.match(
+        /^["']([a-zA-Z0-9_.-]+)(?:\[.*?\])?\s*([~>=<!=][^"';]*)?(?:;.*)?["']/,
+      );
       if (itemMatch) {
         const name = itemMatch[1];
         const range = itemMatch[2]?.trim() || '*';
@@ -144,10 +146,7 @@ export function parsePyprojectToml(content: string | null): ParsedManifest {
     }
 
     // Poetry dev group: [tool.poetry.group.dev.dependencies]
-    if (
-      currentSection.startsWith('tool.poetry.group') &&
-      currentSection.endsWith('dependencies')
-    ) {
+    if (currentSection.startsWith('tool.poetry.group') && currentSection.endsWith('dependencies')) {
       const kvMatch = line.match(/^([a-zA-Z0-9_.-]+)\s*=\s*(.*)$/);
       if (kvMatch) {
         const name = kvMatch[1];

@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  commits90dSignal,
-  lastCommitSignal,
-  releasesSignal,
-} from './activity';
+import { commits90dSignal, lastCommitSignal, releasesSignal } from './activity';
 import type { RepoSnapshot } from '../../types';
 
 const BASE_NOW = new Date('2026-10-19T12:00:00Z');
@@ -244,9 +240,7 @@ describe('Activity signals (T1.4)', () => {
 
     it('excludes releases older than 365 days', () => {
       const snapshot = createDummySnapshot({
-        releases: [
-          { publishedAt: new Date(BASE_NOW.getTime() - 400 * MS_PER_DAY).toISOString() },
-        ],
+        releases: [{ publishedAt: new Date(BASE_NOW.getTime() - 400 * MS_PER_DAY).toISOString() }],
       });
       const res = releasesSignal.compute({ snapshot, now: BASE_NOW });
       expect(res.earned).toBe(0);

@@ -30,8 +30,8 @@ export function Stepper({ steps, currentStepIndex, className = '' }: StepperProp
               isActive
                 ? 'border-primary/40 bg-primary/5 shadow-sm scale-[1.01]'
                 : isCompleted
-                ? 'border-emerald-500/25 bg-emerald-500/5'
-                : 'border-slate-200/60 dark:border-slate-800/60 bg-card/40 opacity-50'
+                  ? 'border-emerald-500/25 bg-emerald-500/5'
+                  : 'border-slate-200/60 dark:border-slate-800/60 bg-card/40 opacity-50'
             }`}
           >
             {/* Step badge icon */}
@@ -40,8 +40,8 @@ export function Stepper({ steps, currentStepIndex, className = '' }: StepperProp
                 isCompleted
                   ? 'bg-emerald-500 text-white'
                   : isActive
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'bg-paper-2 text-ink-muted border border-slate-200 dark:border-slate-800'
+                    ? 'bg-primary text-white shadow-sm'
+                    : 'bg-paper-2 text-ink-muted border border-slate-200 dark:border-slate-800'
               }`}
             >
               {isCompleted ? (

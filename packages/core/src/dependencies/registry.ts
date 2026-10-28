@@ -90,8 +90,7 @@ export async function fetchPyPiPackageInfo(
     const classifiers: string[] = data.info?.classifiers || [];
     const isInactive = classifiers.some(
       (c) =>
-        c.includes('Development Status :: 7 - Inactive') ||
-        c.toLowerCase().includes('deprecated'),
+        c.includes('Development Status :: 7 - Inactive') || c.toLowerCase().includes('deprecated'),
     );
 
     return {

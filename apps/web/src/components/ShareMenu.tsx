@@ -1,7 +1,15 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Share2, Link as LinkIcon, Shield, Download, FileCode, FileText, Check } from 'lucide-react';
+import {
+  Share2,
+  Link as LinkIcon,
+  Shield,
+  Download,
+  FileCode,
+  FileText,
+  Check,
+} from 'lucide-react';
 import { ChunkyButton } from './ChunkyButton';
 import type { AnalysisReport } from '@repometric/core';
 
@@ -32,7 +40,10 @@ export function ShareMenu({ report, onToast }: ShareMenuProps) {
   }, [open]);
 
   const handleCopyLink = async () => {
-    const url = typeof window !== 'undefined' ? window.location.href : `https://repometric.dev/r/${owner}/${name}`;
+    const url =
+      typeof window !== 'undefined'
+        ? window.location.href
+        : `https://repometric.dev/r/${owner}/${name}`;
     await navigator.clipboard.writeText(url);
     setCopiedAction('link');
     onToast?.('Link copied to clipboard!');

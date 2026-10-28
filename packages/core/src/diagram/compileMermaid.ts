@@ -43,7 +43,7 @@ export function escapeMermaidLabel(text: string): string {
 export function compileMermaid(
   spec: DiagramSpec,
   ctx: DiagramContext,
-  theme?: ThemeColors
+  theme?: ThemeColors,
 ): CompiledDiagram {
   const lines: string[] = ['flowchart TD'];
   const nodeMap: Record<string, DiagramNodeMeta> = {};
@@ -137,7 +137,7 @@ export function compileMermaid(
   const dangerColor = theme?.danger || '#D6352F';
   for (const idx of cyclicEdgeIndices) {
     lines.push(
-      `  linkStyle ${idx} stroke:${dangerColor},stroke-width:2.5px,stroke-dasharray: 5 5;`
+      `  linkStyle ${idx} stroke:${dangerColor},stroke-width:2.5px,stroke-dasharray: 5 5;`,
     );
   }
 
@@ -149,18 +149,16 @@ export function compileMermaid(
 
       const className = `${layer}Layer`;
       lines.push(
-        `  classDef ${className} fill:${theme.fog},stroke:${theme.ink},stroke-width:1.5px,color:${theme.ink};`
+        `  classDef ${className} fill:${theme.fog},stroke:${theme.ink},stroke-width:1.5px,color:${theme.ink};`,
       );
       lines.push(`  class ${comps.map((c) => c.id).join(',')} ${className};`);
     }
 
     if (spec.externals && spec.externals.length > 0) {
       lines.push(
-        `  classDef externalNode fill:${theme.surface},stroke:${theme.teal},stroke-width:2px,color:${theme.ink};`
+        `  classDef externalNode fill:${theme.surface},stroke:${theme.teal},stroke-width:2px,color:${theme.ink};`,
       );
-      lines.push(
-        `  class ${spec.externals.map((e) => e.id).join(',')} externalNode;`
-      );
+      lines.push(`  class ${spec.externals.map((e) => e.id).join(',')} externalNode;`);
     }
   }
 

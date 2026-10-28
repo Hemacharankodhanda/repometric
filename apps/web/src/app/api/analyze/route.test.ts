@@ -4,7 +4,12 @@ vi.mock('server-only', () => ({}));
 
 import { NextRequest } from 'next/server';
 import { POST } from './route';
-import { GitHubClient, RepoNotFoundError, PrivateRepoError, RateLimitError } from '@repometric/core';
+import {
+  GitHubClient,
+  RepoNotFoundError,
+  PrivateRepoError,
+  RateLimitError,
+} from '@repometric/core';
 import type { RepoSnapshot } from '@repometric/core';
 
 // Mock GitHubClient
@@ -36,7 +41,8 @@ describe('POST /api/analyze (T2.4)', () => {
     },
     commitSha: 'a1b2c3d4e5f678901234567890abcdef12345678',
     now: '2026-10-19T10:00:00Z',
-    readme: '# Test Repo\n\nA great test repo with documentation and setup.\n\n## Install\n```sh\nnpm install\n```\n\n## Usage\n```ts\nimport test from "test";\n```\n\n## License\nMIT\n',
+    readme:
+      '# Test Repo\n\nA great test repo with documentation and setup.\n\n## Install\n```sh\nnpm install\n```\n\n## Usage\n```ts\nimport test from "test";\n```\n\n## License\nMIT\n',
     tree: [
       { path: 'index.ts', size: 100, language: 'TypeScript', isTest: false },
       { path: 'README.md', size: 500, language: 'Markdown', isTest: false },

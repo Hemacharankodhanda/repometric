@@ -139,9 +139,7 @@ export function CoachMarkTour({
           </button>
         </div>
 
-        <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
-          {step.content}
-        </p>
+        <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">{step.content}</p>
 
         {/* Step indicator dots and actions */}
         <div className="flex items-center justify-between pt-2 border-t-2 border-ink">
@@ -171,7 +169,11 @@ export function CoachMarkTour({
               className="flex items-center space-x-1"
             >
               <span>{isLast ? 'Got it!' : 'Next'}</span>
-              {isLast ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <ArrowRight className="w-3.5 h-3.5" />}
+              {isLast ? (
+                <Check className="w-3.5 h-3.5 stroke-[3]" />
+              ) : (
+                <ArrowRight className="w-3.5 h-3.5" />
+              )}
             </ChunkyButton>
           </div>
         </div>

@@ -1,12 +1,6 @@
 import type { FileNode, GraphData } from '../types';
 import { lookupExternal } from './externals';
-import type {
-  DiagramComponent,
-  DiagramEdge,
-  DiagramExternal,
-  DiagramSpec,
-  LayerId,
-} from './types';
+import type { DiagramComponent, DiagramEdge, DiagramExternal, DiagramSpec, LayerId } from './types';
 
 const LAYER_ORDER: LayerId[] = ['client', 'server', 'core', 'data', 'shared', 'other'];
 
@@ -111,10 +105,7 @@ export function determineLayer(componentPath: string): LayerId {
 /**
  * Pure, deterministic builder of an Architecture Diagram specification from file tree & graph data.
  */
-export function buildDiagramSpec(
-  files: FileNode[],
-  graph: GraphData | null
-): DiagramSpec {
+export function buildDiagramSpec(files: FileNode[], graph: GraphData | null): DiagramSpec {
   const notes: string[] = [];
 
   // 1. Identify Components (first match wins)
@@ -252,7 +243,7 @@ export function buildDiagramSpec(
 
   // Filter out components with 0 source files unless it's the only one
   let activeComponents = rawComponents.filter(
-    (c) => (fileCounts.get(c.path) || 0) > 0 || rawComponents.length === 1
+    (c) => (fileCounts.get(c.path) || 0) > 0 || rawComponents.length === 1,
   );
 
   if (activeComponents.length === 0 && rawComponents.length > 0) {
@@ -451,7 +442,7 @@ export function buildDiagramSpec(
     start: string,
     target: string,
     excludeFrom: string,
-    excludeTo: string
+    excludeTo: string,
   ): boolean => {
     const visited = new Set<string>();
     const queue = [start];
@@ -527,7 +518,7 @@ export function buildDiagramSpec(
   }
 
   let externalEdges: { from: string; to: string; weight: number }[] = Array.from(
-    extEdgeWeights.entries()
+    extEdgeWeights.entries(),
   ).map(([key, weight]) => {
     const [from, to] = key.split('->');
     return { from, to, weight };
@@ -550,16 +541,14 @@ export function buildDiagramSpec(
       notes.push(
         `Trimmed ${trimExtCount} external ${
           trimExtCount === 1 ? 'package' : 'packages'
-        } to meet the 40-node cap.`
+        } to meet the 40-node cap.`,
       );
     }
 
     const remainingTotal = components.length + externals.length;
     if (remainingTotal > 40) {
       const compExcess = remainingTotal - 40;
-      notes.push(
-        `Merged ${compExcess} components into other to meet the 40-node cap.`
-      );
+      notes.push(`Merged ${compExcess} components into other to meet the 40-node cap.`);
     }
   }
 

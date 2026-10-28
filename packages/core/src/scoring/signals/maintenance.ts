@@ -57,7 +57,8 @@ export const firstResponseSignal: Signal = {
         earned: 4,
         max: 8,
         status: 'no_data',
-        evidence: 'No external issues or pull requests opened in the last 180 days to measure response time.',
+        evidence:
+          'No external issues or pull requests opened in the last 180 days to measure response time.',
       };
     }
 

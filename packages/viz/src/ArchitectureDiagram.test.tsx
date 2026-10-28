@@ -12,7 +12,7 @@ describe('ArchitectureDiagram', () => {
         owner="repometric"
         repo="repometric"
         sha="abcdef123456"
-      />
+      />,
     );
 
     expect(html).toContain('Diagram');

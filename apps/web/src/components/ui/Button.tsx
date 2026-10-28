@@ -18,8 +18,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-card text-ink border border-slate-200 dark:border-slate-800 shadow-sm hover:bg-paper-2 hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98]',
       outline:
         'bg-transparent text-ink border border-slate-200 dark:border-slate-800 hover:bg-card shadow-sm hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98]',
-      ghost:
-        'bg-transparent text-ink hover:bg-ink/5 dark:hover:bg-white/10 active:scale-[0.98]',
+      ghost: 'bg-transparent text-ink hover:bg-ink/5 dark:hover:bg-white/10 active:scale-[0.98]',
       danger:
         'bg-coral text-white border border-coral/30 shadow-sm hover:brightness-105 active:scale-[0.98]',
     };
