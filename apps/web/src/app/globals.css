@@ -4,31 +4,31 @@
 
 @layer base {
   :root {
-    --paper: #f8fafc;
-    --paper-2: #f1f5f9;
+    --paper: #faf9f5;
+    --paper-2: #f2efe7;
     --card: #ffffff;
     --ink: #0f172a;
-    --ink-muted: #64748b;
+    --ink-muted: #475569;
 
     --primary: #4f46e5;
     --on-primary: #ffffff;
-    --primary-text: #4338ca;
+    --primary-text: #3730a3;
 
-    --lime: #10b981;
+    --lime: #a3e635;
     --sun: #f59e0b;
     --coral: #f43f5e;
-    --coral-text: #e11d48;
-    --sky: #06b6d4;
+    --coral-text: #be123c;
+    --sky: #38bdf8;
     --on-fill: #0f172a;
 
-    --border: 1px solid rgba(15, 23, 42, 0.08);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-    --shadow-glow: 0 0 25px -5px rgba(99, 102, 241, 0.15);
+    /* Hard offset shadows — "stickers on paper" */
+    --shadow-sm: 2px 2px 0 var(--ink);
+    --shadow-md: 4px 4px 0 var(--ink);
+    --shadow-lg: 6px 6px 0 var(--ink);
+    --shadow-glow: 0 0 25px -5px rgba(79, 70, 229, 0.2);
 
     --radius-tile: 4px;
-    --radius-control: 8px;
+    --radius-control: 10px;
     --radius-card: 16px;
     --radius-pill: 9999px;
 
@@ -67,7 +67,7 @@
   :root[data-theme='dark'] {
     --paper: #090d16;
     --paper-2: #0f172a;
-    --card: #131b2e;
+    --card: #182234;
     --ink: #f8fafc;
     --ink-muted: #94a3b8;
 
@@ -75,25 +75,24 @@
     --on-primary: #ffffff;
     --primary-text: #818cf8;
 
-    --lime: #10b981;
+    --lime: #a3e635;
     --sun: #fbbf24;
     --sky: #38bdf8;
     --coral: #fb7185;
     --coral-text: #fda4af;
-    --on-fill: #ffffff;
+    --on-fill: #0f172a;
 
-    --border: 1px solid rgba(255, 255, 255, 0.08);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
-    --shadow-glow: 0 0 30px -5px rgba(99, 102, 241, 0.3);
+    --shadow-sm: 2px 2px 0 var(--ink);
+    --shadow-md: 4px 4px 0 var(--ink);
+    --shadow-lg: 6px 6px 0 var(--ink);
+    --shadow-glow: 0 0 30px -5px rgba(99, 102, 241, 0.4);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme='light']) {
       --paper: #090d16;
       --paper-2: #0f172a;
-      --card: #131b2e;
+      --card: #182234;
       --ink: #f8fafc;
       --ink-muted: #94a3b8;
 
@@ -101,18 +100,17 @@
       --on-primary: #ffffff;
       --primary-text: #818cf8;
 
-      --lime: #10b981;
+      --lime: #a3e635;
       --sun: #fbbf24;
       --sky: #38bdf8;
       --coral: #fb7185;
       --coral-text: #fda4af;
-      --on-fill: #ffffff;
+      --on-fill: #0f172a;
 
-      --border: 1px solid rgba(255, 255, 255, 0.08);
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
-      --shadow-glow: 0 0 30px -5px rgba(99, 102, 241, 0.3);
+      --shadow-sm: 2px 2px 0 var(--ink);
+      --shadow-md: 4px 4px 0 var(--ink);
+      --shadow-lg: 6px 6px 0 var(--ink);
+      --shadow-glow: 0 0 30px -5px rgba(99, 102, 241, 0.4);
     }
   }
 
@@ -150,15 +148,7 @@
     linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px);
 }
 
-/* Glassmorphism utilities */
-.glass-panel {
-  background-color: color-mix(in srgb, var(--card) 85%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
-}
-
-:focus-visible {
+/* Dot grid for paper-2 sections — survey-paper feel */:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
