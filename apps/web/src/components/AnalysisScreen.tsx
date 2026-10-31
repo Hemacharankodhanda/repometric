@@ -82,16 +82,14 @@ export function AnalysisScreen({ repoName, onComplete, speedMultiplier = 1 }: An
 
   return (
     <div className="w-full py-12 sm:py-16 flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in-50 duration-300 relative">
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-primary/10 blur-3xl" />
-
       {/* Tilly Scanning */}
-      <div className="relative z-10">
+      <div>
         <Tilly mood="scanning" size={100} />
       </div>
 
       {/* Heading */}
-      <div className="space-y-1.5 z-10">
-        <div className="flex items-center justify-center space-x-1.5 text-xs font-semibold text-primary">
+      <div className="space-y-1.5">
+        <div className="flex items-center justify-center space-x-1.5 text-xs font-bold text-primary-text">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Telemetry Scanner</span>
         </div>
@@ -104,18 +102,18 @@ export function AnalysisScreen({ repoName, onComplete, speedMultiplier = 1 }: An
       </div>
 
       {/* Stepper */}
-      <div className="w-full flex justify-center px-4 z-10">
+      <div className="w-full flex justify-center px-4">
         <Stepper steps={steps} currentStepIndex={currentStepIndex} />
       </div>
 
       {/* Rotating True Tip Box */}
-      <div className="max-w-md w-full px-4 z-10">
-        <div className="rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-4 shadow-sm flex items-start space-x-3 text-left">
-          <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0 mt-0.5">
+      <div className="max-w-md w-full px-4">
+        <div className="rounded-card border-2 border-ink bg-card p-4 shadow-card flex items-start space-x-3 text-left">
+          <div className="w-8 h-8 rounded-control border-2 border-ink bg-sun text-ink flex items-center justify-center shrink-0 mt-0.5 shadow-card-sm">
             <Lightbulb className="w-4 h-4" />
           </div>
           <div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted block mb-0.5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-ink-muted block mb-0.5">
               Good repo practice
             </span>
             <p className="text-xs font-medium text-ink leading-relaxed transition-opacity duration-300">
