@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Tilly } from './Tilly';
 import { StickerBadge } from './StickerBadge';
 import { Layers } from 'lucide-react';
@@ -23,7 +24,7 @@ const SAMPLE_TILES: SampleTile[] = [
     path: 'packages/core/src/engine.ts',
     size: '14.2 KB',
     lang: 'TypeScript',
-    color: '#4f46e5',
+    color: '#6366f1',
     colSpan: 'col-span-2 sm:col-span-3',
     rowSpan: 'row-span-2',
   },
@@ -33,7 +34,7 @@ const SAMPLE_TILES: SampleTile[] = [
     path: 'apps/web/src/app/page.tsx',
     size: '9.8 KB',
     lang: 'TypeScript',
-    color: '#38bdf8',
+    color: '#06b6d4',
     colSpan: 'col-span-2 sm:col-span-3',
     rowSpan: 'row-span-1',
   },
@@ -53,7 +54,7 @@ const SAMPLE_TILES: SampleTile[] = [
     path: 'packages/viz/src/RepoMap.tsx',
     size: '12.4 KB',
     lang: 'TypeScript',
-    color: '#a3e635',
+    color: '#10b981',
     colSpan: 'col-span-1 sm:col-span-2',
     rowSpan: 'row-span-2',
   },
@@ -63,7 +64,7 @@ const SAMPLE_TILES: SampleTile[] = [
     path: 'packages/cli/src/index.ts',
     size: '3.1 KB',
     lang: 'TypeScript',
-    color: '#f43f5e',
+    color: '#8b5cf6',
     colSpan: 'col-span-2 sm:col-span-2',
     rowSpan: 'row-span-1',
   },
@@ -73,7 +74,7 @@ const SAMPLE_TILES: SampleTile[] = [
     path: 'tests/scoring.test.ts',
     size: '6.5 KB',
     lang: 'TypeScript',
-    color: '#e69f00',
+    color: '#ec4899',
     colSpan: 'col-span-2 sm:col-span-2',
     rowSpan: 'row-span-1',
   },
@@ -83,17 +84,25 @@ export function HeroPreview() {
   const [hoveredTile, setHoveredTile] = useState<SampleTile | null>(null);
 
   return (
-    <div className="w-full rounded-card border-2 border-ink bg-card p-5 sm:p-6 shadow-card select-none">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="w-full rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card/90 backdrop-blur-md p-5 sm:p-6 shadow-xl dark:shadow-2xl dark:shadow-indigo-950/20 select-none relative overflow-hidden"
+    >
+      {/* Subtle background glow */}
+      <div className="pointer-events-none absolute -top-16 -right-16 w-60 h-60 rounded-full bg-primary/10 blur-3xl" />
+
       {/* Header: score badge + Tilly */}
-      <div className="flex items-center justify-between border-b-2 border-ink/10 pb-3.5 gap-2">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-control border-2 border-ink bg-sun flex items-center justify-center font-display font-extrabold text-lg text-ink shadow-card-sm">
+      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3.5 gap-2">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center font-display font-extrabold text-lg text-ink">
             68
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-sm text-ink">Health: 68/100</span>
-              <StickerBadge variant="sun" size="sm" rotate="right">
+            <div className="flex items-center space-x-2">
+              <span className="font-semibold text-sm text-ink">Health: 68/100</span>
+              <StickerBadge variant="sun" size="sm">
                 Needs work
               </StickerBadge>
             </div>
@@ -103,7 +112,7 @@ export function HeroPreview() {
 
         <div className="flex items-center gap-2">
           <StickerBadge variant="paper" size="sm" dot={false}>
-            SAMPLE
+            SAMPLE DATA
           </StickerBadge>
           <div className="hidden sm:block">
             <Tilly mood="neutral" size={32} />
@@ -112,47 +121,60 @@ export function HeroPreview() {
       </div>
 
       {/* Interactive mini treemap */}
-      <div className="grid grid-cols-4 sm:grid-cols-6 gap-1.5 h-56 sm:h-60 p-2 mt-4 rounded-control border-2 border-ink bg-paper-2">
+      <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 h-56 sm:h-60 p-2 mt-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
         {SAMPLE_TILES.map((tile) => {
           const isHovered = hoveredTile?.id === tile.id;
           return (
-            <div
+            <motion.div
               key={tile.id}
+              whileHover={{ scale: 1.02, zIndex: 10 }}
               onMouseEnter={() => setHoveredTile(tile)}
               onMouseLeave={() => setHoveredTile(null)}
               style={{ backgroundColor: tile.color }}
-              className={`${tile.colSpan} ${tile.rowSpan} rounded-tile border-2 border-ink p-2 flex flex-col justify-between cursor-pointer transition-all duration-[120ms] ${
-                isHovered
-                  ? '-translate-x-px -translate-y-px shadow-card z-10'
-                  : 'shadow-card-sm'
+              className={`${tile.colSpan} ${tile.rowSpan} rounded-lg border border-black/10 dark:border-white/10 p-2.5 flex flex-col justify-between cursor-pointer transition-all duration-150 relative overflow-hidden ${
+                isHovered ? 'shadow-lg brightness-105 z-10' : 'hover:brightness-105 opacity-90'
               }`}
             >
-              <span className="font-bold text-[11px] sm:text-xs text-white truncate bg-black/40 px-1.5 py-0.5 rounded-[3px] inline-block w-fit max-w-full">
+              <span className="font-medium text-[11px] sm:text-xs text-white truncate bg-black/40 backdrop-blur-sm px-1.5 py-0.5 rounded inline-block w-fit max-w-full">
                 {tile.name}
               </span>
               <span className="font-mono text-[10px] text-white/90 font-medium">{tile.size}</span>
-            </div>
+            </motion.div>
           );
         })}
       </div>
 
       {/* Hover caption strip */}
       <div className="flex items-center justify-between text-xs text-ink-muted min-h-[22px] mt-3">
-        {hoveredTile ? (
-          <span className="font-mono text-ink font-medium">
-            <span className="font-bold text-primary">{hoveredTile.path}</span> (
-            {hoveredTile.size} • {hoveredTile.lang})
-          </span>
-        ) : (
-          <span className="flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5 text-primary" />
-            <span>Interactive treemap preview. Hover tiles to inspect.</span>
-          </span>
-        )}
-        <span className="hidden sm:inline font-bold text-primary text-xs">
+        <AnimatePresence mode="wait">
+          {hoveredTile ? (
+            <motion.span
+              key={hoveredTile.id}
+              initial={{ opacity: 0, x: -5 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 5 }}
+              className="font-mono text-ink font-medium"
+            >
+              <span className="font-semibold text-primary">{hoveredTile.path}</span> (
+              {hoveredTile.size} • {hoveredTile.lang})
+            </motion.span>
+          ) : (
+            <motion.span
+              key="default"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center gap-1.5"
+            >
+              <Layers className="w-3.5 h-3.5 text-primary" />
+              <span>Interactive Treemap preview. Hover tiles to inspect.</span>
+            </motion.span>
+          )}
+        </AnimatePresence>
+        <span className="hidden sm:inline font-semibold text-primary text-xs">
           Live treemap &rarr;
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }

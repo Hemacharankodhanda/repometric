@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'motion/react';
 import { Check, Loader2 } from 'lucide-react';
 
 export interface StepItem {
@@ -24,51 +25,54 @@ export function Stepper({ steps, currentStepIndex, className = '' }: StepperProp
         const isActive = idx === currentStepIndex || step.status === 'active';
 
         return (
-          <div
+          <motion.div
             key={step.id}
-            className={`flex items-center space-x-3 p-3 rounded-control border-2 border-ink transition-all duration-[120ms] ${
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.2, delay: idx * 0.05 }}
+            className={`flex items-center space-x-3 p-3 rounded-xl border transition-all duration-200 ${
               isActive
-                ? 'bg-paper-2 shadow-card scale-[1.01]'
+                ? 'border-primary/40 bg-primary/5 shadow-sm scale-[1.01]'
                 : isCompleted
-                  ? 'bg-card shadow-card-sm'
-                  : 'bg-card border-ink/30 opacity-60'
+                  ? 'border-emerald-500/25 bg-emerald-500/5'
+                  : 'border-slate-200/60 dark:border-slate-800/60 bg-card/40 opacity-50'
             }`}
           >
             {/* Step badge icon */}
             <div
-              className={`w-7 h-7 rounded-control border-2 border-ink flex items-center justify-center shrink-0 font-mono text-xs font-bold shadow-card-sm ${
+              className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 font-mono text-xs font-semibold ${
                 isCompleted
-                  ? 'bg-lime text-ink'
+                  ? 'bg-emerald-500 text-white shadow-sm shadow-emerald-500/20'
                   : isActive
-                    ? 'bg-primary text-white'
-                    : 'bg-paper-2 text-ink-muted border-ink/40'
+                    ? 'bg-primary text-white shadow-sm shadow-primary/20'
+                    : 'bg-paper-2 text-ink-muted border border-slate-200 dark:border-slate-800'
               }`}
             >
               {isCompleted ? (
-                <Check className="w-4 h-4 stroke-[3]" />
+                <Check className="w-3.5 h-3.5 stroke-[3]" />
               ) : isActive ? (
-                <Loader2 className="w-4 h-4 animate-spin stroke-[2.5]" />
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
                 <span>{idx + 1}</span>
               )}
             </div>
 
             {/* Label and optional progress detail */}
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 text-left">
               <p
-                className={`text-xs sm:text-sm font-bold truncate ${
+                className={`text-xs sm:text-sm font-semibold truncate ${
                   isActive ? 'text-ink' : isCompleted ? 'text-ink' : 'text-ink-muted'
                 }`}
               >
                 {step.label}
               </p>
               {isActive && step.progressText && (
-                <p className="text-[11px] font-mono text-primary-text font-bold truncate">
+                <p className="text-[11px] font-mono text-primary font-medium truncate">
                   {step.progressText}
                 </p>
               )}
             </div>
-          </div>
+          </motion.div>
         );
       })}
     </div>

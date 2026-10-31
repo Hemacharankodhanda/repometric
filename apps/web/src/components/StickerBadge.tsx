@@ -1,8 +1,12 @@
+'use client';
+
 import React from 'react';
+import { motion } from 'motion/react';
 
 export type StickerVariant = 'lime' | 'sun' | 'coral' | 'sky' | 'primary' | 'card' | 'paper';
 
-export interface StickerBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface StickerBadgeProps
+  extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag'> {
   variant?: StickerVariant;
   rotate?: 'left' | 'right' | 'none' | number;
   size?: 'sm' | 'md' | 'lg';
@@ -11,40 +15,34 @@ export interface StickerBadgeProps extends React.HTMLAttributes<HTMLSpanElement>
   dot?: boolean;
 }
 
-/**
- * Solid-fill sticker badges with 2 px ink border and hard 2 px offset shadow.
- * Follows the "stickers on paper" spec: flat color fills, ink outlines, hard shadows.
- * Text is always --ink colored on fills; dark mode keeps the same ink outline approach.
- */
 const VARIANT_STYLES: Record<StickerVariant, string> = {
-  lime: 'bg-lime text-ink border-ink',
-  sun: 'bg-sun text-ink border-ink',
-  coral: 'bg-coral text-white border-ink',
-  sky: 'bg-sky text-ink border-ink',
-  primary: 'bg-primary text-white border-ink',
-  card: 'bg-card text-ink border-ink',
-  paper: 'bg-paper-2 text-ink-muted border-ink/30',
+  lime: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 shadow-sm shadow-emerald-500/5',
+  sun: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 shadow-sm shadow-amber-500/5',
+  coral: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20 shadow-sm shadow-rose-500/5',
+  sky: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20 shadow-sm shadow-sky-500/5',
+  primary: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20 shadow-sm shadow-indigo-500/5',
+  card: 'bg-card text-ink border-slate-200 dark:border-slate-800 shadow-sm',
+  paper: 'bg-paper-2 text-ink-muted border-slate-200/80 dark:border-slate-800/80',
 };
 
 const DOT_COLORS: Record<StickerVariant, string> = {
-  lime: 'bg-ink/40',
-  sun: 'bg-ink/40',
-  coral: 'bg-white/60',
-  sky: 'bg-ink/40',
-  primary: 'bg-white/60',
-  card: 'bg-ink/40',
-  paper: 'bg-ink-muted/60',
+  lime: 'bg-emerald-500',
+  sun: 'bg-amber-500',
+  coral: 'bg-rose-500',
+  sky: 'bg-sky-500',
+  primary: 'bg-indigo-500',
+  card: 'bg-slate-400',
+  paper: 'bg-slate-400',
 };
 
 const SIZE_STYLES = {
-  sm: 'text-[11px] px-2 py-0.5 font-bold tracking-wide',
-  md: 'text-xs px-2.5 py-1 font-bold tracking-wide',
-  lg: 'text-sm px-3.5 py-1.5 font-extrabold tracking-wide',
+  sm: 'text-[11px] px-2 py-0.5 font-medium tracking-wide',
+  md: 'text-xs px-2.5 py-1 font-semibold tracking-wide',
+  lg: 'text-sm px-3.5 py-1.5 font-bold tracking-wide',
 };
 
 export function StickerBadge({
   variant = 'sun',
-  rotate = 'none',
   size = 'md',
   children,
   className = '',
@@ -52,26 +50,22 @@ export function StickerBadge({
   style,
   ...props
 }: StickerBadgeProps) {
-  let rotationDeg = 0;
-  if (typeof rotate === 'number') {
-    rotationDeg = rotate;
-  } else if (rotate === 'left') {
-    rotationDeg = -1.5;
-  } else if (rotate === 'right') {
-    rotationDeg = 1.5;
-  }
-
   return (
-    <span
-      className={`inline-flex items-center justify-center gap-1.5 select-none rounded-full border-2 shadow-card-sm transition-all ${VARIANT_STYLES[variant]} ${SIZE_STYLES[size]} ${className}`}
-      style={{
-        transform: rotationDeg !== 0 ? `rotate(${rotationDeg}deg)` : undefined,
-        ...style,
-      }}
+    <motion.span
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.15, ease: 'easeOut' }}
+      className={`inline-flex items-center justify-center gap-1.5 select-none rounded-full border transition-all ${VARIANT_STYLES[variant]} ${SIZE_STYLES[size]} ${className}`}
+      style={style}
       {...props}
     >
-      {dot && <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${DOT_COLORS[variant]}`} />}
+      {dot && (
+        <span className="relative flex h-1.5 w-1.5 shrink-0">
+          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${DOT_COLORS[variant]}`} />
+          <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${DOT_COLORS[variant]}`} />
+        </span>
+      )}
       <span>{children}</span>
-    </span>
+    </motion.span>
   );
 }

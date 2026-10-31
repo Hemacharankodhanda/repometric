@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'motion/react';
 import { Search, ArrowRight, AlertCircle } from 'lucide-react';
 import { ChunkyButton } from './ChunkyButton';
 
@@ -91,7 +92,7 @@ export function RepoInput({
     return (
       <div className={`w-full max-w-md relative ${className}`}>
         <form onSubmit={handleSubmit} className="w-full relative">
-          <div className="flex items-center rounded-control border-2 border-ink bg-card px-3 py-1 shadow-card-sm focus-within:shadow-card transition-all h-9">
+          <div className="flex items-center rounded-control border border-slate-200 dark:border-slate-800 bg-card px-3 py-1 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all h-9">
             <Search className="w-3.5 h-3.5 text-ink-muted mr-2 shrink-0" aria-hidden="true" />
             <input
               id={id}
@@ -122,15 +123,20 @@ export function RepoInput({
             </ChunkyButton>
           </div>
 
-          {error && (
-            <div
-              className="absolute left-0 top-full mt-2 z-50 rounded-control border-2 border-ink bg-card px-3 py-1.5 text-xs text-coral-text font-bold shadow-card flex items-center space-x-1.5 whitespace-nowrap"
-              role="alert"
-            >
-              <AlertCircle className="w-3.5 h-3.5 shrink-0 text-coral-text" />
-              <span>{error}</span>
-            </div>
-          )}
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                className="absolute left-0 top-full mt-2 z-50 rounded-control border border-rose-200 dark:border-rose-900 bg-card px-3 py-1.5 text-xs text-coral-text font-medium shadow-md flex items-center space-x-1.5 whitespace-nowrap"
+                role="alert"
+              >
+                <AlertCircle className="w-3.5 h-3.5 shrink-0 text-coral-text" />
+                <span>{error}</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </form>
       </div>
     );
@@ -140,7 +146,7 @@ export function RepoInput({
     <div className={`w-full max-w-2xl ${className}`}>
       <form onSubmit={handleSubmit} className="w-full">
         {/* Large command bar */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center rounded-card border-2 border-ink bg-card p-1.5 sm:p-2 shadow-card focus-within:shadow-card-lg transition-all">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card p-1.5 sm:p-2 shadow-md hover:border-slate-300 dark:hover:border-slate-700 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 transition-all">
           <div className="relative flex-1 flex items-center px-3.5 py-1.5">
             <Search className="w-5 h-5 text-ink-muted mr-3 shrink-0" aria-hidden="true" />
             <input
@@ -164,7 +170,7 @@ export function RepoInput({
               disabled={loading}
               size="md"
               variant="primary"
-              className="w-full sm:w-auto font-bold text-sm"
+              className="w-full sm:w-auto font-semibold text-sm"
               icon={<ArrowRight className="w-4 h-4" />}
             >
               {loading ? 'Analyzing...' : 'Analyze repo'}
@@ -173,30 +179,37 @@ export function RepoInput({
         </div>
 
         {/* Inline friendly validation message */}
-        {error && (
-          <div
-            className="mt-2.5 flex items-center space-x-1.5 text-xs text-coral-text font-bold"
-            role="alert"
-          >
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{error}</span>
-          </div>
-        )}
+        <AnimatePresence>
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-2.5 flex items-center space-x-1.5 text-xs text-coral-text font-medium"
+              role="alert"
+            >
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{error}</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </form>
 
       {/* Helper text & Example chips */}
       {showChips && (
         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-ink-muted">
-          <span className="font-bold text-ink">Try sample:</span>
+          <span className="font-medium text-ink-muted">Try sample:</span>
           {EXAMPLE_REPOS.map((ex) => (
-            <button
+            <motion.button
               key={ex.name}
+              whileHover={{ y: -1, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="button"
               onClick={() => handleChipClick(ex.name)}
-              className="inline-flex items-center px-3 py-1 rounded-pill border-2 border-ink bg-paper-2 hover:bg-card text-ink font-mono text-xs shadow-card-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-card transition-all duration-[120ms]"
+              className="inline-flex items-center px-2.5 py-1 rounded-pill border border-slate-200 dark:border-slate-800 bg-paper-2 hover:bg-slate-200/60 dark:hover:bg-slate-800 text-ink font-mono text-xs transition-colors shadow-sm"
             >
               {ex.name}
-            </button>
+            </motion.button>
           ))}
         </div>
       )}

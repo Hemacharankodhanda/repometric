@@ -79,12 +79,10 @@ const config: Config = {
         md: 'var(--shadow-md)',
         lg: 'var(--shadow-lg)',
         glow: 'var(--shadow-glow)',
-        // Hard card/element offset for "stickers on paper" look
-        card: '4px 4px 0 var(--ink)',
-        'card-sm': '2px 2px 0 var(--ink)',
-        'card-lg': '6px 6px 0 var(--ink)',
-        // Hover lift state
-        lift: '6px 6px 0 var(--ink)',
+        card: 'var(--shadow-md)',
+        'card-sm': 'var(--shadow-sm)',
+        'card-lg': 'var(--shadow-lg)',
+        lift: '0 12px 28px -4px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04)',
         none: '0 0 #0000',
       },
       borderRadius: {

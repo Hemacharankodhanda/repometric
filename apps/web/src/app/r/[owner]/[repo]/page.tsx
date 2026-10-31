@@ -41,8 +41,8 @@ import { getMockAnalysis } from '../../../../server/mockReportService';
 const RepoMap = dynamic(() => import('@repometric/viz').then((mod) => mod.RepoMap), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[540px] rounded-card border-2 border-ink bg-card flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
-      <div className="w-8 h-8 rounded-full border-2 border-ink border-t-primary animate-spin" />
+    <div className="w-full h-[540px] rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
+      <div className="w-8 h-8 rounded-full border-2 border-indigo-200 border-t-indigo-600 animate-spin" />
       <span>Loading interactive Repo Map...</span>
     </div>
   ),
@@ -53,8 +53,8 @@ const DependencyGraph = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[580px] rounded-card border-2 border-ink bg-card flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
-        <div className="w-8 h-8 rounded-full border-2 border-ink border-t-primary animate-spin" />
+      <div className="w-full h-[580px] rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
+        <div className="w-8 h-8 rounded-full border-2 border-indigo-200 border-t-indigo-600 animate-spin" />
         <span>Loading interactive Dependency Graph...</span>
       </div>
     ),
@@ -66,8 +66,8 @@ const ArchitectureDiagram = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[620px] rounded-card border-2 border-ink bg-card flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
-        <div className="w-8 h-8 rounded-full border-2 border-ink border-t-primary animate-spin" />
+      <div className="w-full h-[620px] rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm flex flex-col items-center justify-center text-xs text-ink-muted space-y-2">
+        <div className="w-8 h-8 rounded-full border-2 border-indigo-200 border-t-indigo-600 animate-spin" />
         <span>Loading interactive Architecture Diagram...</span>
       </div>
     ),
@@ -517,14 +517,14 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
         {/* 2. Header Strip */}
-        <div className="rounded-card border-2 border-ink bg-card p-4 sm:p-5 shadow-card flex flex-wrap items-center justify-between gap-4">
+        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-5 shadow-card flex flex-wrap items-center justify-between gap-4">
           {/* Left: owner/repo & short sha */}
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={`https://github.com/${owner}/${repo}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 font-mono text-base sm:text-lg font-bold text-ink hover:text-primary transition-colors"
+              className="flex items-center space-x-2 font-mono text-base sm:text-lg font-bold text-ink hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
             >
               <span>
                 {owner}/{repo}
@@ -532,7 +532,7 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
               <ExternalLink className="w-4 h-4 text-ink-muted" />
             </a>
 
-            <div className="flex items-center space-x-2 text-xs font-mono text-ink bg-paper-2 px-3 py-1 rounded-pill border-2 border-ink shadow-card-sm">
+            <div className="flex items-center space-x-2 text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-xs">
               <span>sha: {baseReport.commitSha.slice(0, 7)}</span>
               {isMock && (
                 <StickerBadge variant="card" size="sm" dot={false}>
@@ -598,7 +598,7 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                   <Wrench className="w-4 h-4" />
                   <span>Fixes ({baseReport.fixes.length})</span>
                   {pointsGainedFromDone > 0 && (
-                    <span className="ml-1 px-2 py-0.5 bg-lime text-ink border-2 border-ink rounded-pill text-[10px] font-bold shadow-card-sm">
+                    <span className="ml-1 px-2 py-0.5 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 rounded-full text-[10px] font-bold">
                       +{pointsGainedFromDone.toFixed(1)}
                     </span>
                   )}
@@ -759,42 +759,42 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
               </div>
 
               {/* Template Copy Quick-Actions */}
-              <div className="rounded-card border-2 border-ink bg-paper-2 p-3.5 flex flex-wrap items-center justify-between gap-3 shadow-card-sm">
-                <span className="text-xs font-bold text-ink">⚡ Quick starter templates:</span>
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-900/60 p-3.5 flex flex-wrap items-center justify-between gap-3 shadow-card">
+                <span className="text-xs font-semibold text-ink">⚡ Quick starter templates:</span>
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('license')}
-                    className="px-3 py-1.5 rounded-control border-2 border-ink bg-card hover:bg-paper text-xs font-bold text-ink flex items-center space-x-1.5 shadow-card-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-card transition-all duration-[120ms]"
+                    className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-xs hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
                   >
                     {templateCopied === 'license' ? (
-                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      <Check className="w-3.5 h-3.5 stroke-[3] text-emerald-600" />
                     ) : (
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="w-3.5 h-3.5 text-ink-muted" />
                     )}
                     <span>LICENSE</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('gitignore')}
-                    className="px-3 py-1.5 rounded-control border-2 border-ink bg-card hover:bg-paper text-xs font-bold text-ink flex items-center space-x-1.5 shadow-card-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-card transition-all duration-[120ms]"
+                    className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-xs hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
                   >
                     {templateCopied === 'gitignore' ? (
-                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      <Check className="w-3.5 h-3.5 stroke-[3] text-emerald-600" />
                     ) : (
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="w-3.5 h-3.5 text-ink-muted" />
                     )}
                     <span>.gitignore</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('ci')}
-                    className="px-3 py-1.5 rounded-control border-2 border-ink bg-card hover:bg-paper text-xs font-bold text-ink flex items-center space-x-1.5 shadow-card-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-card transition-all duration-[120ms]"
+                    className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-xs hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
                   >
                     {templateCopied === 'ci' ? (
-                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      <Check className="w-3.5 h-3.5 stroke-[3] text-emerald-600" />
                     ) : (
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="w-3.5 h-3.5 text-ink-muted" />
                     )}
                     <span>CI workflow</span>
                   </button>
@@ -820,11 +820,11 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
               <div
                 id="map-container"
-                className="relative rounded-card border-2 border-ink bg-card p-4 sm:p-6 shadow-card space-y-4"
+                className="relative rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-6 shadow-card space-y-4"
               >
-                <div className="flex items-center justify-between pb-3 border-b-2 border-ink/10">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800/80">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                       Treemap zoom
                     </span>
                     <StickerBadge variant="sky" size="sm" rotate="none">
@@ -867,11 +867,11 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
               <div
                 id="graph-container"
-                className="relative rounded-card border-2 border-ink bg-card p-4 sm:p-6 shadow-card space-y-4"
+                className="relative rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-6 shadow-card space-y-4"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b-2 border-ink/10">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                       Force-directed graph
                     </span>
                     {graph && graph.nodes && graph.nodes.length > 0 && (
@@ -917,11 +917,11 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
               <div
                 id="diagram-container"
-                className="relative rounded-card border-2 border-ink bg-card p-4 sm:p-6 shadow-card space-y-4"
+                className="relative rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-6 shadow-card space-y-4"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b-2 border-ink/10">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-ink-muted">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
                       Architecture Layers
                     </span>
                     <StickerBadge variant="lime" size="sm" rotate="none">

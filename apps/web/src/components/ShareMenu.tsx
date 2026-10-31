@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   Share2,
   Link as LinkIcon,
@@ -65,18 +66,17 @@ export function ShareMenu({ report, onToast }: ShareMenuProps) {
   };
 
   const handleDownloadScoreCard = () => {
-    // Generate an SVG score card and trigger client download
-    const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="315" viewBox="0 0 600 315" fill="#FFFDF8">
-  <rect width="600" height="315" fill="#FFFDF8" rx="16"/>
-  <rect x="12" y="12" width="576" height="291" rx="12" fill="#FFFFFF" stroke="#141413" stroke-width="3"/>
-  <text x="36" y="56" font-family="system-ui, sans-serif" font-weight="800" font-size="24" fill="#141413">repometric</text>
-  <text x="36" y="96" font-family="monospace" font-size="18" fill="#5E5D59">${owner}/${name}</text>
-  <rect x="36" y="120" width="130" height="120" rx="12" fill="#D6F954" stroke="#141413" stroke-width="3"/>
-  <text x="101" y="200" font-family="system-ui, sans-serif" font-weight="900" font-size="64" fill="#141413" text-anchor="middle">${report.score}</text>
-  <text x="101" y="226" font-family="system-ui, sans-serif" font-weight="700" font-size="14" fill="#141413" text-anchor="middle">/ 100 HEALTH</text>
-  <text x="190" y="160" font-family="system-ui, sans-serif" font-weight="800" font-size="28" fill="#141413">Grade: ${report.grade.toUpperCase()}</text>
-  <text x="190" y="195" font-family="system-ui, sans-serif" font-size="15" fill="#5E5D59">Projected with fixes: ${report.projectedScore} / 100</text>
-  <text x="190" y="225" font-family="monospace" font-size="13" fill="#5E5D59">Commit SHA: ${report.commitSha.slice(0, 7)}</text>
+    const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="315" viewBox="0 0 600 315" fill="#0B0F19">
+  <rect width="600" height="315" fill="#030712" rx="16"/>
+  <rect x="12" y="12" width="576" height="291" rx="12" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <text x="36" y="56" font-family="system-ui, sans-serif" font-weight="800" font-size="24" fill="#F9FAFB">repometric</text>
+  <text x="36" y="96" font-family="monospace" font-size="18" fill="#9CA3AF">${owner}/${name}</text>
+  <rect x="36" y="120" width="130" height="120" rx="12" fill="#6366F1" fill-opacity="0.2" stroke="#6366F1" stroke-width="1.5"/>
+  <text x="101" y="200" font-family="system-ui, sans-serif" font-weight="900" font-size="64" fill="#F9FAFB" text-anchor="middle">${report.score}</text>
+  <text x="101" y="226" font-family="system-ui, sans-serif" font-weight="700" font-size="14" fill="#9CA3AF" text-anchor="middle">/ 100 HEALTH</text>
+  <text x="190" y="160" font-family="system-ui, sans-serif" font-weight="800" font-size="28" fill="#F9FAFB">Grade: ${report.grade.toUpperCase()}</text>
+  <text x="190" y="195" font-family="system-ui, sans-serif" font-size="15" fill="#9CA3AF">Projected with fixes: ${report.projectedScore} / 100</text>
+  <text x="190" y="225" font-family="monospace" font-size="13" fill="#9CA3AF">Commit SHA: ${report.commitSha.slice(0, 7)}</text>
 </svg>`;
 
     const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
@@ -158,70 +158,76 @@ ${report.fixes
         <span>Share</span>
       </ChunkyButton>
 
-      {open && (
-        <div
-          role="menu"
-          className="absolute right-0 mt-2 w-60 rounded-control border-2 border-ink bg-card p-1.5 shadow-card z-50 text-xs font-bold text-ink space-y-1 animate-in fade-in-50 zoom-in-95 duration-100"
-        >
-          <button
-            type="button"
-            role="menuitem"
-            onClick={handleCopyLink}
-            className="w-full flex items-center justify-between p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: -4 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -4 }}
+            transition={{ duration: 0.15 }}
+            role="menu"
+            className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card/95 backdrop-blur-md p-1.5 shadow-xl z-50 text-xs font-medium text-ink space-y-1"
           >
-            <div className="flex items-center space-x-2">
-              <LinkIcon className="w-3.5 h-3.5 text-primary" />
-              <span>Copy link</span>
-            </div>
-            {copiedAction === 'link' && <Check className="w-3.5 h-3.5 text-primary" />}
-          </button>
+            <button
+              type="button"
+              role="menuitem"
+              onClick={handleCopyLink}
+              className="w-full flex items-center justify-between p-2 rounded-lg hover:bg-paper-2 transition-colors text-left"
+            >
+              <div className="flex items-center space-x-2">
+                <LinkIcon className="w-3.5 h-3.5 text-primary" />
+                <span>Copy link</span>
+              </div>
+              {copiedAction === 'link' && <Check className="w-3.5 h-3.5 text-primary" />}
+            </button>
 
-          <button
-            type="button"
-            role="menuitem"
-            onClick={handleCopyBadge}
-            className="w-full flex items-center justify-between p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
-          >
-            <div className="flex items-center space-x-2">
-              <Shield className="w-3.5 h-3.5 text-ink" />
-              <span>Copy README badge</span>
-            </div>
-            {copiedAction === 'badge' && <Check className="w-3.5 h-3.5 text-ink" />}
-          </button>
+            <button
+              type="button"
+              role="menuitem"
+              onClick={handleCopyBadge}
+              className="w-full flex items-center justify-between p-2 rounded-lg hover:bg-paper-2 transition-colors text-left"
+            >
+              <div className="flex items-center space-x-2">
+                <Shield className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Copy README badge</span>
+              </div>
+              {copiedAction === 'badge' && <Check className="w-3.5 h-3.5 text-emerald-500" />}
+            </button>
 
-          <button
-            type="button"
-            role="menuitem"
-            onClick={handleDownloadScoreCard}
-            className="w-full flex items-center space-x-2 p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
-          >
-            <Download className="w-3.5 h-3.5 text-ink" />
-            <span>Download score card (SVG)</span>
-          </button>
+            <button
+              type="button"
+              role="menuitem"
+              onClick={handleDownloadScoreCard}
+              className="w-full flex items-center space-x-2 p-2 rounded-lg hover:bg-paper-2 transition-colors text-left"
+            >
+              <Download className="w-3.5 h-3.5 text-ink-muted" />
+              <span>Download score card (SVG)</span>
+            </button>
 
-          <div className="h-[2px] bg-ink/15 my-1" />
+            <div className="h-[1px] bg-slate-100 dark:bg-slate-800 my-1" />
 
-          <button
-            type="button"
-            role="menuitem"
-            onClick={handleExportJson}
-            className="w-full flex items-center space-x-2 p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
-          >
-            <FileCode className="w-3.5 h-3.5 text-ink" />
-            <span>Export JSON</span>
-          </button>
+            <button
+              type="button"
+              role="menuitem"
+              onClick={handleExportJson}
+              className="w-full flex items-center space-x-2 p-2 rounded hover:bg-paper-2 transition-colors text-left"
+            >
+              <FileCode className="w-3.5 h-3.5 text-sky-500" />
+              <span>Export JSON</span>
+            </button>
 
-          <button
-            type="button"
-            role="menuitem"
-            onClick={handleExportMarkdown}
-            className="w-full flex items-center space-x-2 p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
-          >
-            <FileText className="w-3.5 h-3.5 text-ink" />
-            <span>Export Markdown</span>
-          </button>
-        </div>
-      )}
+            <button
+              type="button"
+              role="menuitem"
+              onClick={handleExportMarkdown}
+              className="w-full flex items-center space-x-2 p-2 rounded hover:bg-paper-2 transition-colors text-left"
+            >
+              <FileText className="w-3.5 h-3.5 text-amber-500" />
+              <span>Export Markdown</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

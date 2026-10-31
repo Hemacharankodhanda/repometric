@@ -28,5 +28,8 @@ Decisions already made. Do not reopen them without a reason. Add new entries at 
 
 **ADR-013: Refreshed field guide design tokens for modern contrast and vibrancy.** Updated `--paper` to a clean warm paper tone (`#FAF9F5`), elevated `--primary` to electric indigo (`#4F46E5`), sharpened obsidian slate ink (`#0F172A`), enhanced accents (spring lime `#A3E635`, warm amber `#F59E0B`, coral `#F43F5E`, azure sky `#38BDF8`), and upgraded dark mode with deep midnight obsidian (`#090D16`) for superior contrast and readability.
 
-**ADR-014: Modern Dev-Intelligence UI/UX Architecture.** Replaced the cartoon/neo-brutalist aesthetic (thick 2-3px black borders, harsh 4px offset drop-shadows, toy-like sticker badges) with a high-precision developer-intelligence design system inspired by Linear, Vercel/Geist, and GitHub Next. Introduces refined 1px borders, subtle multi-layered elevation shadows, a radial SVG telemetry health gauge with animated arcs, frosted glass toolbars and headers, sleek status badges, and refined bento cards while maintaining 100% test compatibility and zero-cost constraints.
+**ADR-014: Modern Dev-Intelligence UI/UX Architecture.** Replaced the cartoon/neo-brutalist aesthetic with a high-precision developer-intelligence design system inspired by Linear, Vercel/Geist, and GitHub Next.
+
+**ADR-015: Complete UI Paradigm Shift to High-End Interactive Developer Intelligence with Motion Animations.** Shifted the UI factor completely from the playful cartoon style to a modern, high-precision engineering platform look (Linear/Vercel/Raycast grade). Introduces refined borders, multi-layered elevation, ambient luminous glows, frosted glass toolbars, and rich `motion/react` (Framer Motion) micro-interactions, layout transitions, and entrance animations, with strict reduced-motion accessibility support.
+
 

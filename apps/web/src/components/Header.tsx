@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'motion/react';
 import { ThemeToggle } from './ThemeToggle';
 import { ChunkyButton } from './ChunkyButton';
 import { Menu, X, Activity } from 'lucide-react';
@@ -50,11 +51,11 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-ink bg-card transition-colors">
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper/85 dark:bg-paper/90 backdrop-blur-md transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        {/* Wordmark with modern radar icon & Tilly */}
+        {/* Wordmark with modern radar icon */}
         <Link href="/" className="flex items-center space-x-2.5 group shrink-0">
-          <div className="w-8 h-8 rounded-control border-2 border-ink bg-primary flex items-center justify-center text-white shadow-card-sm group-hover:-translate-x-px group-hover:-translate-y-px group-hover:shadow-card transition-all duration-[120ms]">
+          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
             <Activity className="w-4 h-4" />
           </div>
           <span className="font-display font-extrabold text-xl tracking-tight text-ink">
@@ -153,113 +154,121 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-card p-4 space-y-3 font-medium text-sm shadow-lg">
-          {children && (
-            <div className="pb-3 mb-2 border-b border-slate-100 dark:border-slate-800">
-              <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5">
-                Analyze another repo
-              </span>
-              {children}
-            </div>
-          )}
-          <Link
-            href="/"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block p-2 rounded hover:bg-paper-2 text-ink"
+      {/* Mobile Menu Dropdown with Framer Motion */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-card p-4 space-y-3 font-medium text-sm shadow-lg overflow-hidden"
           >
-            Home
-          </Link>
-          {isHome ? (
-            <>
-              <a
-                href="#how-it-works"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block p-2 rounded hover:bg-paper-2 text-ink"
-              >
-                How it works
-              </a>
-              <a
-                href="#what-you-get"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block p-2 rounded hover:bg-paper-2 text-ink"
-              >
-                What you get
-              </a>
-              <a
-                href="#faq"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block p-2 rounded hover:bg-paper-2 text-ink"
-              >
-                FAQ
-              </a>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/#how-it-works"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block p-2 rounded hover:bg-paper-2 text-ink"
-              >
-                How it works
-              </Link>
-              <Link
-                href="/#what-you-get"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block p-2 rounded hover:bg-paper-2 text-ink"
-              >
-                What you get
-              </Link>
-              <Link
-                href="/#faq"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block p-2 rounded hover:bg-paper-2 text-ink"
-              >
-                FAQ
-              </Link>
-            </>
-          )}
-          <Link
-            href="/methodology"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block p-2 rounded hover:bg-paper-2 text-ink"
-          >
-            Methodology
-          </Link>
-          <Link
-            href="/kit"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block p-2 rounded hover:bg-paper-2 text-ink"
-          >
-            Component Kit
-          </Link>
-          <a
-            href="https://github.com/Hemacharankodhanda/repometric"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 p-2 rounded hover:bg-paper-2 text-ink"
-          >
-            <GithubIcon className="w-4 h-4" />
-            <span>GitHub repository</span>
-          </a>
-          {shouldShowCta && (
-            <div className="pt-2">
-              <ChunkyButton
-                variant="primary"
-                size="md"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  handleCtaClick();
-                }}
-                className="w-full"
-              >
-                Analyze a repo
-              </ChunkyButton>
-            </div>
-          )}
-        </div>
-      )}
+            {children && (
+              <div className="pb-3 mb-2 border-b border-slate-100 dark:border-slate-800">
+                <span className="text-xs font-semibold text-ink-muted uppercase tracking-wider block mb-1.5">
+                  Analyze another repo
+                </span>
+                {children}
+              </div>
+            )}
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block p-2 rounded hover:bg-paper-2 text-ink"
+            >
+              Home
+            </Link>
+            {isHome ? (
+              <>
+                <a
+                  href="#how-it-works"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block p-2 rounded hover:bg-paper-2 text-ink"
+                >
+                  How it works
+                </a>
+                <a
+                  href="#what-you-get"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block p-2 rounded hover:bg-paper-2 text-ink"
+                >
+                  What you get
+                </a>
+                <a
+                  href="#faq"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block p-2 rounded hover:bg-paper-2 text-ink"
+                >
+                  FAQ
+                </a>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/#how-it-works"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block p-2 rounded hover:bg-paper-2 text-ink"
+                >
+                  How it works
+                </Link>
+                <Link
+                  href="/#what-you-get"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block p-2 rounded hover:bg-paper-2 text-ink"
+                >
+                  What you get
+                </Link>
+                <Link
+                  href="/#faq"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block p-2 rounded hover:bg-paper-2 text-ink"
+                >
+                  FAQ
+                </Link>
+              </>
+            )}
+            <Link
+              href="/methodology"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block p-2 rounded hover:bg-paper-2 text-ink"
+            >
+              Methodology
+            </Link>
+            <Link
+              href="/kit"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block p-2 rounded hover:bg-paper-2 text-ink"
+            >
+              Component Kit
+            </Link>
+            <a
+              href="https://github.com/Hemacharankodhanda/repometric"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 p-2 rounded hover:bg-paper-2 text-ink"
+            >
+              <GithubIcon className="w-4 h-4" />
+              <span>GitHub repository</span>
+            </a>
+            {shouldShowCta && (
+              <div className="pt-2">
+                <ChunkyButton
+                  variant="primary"
+                  size="md"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleCtaClick();
+                  }}
+                  className="w-full"
+                >
+                  Analyze a repo
+                </ChunkyButton>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

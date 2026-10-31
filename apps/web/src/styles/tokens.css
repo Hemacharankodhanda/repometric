@@ -1,32 +1,31 @@
-/* Design tokens: see docs/DESIGN_SYSTEM.md and ADR-014. Refined Dev-Intelligence design system. */
+/* Modern High-Precision Dev-Intelligence Design Tokens: ADR-015 */
 
 :root {
-  /* Spec-exact values from docs/DESIGN_SYSTEM.md */
-  --paper: #faf9f5;
-  --paper-2: #f2efe7;
+  --paper: #f8fafc;
+  --paper-2: #f1f5f9;
   --card: #ffffff;
   --ink: #0f172a;
-  --ink-muted: #475569;
+  --ink-muted: #64748b;
 
   --primary: #4f46e5;
   --on-primary: #ffffff;
-  --primary-text: #3730a3;
+  --primary-text: #4338ca;
 
-  --lime: #a3e635;
+  --lime: #10b981;
   --sun: #f59e0b;
   --coral: #f43f5e;
-  --coral-text: #be123c;
-  --sky: #38bdf8;
-  --on-fill: #0f172a; /* text on accent fills (ink-colored on light) */
+  --coral-text: #e11d48;
+  --sky: #06b6d4;
+  --on-fill: #ffffff;
 
-  --border: 2px solid var(--ink);
-  --shadow-sm: 2px 2px 0 var(--ink);
-  --shadow-md: 4px 4px 0 var(--ink);
-  --shadow-lg: 6px 6px 0 var(--ink);
-  --shadow-glow: 0 0 25px -5px rgba(79, 70, 229, 0.25);
+  --border: 1px solid rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
 
-  --radius-tile: 4px;
-  --radius-control: 8px;
+  --radius-tile: 6px;
+  --radius-control: 10px;
   --radius-card: 16px;
   --radius-pill: 9999px;
 
@@ -65,94 +64,53 @@
 }
 
 :root[data-theme='dark'] {
-  --paper: #090d16;
-  --paper-2: #0f172a;
-  --card: #182234;
-  --ink: #f8fafc;
-  --ink-muted: #94a3b8;
+  --paper: #030712;
+  --paper-2: #0b0f19;
+  --card: #111827;
+  --ink: #f9fafb;
+  --ink-muted: #9ca3af;
 
   --primary: #6366f1;
   --on-primary: #ffffff;
   --primary-text: #818cf8;
 
-  --lime: #a3e635;
+  --lime: #10b981;
   --sun: #fbbf24;
   --sky: #38bdf8;
   --coral: #fb7185;
   --coral-text: #fda4af;
-  --on-fill: #0f172a;
+  --on-fill: #ffffff;
 
-  --border: 2px solid var(--ink);
-  --shadow-sm: 2px 2px 0 var(--ink);
-  --shadow-md: 4px 4px 0 var(--ink);
-  --shadow-lg: 6px 6px 0 var(--ink);
-  --shadow-glow: 0 0 30px -5px rgba(99, 102, 241, 0.4);
+  --border: 1px solid rgba(255, 255, 255, 0.08);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-glow: 0 0 35px -5px rgba(99, 102, 241, 0.35);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --paper: #090d16;
-    --paper-2: #0f172a;
-    --card: #182234;
-    --ink: #f8fafc;
-    --ink-muted: #94a3b8;
+    --paper: #030712;
+    --paper-2: #0b0f19;
+    --card: #111827;
+    --ink: #f9fafb;
+    --ink-muted: #9ca3af;
 
     --primary: #6366f1;
     --on-primary: #ffffff;
     --primary-text: #818cf8;
 
-    --lime: #a3e635;
+    --lime: #10b981;
     --sun: #fbbf24;
     --sky: #38bdf8;
     --coral: #fb7185;
     --coral-text: #fda4af;
-    --on-fill: #0f172a;
+    --on-fill: #ffffff;
 
-    --border: 2px solid var(--ink);
-    --shadow-sm: 2px 2px 0 var(--ink);
-    --shadow-md: 4px 4px 0 var(--ink);
-    --shadow-lg: 6px 6px 0 var(--ink);
-    --shadow-glow: 0 0 30px -5px rgba(99, 102, 241, 0.4);
-  }
-}
-
-/* Subtle engineering dot and grid patterns */
-.bg-dots {
-  background-color: var(--paper-2);
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--ink) 6%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 24px 24px;
-}
-
-.bg-paper-dots {
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--ink) 5%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 20px 20px;
-}
-
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px);
-}
-
-:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+    --border: 1px solid rgba(255, 255, 255, 0.08);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    --shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    --shadow-glow: 0 0 35px -5px rgba(99, 102, 241, 0.35);
   }
 }
