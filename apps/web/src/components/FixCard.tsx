@@ -30,8 +30,8 @@ export function FixCard({ fix, isDone = false, onToggleDone, className = '' }: F
 
   return (
     <div
-      className={`rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card shadow-sm hover:border-slate-300 dark:hover:border-slate-700 overflow-hidden transition-all ${
-        isDone ? 'opacity-60 bg-paper-2' : ''
+      className={`rounded-card border-2 border-ink bg-card shadow-card-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-card overflow-hidden transition-all duration-[120ms] ${
+        isDone ? 'opacity-65 bg-paper-2' : ''
       } ${className}`}
     >
       <div className="p-3.5 sm:p-4 flex items-center justify-between gap-3">
@@ -44,10 +44,10 @@ export function FixCard({ fix, isDone = false, onToggleDone, className = '' }: F
             aria-checked={isDone}
             onClick={() => onToggleDone?.(fix.id, !isDone)}
             aria-label={`Mark "${fix.title}" as done`}
-            className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors cursor-pointer ${
+            className={`w-5 h-5 rounded-md border-2 border-ink flex items-center justify-center shrink-0 transition-all cursor-pointer shadow-card-sm ${
               isDone
-                ? 'bg-emerald-500 border-emerald-500 text-white'
-                : 'border-slate-300 dark:border-slate-700 bg-card hover:border-primary'
+                ? 'bg-lime text-ink'
+                : 'bg-card hover:bg-paper-2'
             }`}
           >
             {isDone && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -65,7 +65,7 @@ export function FixCard({ fix, isDone = false, onToggleDone, className = '' }: F
           </StickerBadge>
 
           <span
-            className={`text-sm sm:text-base font-semibold text-ink truncate cursor-pointer ${
+            className={`text-sm sm:text-base font-bold text-ink truncate cursor-pointer ${
               isDone ? 'line-through text-ink-muted' : ''
             }`}
             onClick={() => setExpanded(!expanded)}
@@ -79,11 +79,11 @@ export function FixCard({ fix, isDone = false, onToggleDone, className = '' }: F
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full border border-slate-200 dark:border-slate-800 bg-paper-2 text-ink-muted font-mono text-xs cursor-help">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-pill border-2 border-ink bg-paper-2 text-ink font-mono text-xs cursor-help shadow-card-sm">
                   {effortDesc}
                 </span>
               </TooltipTrigger>
-              <TooltipContent className="text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-card text-ink shadow-md">
+              <TooltipContent className="text-xs rounded-control border-2 border-ink bg-card text-ink shadow-card">
                 Effort tier: {fix.effort} ({effortDesc})
               </TooltipContent>
             </Tooltip>
@@ -94,7 +94,7 @@ export function FixCard({ fix, isDone = false, onToggleDone, className = '' }: F
             onClick={() => setExpanded(!expanded)}
             aria-expanded={expanded}
             aria-label={expanded ? 'Collapse fix details' : 'Expand fix details'}
-            className="w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-800 bg-paper-2 hover:bg-slate-200/60 dark:hover:bg-slate-800 text-ink-muted hover:text-ink flex items-center justify-center transition-colors"
+            className="w-7 h-7 rounded-control border-2 border-ink bg-paper-2 hover:bg-card text-ink flex items-center justify-center transition-all duration-[120ms] shadow-card-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-card"
           >
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
@@ -105,18 +105,18 @@ export function FixCard({ fix, isDone = false, onToggleDone, className = '' }: F
 
       {/* Expandable Why & How */}
       {expanded && (
-        <div className="border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40 p-4 space-y-3 text-xs leading-relaxed">
+        <div className="border-t-2 border-ink bg-paper-2 p-4 space-y-3 text-xs leading-relaxed">
           <div>
-            <div className="font-semibold text-ink mb-1 text-xs">Why it matters</div>
+            <div className="font-bold text-ink mb-1 text-xs">Why it matters</div>
             <p className="text-ink-muted leading-relaxed">{fix.why}</p>
           </div>
 
           <div>
-            <div className="font-semibold text-ink mb-1 flex items-center">
+            <div className="font-bold text-ink mb-1 flex items-center">
               <span>How to fix</span>
-              <ArrowRight className="w-3.5 h-3.5 ml-1 text-primary" />
+              <ArrowRight className="w-3.5 h-3.5 ml-1 text-primary-text" />
             </div>
-            <div className="text-ink font-mono text-xs bg-card dark:bg-slate-950 p-3 rounded-lg border border-slate-200/80 dark:border-slate-800/80 overflow-x-auto whitespace-pre-wrap">
+            <div className="text-ink font-mono text-xs bg-card p-3 rounded-control border-2 border-ink shadow-card-sm overflow-x-auto whitespace-pre-wrap">
               {fix.how}
             </div>
           </div>
