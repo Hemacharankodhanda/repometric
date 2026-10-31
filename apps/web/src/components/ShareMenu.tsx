@@ -161,13 +161,13 @@ ${report.fixes
       {open && (
         <div
           role="menu"
-          className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-1.5 shadow-lg z-50 text-xs font-medium text-ink space-y-1 animate-in fade-in-50 zoom-in-95 duration-100 backdrop-blur-md"
+          className="absolute right-0 mt-2 w-60 rounded-control border-2 border-ink bg-card p-1.5 shadow-card z-50 text-xs font-bold text-ink space-y-1 animate-in fade-in-50 zoom-in-95 duration-100"
         >
           <button
             type="button"
             role="menuitem"
             onClick={handleCopyLink}
-            className="w-full flex items-center justify-between p-2 rounded-lg hover:bg-paper-2 transition-colors text-left"
+            className="w-full flex items-center justify-between p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
           >
             <div className="flex items-center space-x-2">
               <LinkIcon className="w-3.5 h-3.5 text-primary" />
@@ -180,34 +180,34 @@ ${report.fixes
             type="button"
             role="menuitem"
             onClick={handleCopyBadge}
-            className="w-full flex items-center justify-between p-2 rounded-lg hover:bg-paper-2 transition-colors text-left"
+            className="w-full flex items-center justify-between p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
           >
             <div className="flex items-center space-x-2">
-              <Shield className="w-3.5 h-3.5 text-emerald-500" />
+              <Shield className="w-3.5 h-3.5 text-ink" />
               <span>Copy README badge</span>
             </div>
-            {copiedAction === 'badge' && <Check className="w-3.5 h-3.5 text-emerald-500" />}
+            {copiedAction === 'badge' && <Check className="w-3.5 h-3.5 text-ink" />}
           </button>
 
           <button
             type="button"
             role="menuitem"
             onClick={handleDownloadScoreCard}
-            className="w-full flex items-center space-x-2 p-2 rounded-lg hover:bg-paper-2 transition-colors text-left"
+            className="w-full flex items-center space-x-2 p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
           >
-            <Download className="w-3.5 h-3.5 text-ink-muted" />
+            <Download className="w-3.5 h-3.5 text-ink" />
             <span>Download score card (SVG)</span>
           </button>
 
-          <div className="h-[1px] bg-slate-100 dark:bg-slate-800 my-1" />
+          <div className="h-[2px] bg-ink/15 my-1" />
 
           <button
             type="button"
             role="menuitem"
             onClick={handleExportJson}
-            className="w-full flex items-center space-x-2 p-2 rounded hover:bg-paper-2 transition-colors text-left"
+            className="w-full flex items-center space-x-2 p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
           >
-            <FileCode className="w-3.5 h-3.5 text-sky-text" />
+            <FileCode className="w-3.5 h-3.5 text-ink" />
             <span>Export JSON</span>
           </button>
 
@@ -215,9 +215,9 @@ ${report.fixes
             type="button"
             role="menuitem"
             onClick={handleExportMarkdown}
-            className="w-full flex items-center space-x-2 p-2 rounded hover:bg-paper-2 transition-colors text-left"
+            className="w-full flex items-center space-x-2 p-2 rounded-control hover:bg-paper-2 transition-colors text-left"
           >
-            <FileText className="w-3.5 h-3.5 text-sun-text" />
+            <FileText className="w-3.5 h-3.5 text-ink" />
             <span>Export Markdown</span>
           </button>
         </div>
