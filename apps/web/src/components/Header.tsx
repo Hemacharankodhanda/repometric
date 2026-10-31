@@ -6,7 +6,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeToggle } from './ThemeToggle';
 import { ChunkyButton } from './ChunkyButton';
-import { Menu, X, Activity } from 'lucide-react';
+import { RepoMetricLogo } from './RepoMetricLogo';
+import { Menu, X } from 'lucide-react';
 
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -53,14 +54,9 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper/85 dark:bg-paper/90 backdrop-blur-md transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        {/* Wordmark with modern radar icon */}
-        <Link href="/" className="flex items-center space-x-2.5 group shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-            <Activity className="w-4 h-4" />
-          </div>
-          <span className="font-display font-extrabold text-xl tracking-tight text-ink">
-            repometric
-          </span>
+        {/* Wordmark with bespoke SVG logo */}
+        <Link href="/" className="group shrink-0 inline-flex items-center" aria-label="RepoMetric Home">
+          <RepoMetricLogo size={32} />
         </Link>
 
         {/* Center slot: search bar in report page OR status text in analyzing screen */}
