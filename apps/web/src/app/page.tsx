@@ -1,8 +1,5 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'motion/react';
 import { Header } from '../components/Header';
 import { RepoInput } from '../components/RepoInput';
 import { HeroPreview } from '../components/HeroPreview';
@@ -54,12 +51,7 @@ export default function HomePage() {
         <section className="relative px-4 pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-slate-200/80 dark:border-slate-800/80">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left column */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="lg:col-span-7 space-y-6 text-center sm:text-left"
-            >
+            <div className="lg:col-span-7 space-y-6 text-center sm:text-left">
               <div className="inline-flex items-center gap-2 flex-wrap justify-center sm:justify-start">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 shadow-xs">
                   <Zap className="w-3.5 h-3.5 text-indigo-500" />
@@ -93,17 +85,12 @@ export default function HomePage() {
                 <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>Read-only analysis. We never clone, execute, or store your code.</span>
               </div>
-            </motion.div>
+            </div>
 
             {/* Right column — interactive preview */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
-              className="lg:col-span-5 w-full flex justify-center"
-            >
+            <div className="lg:col-span-5 w-full flex justify-center">
               <HeroPreview />
-            </motion.div>
+            </div>
           </div>
         </section>
 
@@ -125,11 +112,7 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Step 1 */}
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card flex flex-col justify-between space-y-5"
-              >
+              <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-display font-bold text-base">
                     1
@@ -143,14 +126,10 @@ export default function HomePage() {
                 <div className="p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50 dark:bg-slate-950 font-mono text-xs text-ink truncate">
                   github.com/expressjs/express
                 </div>
-              </motion.div>
+              </div>
 
               {/* Step 2 */}
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card flex flex-col justify-between space-y-5"
-              >
+              <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 flex items-center justify-center font-display font-bold text-base">
                     2
@@ -166,14 +145,10 @@ export default function HomePage() {
                   <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
                   <span>Public AST &amp; REST metadata</span>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Step 3 */}
-              <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
-                className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card flex flex-col justify-between space-y-5"
-              >
+              <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-5">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 flex items-center justify-center font-display font-bold text-base">
                     3
@@ -188,7 +163,7 @@ export default function HomePage() {
                   <span>Score + Map + Diagram</span>
                   <span className="font-mono font-bold">~10 s</span>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -328,11 +303,7 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
               {/* Students — wide tile */}
-              <motion.div
-                whileHover={{ y: -3 }}
-                transition={{ duration: 0.2 }}
-                className="md:col-span-7 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card flex flex-col justify-between space-y-4"
-              >
+              <div className="md:col-span-7 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center">
                     <GraduationCap className="w-5 h-5" />
@@ -347,14 +318,10 @@ export default function HomePage() {
                   &ldquo;Took my portfolio repo from 62 to 91 in one weekend.&rdquo;
                   <span className="ml-2 text-ink-muted">(sample)</span>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Open-source newcomers */}
-              <motion.div
-                whileHover={{ y: -3 }}
-                transition={{ duration: 0.2 }}
-                className="md:col-span-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card flex flex-col justify-between space-y-4"
-              >
+              <div className="md:col-span-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 flex items-center justify-center">
                     <Compass className="w-5 h-5" />
@@ -369,14 +336,10 @@ export default function HomePage() {
                     Instant visual navigation →
                   </span>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Recruiters */}
-              <motion.div
-                whileHover={{ y: -3 }}
-                transition={{ duration: 0.2 }}
-                className="md:col-span-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card flex flex-col justify-between space-y-4"
-              >
+              <div className="md:col-span-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
                     <Briefcase className="w-5 h-5" />
@@ -390,14 +353,10 @@ export default function HomePage() {
                 <div className="p-2.5 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50 dark:bg-slate-950 inline-block w-fit text-xs font-mono font-medium text-ink">
                   0–100 objective score benchmarks
                 </div>
-              </motion.div>
+              </div>
 
               {/* Maintainers — wide tile */}
-              <motion.div
-                whileHover={{ y: -3 }}
-                transition={{ duration: 0.2 }}
-                className="md:col-span-7 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card flex flex-col justify-between space-y-4"
-              >
+              <div className="md:col-span-7 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
                     <Wrench className="w-5 h-5" />
@@ -414,7 +373,7 @@ export default function HomePage() {
                 <div className="font-mono text-xs bg-slate-900 dark:bg-black text-slate-100 p-3 rounded-xl border border-slate-800">
                   repometric --min-score 85 --json
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -470,11 +429,9 @@ export default function HomePage() {
                   bg: 'bg-rose-500/10 border-rose-500/20',
                 },
               ].map((c) => (
-                <motion.div
+                <div
                   key={c.label}
-                  whileHover={{ y: -3 }}
-                  transition={{ duration: 0.15 }}
-                  className="p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm shadow-card text-center space-y-2"
+                  className="p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-150 text-center space-y-2"
                 >
                   <div
                     className={`w-9 h-9 mx-auto rounded-xl border flex items-center justify-center ${c.bg}`}
@@ -483,7 +440,7 @@ export default function HomePage() {
                   </div>
                   <div className="font-semibold text-xs text-ink">{c.label}</div>
                   <p className="text-[11px] text-ink-muted">{c.desc}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -568,14 +525,10 @@ export default function HomePage() {
                   desc: 'Linux kernel tree',
                 },
               ].map((r) => (
-                <motion.div
-                  key={`${r.owner}/${r.repo}`}
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div key={`${r.owner}/${r.repo}`} className="h-full">
                   <Link
                     href={`/r/${r.owner}/${r.repo}`}
-                    className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4 group block h-full"
+                    className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4 group block h-full"
                   >
                     <div className="space-y-2">
                       <div className="flex items-start justify-between">
@@ -605,7 +558,7 @@ export default function HomePage() {
                       </span>
                     </div>
                   </Link>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -650,11 +603,9 @@ export default function HomePage() {
                   body: 'We cache scores, metrics, and import maps. Your raw source is never stored.',
                 },
               ].map((item) => (
-                <motion.div
+                <div
                   key={item.title}
-                  whileHover={{ y: -3 }}
-                  transition={{ duration: 0.15 }}
-                  className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm shadow-card text-center space-y-3"
+                  className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-150 text-center space-y-3"
                 >
                   <div
                     className={`w-11 h-11 mx-auto rounded-xl border flex items-center justify-center ${item.bg}`}
@@ -663,7 +614,7 @@ export default function HomePage() {
                   </div>
                   <h3 className="font-display font-semibold text-base text-ink">{item.title}</h3>
                   <p className="text-xs text-ink-muted leading-relaxed">{item.body}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

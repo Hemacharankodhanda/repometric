@@ -84,11 +84,8 @@ export function HeroPreview() {
   const [hoveredTile, setHoveredTile] = useState<SampleTile | null>(null);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card/90 backdrop-blur-md p-5 sm:p-6 shadow-xl dark:shadow-2xl dark:shadow-indigo-950/20 select-none relative overflow-hidden"
+    <div
+      className="w-full rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-card/90 backdrop-blur-md p-5 sm:p-6 shadow-xl dark:shadow-2xl dark:shadow-indigo-950/20 select-none relative overflow-hidden transition-all duration-300"
     >
       {/* Subtle background glow */}
       <div className="pointer-events-none absolute -top-16 -right-16 w-60 h-60 rounded-full bg-primary/10 blur-3xl" />
@@ -175,6 +172,6 @@ export function HeroPreview() {
           Live treemap &rarr;
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 }

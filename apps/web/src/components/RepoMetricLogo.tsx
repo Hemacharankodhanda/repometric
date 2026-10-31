@@ -138,3 +138,4 @@ export function RepoMetricLogo({
     </div>
   );
 }
+
