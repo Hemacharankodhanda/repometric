@@ -25,11 +25,11 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <div
-      className={`rounded-2xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-8 sm:p-12 text-center shadow-md flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
+      className={`rounded-card border-2 border-ink bg-card p-8 sm:p-12 text-center shadow-card flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
     >
       <Tilly mood={mood} size={72} />
       <div className="space-y-1.5">
-        <h3 className="font-display font-bold text-lg sm:text-xl text-ink tracking-tight">
+        <h3 className="font-display font-extrabold text-lg sm:text-xl text-ink tracking-tight">
           {title}
         </h3>
         <p className="text-sm text-ink-muted leading-relaxed max-w-sm">{description}</p>
@@ -75,15 +75,15 @@ export function ErrorState({
 }: ErrorStateProps) {
   return (
     <div
-      className={`rounded-2xl border border-rose-200 dark:border-rose-900/60 bg-card p-8 sm:p-12 text-center shadow-md flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
+      className={`rounded-card border-2 border-ink bg-card p-8 sm:p-12 text-center shadow-card flex flex-col items-center justify-center space-y-4 max-w-lg mx-auto ${className}`}
       role="alert"
     >
       <Tilly mood={mood} size={72} />
       <div className="space-y-2">
-        <h3 className="font-display font-bold text-lg sm:text-xl text-coral-text tracking-tight">
+        <h3 className="font-display font-extrabold text-lg sm:text-xl text-coral-text tracking-tight">
           {title}
         </h3>
-        <p className="text-sm font-medium text-ink leading-relaxed">{message}</p>
+        <p className="text-sm font-bold text-ink leading-relaxed">{message}</p>
         {solution && <p className="text-xs text-ink-muted leading-relaxed">{solution}</p>}
       </div>
 
