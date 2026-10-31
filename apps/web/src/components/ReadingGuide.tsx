@@ -68,7 +68,7 @@ export function ReadingGuide({ type, className = '' }: ReadingGuideProps) {
 
   return (
     <div
-      className={`rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-3 text-xs text-ink transition-all shadow-sm ${className}`}
+      className={`rounded-control border-2 border-ink bg-card p-3.5 text-xs text-ink transition-all shadow-card-sm ${className}`}
     >
       <div
         className="flex items-center justify-between cursor-pointer"
@@ -76,12 +76,12 @@ export function ReadingGuide({ type, className = '' }: ReadingGuideProps) {
       >
         <div className="flex items-center space-x-2">
           <HelpCircle className="w-4 h-4 text-primary shrink-0" />
-          <span className="font-semibold text-ink">{info.title}:</span>
+          <span className="font-bold text-ink">{info.title}:</span>
           <span className="text-ink-muted hidden sm:inline">{info.summary}</span>
         </div>
         <button
           type="button"
-          className="inline-flex items-center space-x-1 text-ink-muted hover:text-ink font-medium"
+          className="inline-flex items-center space-x-1 text-ink hover:text-primary-text font-bold"
           aria-expanded={open}
         >
           <span>{open ? 'Hide guide' : 'How to read this'}</span>
@@ -90,13 +90,13 @@ export function ReadingGuide({ type, className = '' }: ReadingGuideProps) {
       </div>
 
       {open && (
-        <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-ink">
+        <div className="mt-3 pt-3 border-t-2 border-ink grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-ink">
           {info.details.map((d, i) => (
             <div
               key={i}
-              className="p-2.5 rounded-lg bg-paper-2 border border-slate-200/70 dark:border-slate-800/70"
+              className="p-2.5 rounded-control bg-paper-2 border-2 border-ink shadow-card-sm"
             >
-              <span className="font-semibold block text-ink">{d.label}:</span>
+              <span className="font-bold block text-ink">{d.label}:</span>
               <span className="text-ink-muted text-[11px] leading-relaxed block mt-0.5">
                 {d.desc}
               </span>
