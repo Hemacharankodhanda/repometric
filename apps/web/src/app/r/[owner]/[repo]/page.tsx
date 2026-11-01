@@ -17,6 +17,8 @@ import {
   FileCode,
   Folder,
   AlertTriangle,
+  BookMarked,
+  GitBranch,
 } from 'lucide-react';
 
 import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
@@ -516,28 +518,43 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
       </Header>
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
-        {/* 2. Header Strip */}
-        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-5 shadow-card flex flex-wrap items-center justify-between gap-4">
-          {/* Left: owner/repo & short sha */}
+        {/* 2. GitHub-style Repository Header Strip */}
+        <div className="rounded-md border border-[var(--border-color)] bg-[var(--card)] p-4 sm:p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+          {/* Left: owner/repo breadcrumbs & public pill */}
           <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={`https://github.com/${owner}/${repo}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2 font-mono text-base sm:text-lg font-bold text-ink hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-            >
-              <span>
-                {owner}/{repo}
-              </span>
-              <ExternalLink className="w-4 h-4 text-ink-muted" />
-            </a>
+            <div className="flex items-center space-x-2 text-base sm:text-xl font-normal text-ink">
+              <BookMarked className="w-5 h-5 text-ink-muted shrink-0" />
+              <a
+                href={`https://github.com/${owner}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                {owner}
+              </a>
+              <span className="text-ink-muted">/</span>
+              <a
+                href={`https://github.com/${owner}/${repo}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-bold hover:underline flex items-center gap-1"
+              >
+                <span>{repo}</span>
+                <ExternalLink className="w-3.5 h-3.5 text-ink-muted" />
+              </a>
+            </div>
 
-            <div className="flex items-center space-x-2 text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-xs">
+            <span className="px-2 py-0.5 text-xs font-medium rounded-full border border-[var(--border-color)] text-ink-muted">
+              Public
+            </span>
+
+            <div className="flex items-center space-x-1.5 text-xs font-mono text-ink-muted bg-[var(--paper)] px-2.5 py-1 rounded-md border border-[var(--border-color)]">
+              <GitBranch className="w-3.5 h-3.5 text-ink-muted" />
               <span>sha: {baseReport.commitSha.slice(0, 7)}</span>
               {isMock && (
-                <StickerBadge variant="card" size="sm" dot={false}>
+                <span className="ml-1 px-1.5 py-0.2 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded text-[10px] font-semibold">
                   sample
-                </StickerBadge>
+                </span>
               )}
             </div>
           </div>
