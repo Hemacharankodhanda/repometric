@@ -942,16 +942,35 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                 </div>
               </div>
 
-              {/* Fix Cards List */}
+              {/* Fix Cards List or GitHub Empty State */}
               <div className="space-y-3">
-                {filteredFixes.map((fix) => (
-                  <FixCard
-                    key={fix.id}
-                    fix={fix}
-                    isDone={!!doneFixes[fix.id]}
-                    onToggleDone={handleToggleDone}
-                  />
-                ))}
+                {filteredFixes.length > 0 ? (
+                  filteredFixes.map((fix) => (
+                    <FixCard
+                      key={fix.id}
+                      fix={fix}
+                      isDone={!!doneFixes[fix.id]}
+                      onToggleDone={handleToggleDone}
+                    />
+                  ))
+                ) : (
+                  <div className="gh-box p-8 text-center space-y-3">
+                    <Check className="w-8 h-8 text-purple-500 mx-auto" />
+                    <h4 className="font-semibold text-base text-ink">No matching fixes found</h4>
+                    <p className="text-xs text-ink-muted max-w-sm mx-auto">
+                      {fixFilter === 'done'
+                        ? 'No fixes marked as resolved yet. Check any item in the list to project your score gain.'
+                        : 'All items matching this filter have been addressed!'}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setFixFilter('all')}
+                      className="gh-btn inline-flex items-center space-x-1 cursor-pointer"
+                    >
+                      <span>Show all fixes</span>
+                    </button>
+                  </div>
+                )}
               </div>
             </TabsContent>
 
