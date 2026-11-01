@@ -42,6 +42,7 @@ const config: Config = {
           text: withOpacity('--coral-text'),
         },
         sky: withOpacity('--sky'),
+        purple: withOpacity('--purple'),
         'on-fill': withOpacity('--on-fill'),
         teal: {
           DEFAULT: withOpacity('--sky'),
@@ -72,6 +73,10 @@ const config: Config = {
           4: withOpacity('--seq-4'),
           5: withOpacity('--seq-5'),
         },
+      },
+      borderColor: {
+        DEFAULT: 'var(--border-color)',
+        muted: 'var(--border-muted)',
       },
       boxShadow: {
         sm: 'var(--shadow-sm)',
