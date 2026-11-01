@@ -146,7 +146,7 @@ export function RepoInput({
     <div className={`w-full max-w-2xl ${className}`}>
       <form onSubmit={handleSubmit} className="w-full">
         {/* Large command bar */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card p-1.5 sm:p-2 shadow-md hover:border-slate-300 dark:hover:border-slate-700 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 transition-all">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center rounded-md border border-[var(--border-color)] bg-[var(--card)] p-1.5 sm:p-2 shadow-sm hover:border-slate-400 dark:hover:border-slate-600 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
           <div className="relative flex-1 flex items-center px-3.5 py-1.5">
             <Search className="w-5 h-5 text-ink-muted mr-3 shrink-0" aria-hidden="true" />
             <input
@@ -198,18 +198,16 @@ export function RepoInput({
       {/* Helper text & Example chips */}
       {showChips && (
         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-ink-muted">
-          <span className="font-medium text-ink-muted">Try sample:</span>
+          <span className="font-medium text-ink-muted">Sample repositories:</span>
           {EXAMPLE_REPOS.map((ex) => (
-            <motion.button
+            <button
               key={ex.name}
-              whileHover={{ y: -1, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
               type="button"
               onClick={() => handleChipClick(ex.name)}
-              className="inline-flex items-center px-2.5 py-1 rounded-pill border border-slate-200 dark:border-slate-800 bg-paper-2 hover:bg-slate-200/60 dark:hover:bg-slate-800 text-ink font-mono text-xs transition-colors shadow-sm"
+              className="gh-btn font-mono text-[11px] cursor-pointer"
             >
-              {ex.name}
-            </motion.button>
+              <span>{ex.name}</span>
+            </button>
           ))}
         </div>
       )}
