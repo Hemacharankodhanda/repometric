@@ -19,6 +19,8 @@ import {
   AlertTriangle,
   BookMarked,
   GitBranch,
+  Star,
+  GitFork,
 } from 'lucide-react';
 
 import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
@@ -559,31 +561,51 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
             </div>
           </div>
 
-          {/* Right: Actions (Tour, Re-analyze, Share) */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            <ChunkyButton
-              variant="secondary"
-              size="sm"
-              onClick={() => setShowTour(true)}
-              className="flex items-center space-x-1"
-              title="Take a quick tour"
+          {/* Right: GitHub-style Actions (Star, Fork, Re-analyze, Tour, Share) */}
+          <div className="flex flex-wrap items-center gap-2">
+            <a
+              href={`https://github.com/${owner}/${repo}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gh-btn"
+              title="View on GitHub"
             >
-              <Compass className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Tour</span>
-            </ChunkyButton>
+              <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+              <span>Star</span>
+            </a>
 
-            <ChunkyButton
-              variant="secondary"
-              size="sm"
+            <a
+              href={`https://github.com/${owner}/${repo}/fork`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gh-btn hidden sm:inline-flex"
+              title="Fork on GitHub"
+            >
+              <GitFork className="w-3.5 h-3.5 text-ink-muted" />
+              <span>Fork</span>
+            </a>
+
+            <button
+              type="button"
               onClick={() => {
                 setReanalyzeTrigger((c) => c + 1);
               }}
-              className="flex items-center space-x-1"
+              className="gh-btn cursor-pointer"
               title="Re-run analysis"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-3.5 h-3.5 text-ink-muted" />
               <span className="hidden sm:inline">Re-analyze</span>
-            </ChunkyButton>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowTour(true)}
+              className="gh-btn cursor-pointer"
+              title="Take a quick tour"
+            >
+              <Compass className="w-3.5 h-3.5 text-ink-muted" />
+              <span className="hidden sm:inline">Tour</span>
+            </button>
 
             <ShareMenu
               report={{ ...baseReport, score: currentScore, projectedScore }}
