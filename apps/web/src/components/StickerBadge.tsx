@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 
-export type StickerVariant = 'lime' | 'sun' | 'coral' | 'sky' | 'primary' | 'card' | 'paper';
+export type StickerVariant = 'lime' | 'sun' | 'coral' | 'sky' | 'primary' | 'purple' | 'card' | 'paper';
 
 export interface StickerBadgeProps
   extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag'> {
@@ -16,29 +16,31 @@ export interface StickerBadgeProps
 }
 
 const VARIANT_STYLES: Record<StickerVariant, string> = {
-  lime: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20 shadow-sm shadow-emerald-500/5',
-  sun: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20 shadow-sm shadow-amber-500/5',
-  coral: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20 shadow-sm shadow-rose-500/5',
-  sky: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20 shadow-sm shadow-sky-500/5',
-  primary: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20 shadow-sm shadow-indigo-500/5',
-  card: 'bg-card text-ink border-slate-200 dark:border-slate-800 shadow-sm',
-  paper: 'bg-paper-2 text-ink-muted border-slate-200/80 dark:border-slate-800/80',
+  lime: 'bg-[#dafbe1] text-[#1a7f37] dark:bg-[#238636]/20 dark:text-[#3fb950] border-[#4ac26b]/30',
+  sun: 'bg-[#fff8c5] text-[#9a6700] dark:bg-[#bb8009]/20 dark:text-[#d29922] border-[#d4a72c]/30',
+  coral: 'bg-[#ffebe9] text-[#cf222e] dark:bg-[#da3633]/20 dark:text-[#f85149] border-[#ff8182]/30',
+  sky: 'bg-[#ddf4ff] text-[#0969da] dark:bg-[#388bfd]/20 dark:text-[#58a6ff] border-[#54aeff]/30',
+  primary: 'bg-[#ddf4ff] text-[#0969da] dark:bg-[#388bfd]/20 dark:text-[#58a6ff] border-[#54aeff]/30',
+  purple: 'bg-[#fbefff] text-[#8250df] dark:bg-[#8957e5]/20 dark:text-[#bc8cff] border-[#d2a8ff]/30',
+  card: 'bg-[var(--paper)] text-ink border-[var(--border-color)]',
+  paper: 'bg-[var(--paper)] text-ink-muted border-[var(--border-color)]',
 };
 
 const DOT_COLORS: Record<StickerVariant, string> = {
-  lime: 'bg-emerald-500',
-  sun: 'bg-amber-500',
-  coral: 'bg-rose-500',
-  sky: 'bg-sky-500',
-  primary: 'bg-indigo-500',
+  lime: 'bg-[#1a7f37] dark:bg-[#3fb950]',
+  sun: 'bg-[#9a6700] dark:bg-[#d29922]',
+  coral: 'bg-[#cf222e] dark:bg-[#f85149]',
+  sky: 'bg-[#0969da] dark:bg-[#58a6ff]',
+  primary: 'bg-[#0969da] dark:bg-[#58a6ff]',
+  purple: 'bg-[#8250df] dark:bg-[#bc8cff]',
   card: 'bg-slate-400',
   paper: 'bg-slate-400',
 };
 
 const SIZE_STYLES = {
-  sm: 'text-[11px] px-2 py-0.5 font-medium tracking-wide',
-  md: 'text-xs px-2.5 py-1 font-semibold tracking-wide',
-  lg: 'text-sm px-3.5 py-1.5 font-bold tracking-wide',
+  sm: 'text-[11px] px-2 py-0.5 font-medium',
+  md: 'text-xs px-2.5 py-0.5 font-medium',
+  lg: 'text-sm px-3.5 py-1 font-semibold',
 };
 
 export function StickerBadge({
