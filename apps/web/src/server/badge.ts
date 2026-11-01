@@ -10,11 +10,11 @@ export interface BadgeOptions {
 }
 
 const GRADE_COLORS: Record<Grade | 'unknown', string> = {
-  excellent: '#10b981', // --lime
-  good: '#06b6d4', // --sky
-  'needs-work': '#f59e0b', // --sun
-  'at-risk': '#f43f5e', // --coral
-  unknown: '#64748b', // grey
+  excellent: '#238636', // GitHub Primer Green
+  good: '#1f6feb', // GitHub Primer Blue
+  'needs-work': '#d29922', // GitHub Primer Attention/Yellow
+  'at-risk': '#da3633', // GitHub Primer Danger/Red
+  unknown: '#6e7681', // GitHub Primer Muted Grey
 };
 
 export function renderBadgeSvg(options: BadgeOptions): string {
