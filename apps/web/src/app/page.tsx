@@ -438,10 +438,10 @@ export default function HomePage() {
               ].map((c) => (
                 <div
                   key={c.label}
-                  className="p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-150 text-center space-y-2"
+                  className="p-3.5 gh-box hover:border-slate-400 dark:hover:border-slate-600 transition-colors text-center space-y-2 shadow-xs"
                 >
                   <div
-                    className={`w-9 h-9 mx-auto rounded-xl border flex items-center justify-center ${c.bg}`}
+                    className={`w-8 h-8 mx-auto rounded-md border flex items-center justify-center ${c.bg}`}
                   >
                     {c.icon}
                   </div>
@@ -454,10 +454,10 @@ export default function HomePage() {
             <div className="text-center pt-2">
               <Link
                 href="/methodology"
-                className="inline-flex items-center gap-1.5 font-semibold text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+                className="gh-btn inline-flex items-center space-x-1.5"
               >
-                <span>See every check and arithmetic rule</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>See all 23 checks and scoring arithmetic</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
