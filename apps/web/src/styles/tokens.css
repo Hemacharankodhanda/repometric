@@ -1,54 +1,61 @@
-/* Modern High-Precision Dev-Intelligence Design Tokens: ADR-015 */
+/* GitHub Primer Developer UI/UX Tokens: ADR-016 */
 
 :root {
-  --paper: #f8fafc;
-  --paper-2: #f1f5f9;
+  /* GitHub Light Canvas & Foreground */
+  --paper: #f6f8fa;
+  --paper-2: #ffffff;
   --card: #ffffff;
-  --ink: #0f172a;
-  --ink-muted: #64748b;
+  --ink: #1f2328;
+  --ink-muted: #656d76;
 
-  --primary: #4f46e5;
+  /* GitHub Blue Accent & Status Colors */
+  --primary: #0969da;
   --on-primary: #ffffff;
-  --primary-text: #4338ca;
+  --primary-text: #0969da;
 
-  --lime: #10b981;
-  --sun: #f59e0b;
-  --coral: #f43f5e;
-  --coral-text: #e11d48;
-  --sky: #06b6d4;
+  /* GitHub Action & State Colors */
+  --lime: #1a7f37;       /* Open issue/PR green */
+  --sun: #9a6700;        /* Warning/Pending amber */
+  --coral: #cf222e;      /* Closed/Failed red */
+  --coral-text: #cf222e;
+  --sky: #0969da;        /* GitHub primary link blue */
+  --purple: #8250df;     /* Merged PR purple */
   --on-fill: #ffffff;
 
-  --border: 1px solid rgba(15, 23, 42, 0.08);
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-  --shadow-glow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
+  /* GitHub Primer Borders & Elevation */
+  --border-color: #d0d7de;
+  --border-muted: #d8dee4;
+  --border: 1px solid var(--border-color);
+  --shadow-sm: 0 1px 0 rgba(31, 35, 40, 0.04);
+  --shadow-md: 0 1px 3px rgba(31, 35, 40, 0.12), 0 1px 2px rgba(31, 35, 40, 0.06);
+  --shadow-lg: 0 8px 24px rgba(140, 149, 159, 0.2);
+  --shadow-glow: 0 0 20px -3px rgba(9, 105, 218, 0.2);
 
-  --radius-tile: 6px;
-  --radius-control: 10px;
-  --radius-card: 16px;
+  --radius-tile: 4px;
+  --radius-control: 6px;
+  --radius-card: 6px;
   --radius-pill: 9999px;
 
-  /* Data palettes (color-blind safe) */
-  --lang-1: #e69f00;
-  --lang-2: #56b4e9;
-  --lang-3: #009e73;
-  --lang-4: #f0e442;
-  --lang-5: #0072b2;
-  --lang-6: #d55e00;
-  --lang-7: #cc79a7;
-  --lang-other: #999999;
+  /* Data palettes (GitHub language standard color-blind safe) */
+  --lang-1: #3178c6;     /* TypeScript */
+  --lang-2: #f1e05a;     /* JavaScript */
+  --lang-3: #3572a5;     /* Python */
+  --lang-4: #00add8;     /* Go */
+  --lang-5: #dea584;     /* Rust */
+  --lang-6: #e34c26;     /* HTML */
+  --lang-7: #563d7c;     /* CSS */
+  --lang-other: #8b949e;
 
-  --seq-1: #e0f2fe;
-  --seq-2: #7dd3fc;
-  --seq-3: #38bdf8;
-  --seq-4: #0284c7;
-  --seq-5: #0369a1;
+  --seq-1: #ddf4ff;
+  --seq-2: #80ccff;
+  --seq-3: #54aeff;
+  --seq-4: #0969da;
+  --seq-5: #054da7;
 
-  /* Type */
-  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-body: 'Instrument Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* GitHub font stack */
+  --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -56,61 +63,47 @@
   --text-lg: 1.25rem;
   --text-xl: 1.5rem;
   --text-2xl: 2rem;
-  --text-hero: clamp(2.5rem, 6vw, 4.25rem);
-  --text-score: clamp(3.5rem, 8vw, 5rem);
+  --text-hero: clamp(2.25rem, 5vw, 3.75rem);
+  --text-score: clamp(3rem, 7vw, 4.5rem);
 
   /* Motion */
-  --press-ms: 120ms;
+  --press-ms: 100ms;
 }
 
 :root[data-theme='dark'] {
-  --paper: #030712;
-  --paper-2: #0b0f19;
-  --card: #111827;
-  --ink: #f9fafb;
-  --ink-muted: #9ca3af;
+  /* GitHub Dark Canvas & Foreground (Default Dark / Dimmed) */
+  --paper: #0d1117;
+  --paper-2: #161b22;
+  --card: #161b22;
+  --ink: #e6edf3;
+  --ink-muted: #8d96a0;
 
-  --primary: #6366f1;
+  /* GitHub Dark Blue Accent */
+  --primary: #2f81f7;
   --on-primary: #ffffff;
-  --primary-text: #818cf8;
+  --primary-text: #4493f8;
 
-  --lime: #10b981;
-  --sun: #fbbf24;
-  --sky: #38bdf8;
-  --coral: #fb7185;
-  --coral-text: #fda4af;
+  /* GitHub Dark State Colors */
+  --lime: #3fb950;       /* Open issue/PR green */
+  --sun: #d29922;        /* Warning amber */
+  --coral: #f85149;      /* Failed red */
+  --coral-text: #ff7b72;
+  --sky: #2f81f7;        /* Blue */
+  --purple: #a371f7;     /* Merged PR purple */
   --on-fill: #ffffff;
 
-  --border: 1px solid rgba(255, 255, 255, 0.08);
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --shadow-glow: 0 0 35px -5px rgba(99, 102, 241, 0.35);
-}
+  /* GitHub Dark Borders & Elevation */
+  --border-color: #30363d;
+  --border-muted: #21262d;
+  --border: 1px solid var(--border-color);
+  --shadow-sm: 0 0 0 1px var(--border-color);
+  --shadow-md: 0 3px 6px rgba(1, 4, 9, 0.4);
+  --shadow-lg: 0 8px 24px #010409;
+  --shadow-glow: 0 0 25px -4px rgba(47, 129, 247, 0.25);
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --paper: #030712;
-    --paper-2: #0b0f19;
-    --card: #111827;
-    --ink: #f9fafb;
-    --ink-muted: #9ca3af;
-
-    --primary: #6366f1;
-    --on-primary: #ffffff;
-    --primary-text: #818cf8;
-
-    --lime: #10b981;
-    --sun: #fbbf24;
-    --sky: #38bdf8;
-    --coral: #fb7185;
-    --coral-text: #fda4af;
-    --on-fill: #ffffff;
-
-    --border: 1px solid rgba(255, 255, 255, 0.08);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
-    --shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
-    --shadow-glow: 0 0 35px -5px rgba(99, 102, 241, 0.35);
-  }
+  --seq-1: #042449;
+  --seq-2: #054da7;
+  --seq-3: #2f81f7;
+  --seq-4: #54aeff;
+  --seq-5: #ddf4ff;
 }
