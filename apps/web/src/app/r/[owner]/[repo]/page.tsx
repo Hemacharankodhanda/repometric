@@ -671,6 +671,32 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
             {/* TAB 1: OVERVIEW */}
             <TabsContent value="overview" className="mt-0 space-y-6">
+              {/* GitHub-style Latest Commit Status Bar */}
+              <div className="gh-box p-3 sm:px-4 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="flex items-center space-x-2.5 min-w-0">
+                  <div className="w-5 h-5 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center font-bold text-[10px] text-ink shrink-0">
+                    {owner.slice(0, 1).toUpperCase()}
+                  </div>
+                  <span className="font-semibold text-ink truncate">{owner}</span>
+                  <span className="text-ink-muted truncate hidden sm:inline">
+                    AST snapshot pinned to commit tree
+                  </span>
+                </div>
+                <div className="flex items-center space-x-3 text-ink-muted shrink-0 font-mono text-[11px]">
+                  <a
+                    href={`https://github.com/${owner}/${repo}/commit/${baseReport.commitSha}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                    title="View commit on GitHub"
+                  >
+                    {baseReport.commitSha.slice(0, 7)}
+                  </a>
+                  <span>•</span>
+                  <span>{files.length} files parsed</span>
+                </div>
+              </div>
+
               {/* 6 Category Rows */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
