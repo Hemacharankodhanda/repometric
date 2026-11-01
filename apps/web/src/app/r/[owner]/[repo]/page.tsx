@@ -846,14 +846,18 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                 </div>
               </div>
 
-              {/* Template Copy Quick-Actions */}
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-slate-50/80 dark:bg-slate-900/60 p-3.5 flex flex-wrap items-center justify-between gap-3 shadow-card">
-                <span className="text-xs font-semibold text-ink">⚡ Quick starter templates:</span>
+              {/* GitHub-style Quick Starter Templates Bar */}
+              <div className="gh-box p-3 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center space-x-2 text-xs font-semibold text-ink">
+                  <FileCode className="w-4 h-4 text-ink-muted" />
+                  <span>Starter repository templates:</span>
+                </div>
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('license')}
-                    className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-xs hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
+                    className="gh-btn cursor-pointer"
+                    title="Copy MIT License template"
                   >
                     {templateCopied === 'license' ? (
                       <Check className="w-3.5 h-3.5 stroke-[3] text-emerald-600" />
@@ -861,11 +865,13 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                       <Copy className="w-3.5 h-3.5 text-ink-muted" />
                     )}
                     <span>LICENSE</span>
+                    <span className="gh-counter">txt</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('gitignore')}
-                    className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-xs hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
+                    className="gh-btn cursor-pointer"
+                    title="Copy Node/Python .gitignore template"
                   >
                     {templateCopied === 'gitignore' ? (
                       <Check className="w-3.5 h-3.5 stroke-[3] text-emerald-600" />
@@ -873,18 +879,21 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                       <Copy className="w-3.5 h-3.5 text-ink-muted" />
                     )}
                     <span>.gitignore</span>
+                    <span className="gh-counter">git</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => handleCopyTemplate('ci')}
-                    className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-xs font-semibold text-ink flex items-center space-x-1.5 shadow-xs hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
+                    className="gh-btn cursor-pointer"
+                    title="Copy GitHub Actions CI workflow YAML"
                   >
                     {templateCopied === 'ci' ? (
                       <Check className="w-3.5 h-3.5 stroke-[3] text-emerald-600" />
                     ) : (
                       <Copy className="w-3.5 h-3.5 text-ink-muted" />
                     )}
-                    <span>CI workflow</span>
+                    <span>ci.yml</span>
+                    <span className="gh-counter">yaml</span>
                   </button>
                 </div>
               </div>
