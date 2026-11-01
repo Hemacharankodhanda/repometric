@@ -95,25 +95,25 @@ export default function KitPage() {
   return (
     <div className="min-h-screen bg-paper text-ink p-4 sm:p-8 space-y-12 max-w-6xl mx-auto">
       {/* Header bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-ink pb-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--border-color)] pb-6">
         <div>
           <Link
             href="/"
-            className="inline-flex items-center space-x-1.5 text-xs font-bold text-primary-text hover:underline mb-2"
+            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-primary hover:underline mb-2"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to home</span>
           </Link>
           <div className="flex items-center space-x-3">
-            <h1 className="font-display font-extrabold text-2xl sm:text-4xl text-ink tracking-tight">
-              Design System & Component Kit
+            <h1 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
+              Design System &amp; Component Kit
             </h1>
-            <StickerBadge variant="lime" rotate="right">
-              Playful Field Guide
-            </StickerBadge>
+            <span className="gh-counter text-xs">
+              GitHub Primer + Tactile Engine
+            </span>
           </div>
-          <p className="text-sm text-ink-muted mt-1">
-            Tactile stickers, 2px ink outlines, hard shadows, and the Tilly mascot.
+          <p className="text-xs sm:text-sm text-ink-muted mt-1">
+            GitHub Primer developer chrome, crisp borders, tactile sticker telemetry, and Tilly mascot states.
           </p>
         </div>
 
@@ -124,8 +124,8 @@ export default function KitPage() {
 
       {/* 1. Mascot: Tilly */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2">
-          <h2 className="font-display font-bold text-xl text-ink">1. The Mascot: Tilly</h2>
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-2">
+          <h2 className="font-display font-semibold text-lg text-ink">1. The Mascot: Tilly</h2>
           <span className="text-xs font-mono text-ink-muted">7 mood states</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4">
@@ -143,11 +143,11 @@ export default function KitPage() {
 
       {/* 2. Sticker Badges */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2">
-          <h2 className="font-display font-bold text-xl text-ink">2. Sticker Badges</h2>
-          <span className="text-xs font-mono text-ink-muted">flat fills + hard shadows</span>
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-2">
+          <h2 className="font-display font-semibold text-lg text-ink">2. Sticker Badges &amp; Status</h2>
+          <span className="text-xs font-mono text-ink-muted">flat fills + status checks</span>
         </div>
-        <div className="flex flex-wrap gap-4 items-center p-6 rounded-card border-2 border-ink bg-paper-2 bg-dots">
+        <div className="flex flex-wrap gap-4 items-center p-6 rounded-card border border-[var(--border-color)] bg-[var(--paper)]">
           <StickerBadge variant="lime" rotate="left">
             Excellent 92
           </StickerBadge>
@@ -172,24 +172,27 @@ export default function KitPage() {
         </div>
       </section>
 
-      {/* 3. Chunky Buttons */}
+      {/* 3. GitHub Primer Box & Buttons */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2">
-          <h2 className="font-display font-bold text-xl text-ink">3. Chunky Buttons</h2>
-          <span className="text-xs font-mono text-ink-muted">hover lift & press sink</span>
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-2">
+          <h2 className="font-display font-semibold text-lg text-ink">3. Buttons &amp; Primer Chrome</h2>
+          <span className="text-xs font-mono text-ink-muted">.gh-btn and .gh-box</span>
         </div>
-        <div className="flex flex-wrap gap-4 items-center p-6 rounded-card border-2 border-ink bg-card shadow-[4px_4px_0_var(--ink)]">
-          <ChunkyButton variant="primary" size="lg" icon={<Sparkles className="w-5 h-5" />}>
+        <div className="flex flex-wrap gap-4 items-center p-6 rounded-card border border-[var(--border-color)] bg-[var(--card)]">
+          <button type="button" className="gh-btn inline-flex items-center gap-1.5 font-semibold">
+            <Star className="w-3.5 h-3.5 text-amber-500" />
+            <span>Star</span>
+            <span className="gh-counter ml-1">4.2k</span>
+          </button>
+          <button type="button" className="gh-btn inline-flex items-center gap-1.5 font-semibold text-primary">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Run Check</span>
+          </button>
+          <ChunkyButton variant="primary" size="md" icon={<Sparkles className="w-4 h-4" />}>
             Primary Action
           </ChunkyButton>
           <ChunkyButton variant="secondary" size="md">
             Secondary
-          </ChunkyButton>
-          <ChunkyButton variant="lime" size="md" icon={<Star className="w-4 h-4" />}>
-            Highlight Lime
-          </ChunkyButton>
-          <ChunkyButton variant="coral" size="sm">
-            Warning / Coral
           </ChunkyButton>
           <ChunkyButton variant="ghost" size="sm">
             Ghost Link
@@ -202,28 +205,28 @@ export default function KitPage() {
 
       {/* 4. Repo Input */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2">
-          <h2 className="font-display font-bold text-xl text-ink">4. RepoInput</h2>
-          <span className="text-xs font-mono text-ink-muted">attached button & chips</span>
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-2">
+          <h2 className="font-display font-semibold text-lg text-ink">4. RepoInput</h2>
+          <span className="text-xs font-mono text-ink-muted">search command &amp; hints</span>
         </div>
-        <div className="p-6 rounded-card border-2 border-ink bg-paper-2">
+        <div className="p-6 rounded-card border border-[var(--border-color)] bg-[var(--paper)]">
           <RepoInput defaultValue="expressjs/express" />
         </div>
       </section>
 
       {/* 5. Score Summary */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2">
-          <h2 className="font-display font-bold text-xl text-ink">5. ScoreSummary</h2>
-          <span className="text-xs font-mono text-ink-muted">animated numeral count-up</span>
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-2">
+          <h2 className="font-display font-semibold text-lg text-ink">5. ScoreSummary</h2>
+          <span className="text-xs font-mono text-ink-muted">telemetry counters</span>
         </div>
         <ScoreSummary score={78} projectedScore={89} />
       </section>
 
       {/* 6. Categories, Fixes & Insights */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2">
-          <h2 className="font-display font-bold text-xl text-ink">6. Cards & Rows</h2>
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-2">
+          <h2 className="font-display font-semibold text-lg text-ink">6. Cards &amp; Rows</h2>
           <span className="text-xs font-mono text-ink-muted">
             CategoryRow, FixCard, InsightCard
           </span>
@@ -277,8 +280,8 @@ export default function KitPage() {
 
       {/* 7. Reading Guides & Empty States */}
       <section className="space-y-4">
-        <div className="flex items-center justify-between border-b-2 border-ink pb-2">
-          <h2 className="font-display font-bold text-xl text-ink">7. Visualizer Guide & States</h2>
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-2">
+          <h2 className="font-display font-semibold text-lg text-ink">7. Visualizer Guide &amp; States</h2>
         </div>
         <div className="space-y-4">
           <ReadingGuide type="map" />
