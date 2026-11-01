@@ -1,67 +1,68 @@
 import React from 'react';
 import Link from 'next/link';
 import { Header } from '../../components/Header';
-import { StickerBadge } from '../../components/StickerBadge';
 import { mockReport } from '@repometric/core';
 import { ArrowLeft, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export default function MethodologyPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-paper text-ink font-body selection:bg-lime selection:text-ink">
+    <div className="min-h-screen flex flex-col bg-paper text-ink font-body selection:bg-indigo-500/20 selection:text-ink">
       <Header />
 
-      <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-10 space-y-8">
+      <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-8 space-y-8">
         <div>
           <Link
             href="/"
-            className="inline-flex items-center text-xs font-bold text-primary-text hover:underline mb-3 gap-1"
+            className="inline-flex items-center text-xs font-semibold text-primary hover:underline mb-3 gap-1"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to home</span>
           </Link>
+
           <div className="flex items-center gap-2 mb-2">
-            <StickerBadge variant="primary" size="sm">
-              Deterministic Arithmetic Rules
-            </StickerBadge>
+            <span className="px-2 py-0.5 rounded-full text-xs font-mono font-medium border border-[var(--border-color)] bg-[var(--paper)] text-ink-muted">
+              Deterministic AST Rules
+            </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-display font-extrabold text-ink tracking-tight">
-            Scoring methodology
+
+          <h1 className="text-2xl sm:text-3xl font-display font-bold text-ink tracking-tight">
+            Scoring methodology &amp; rules
           </h1>
-          <p className="text-sm sm:text-base text-ink-muted mt-2 leading-relaxed">
-            RepoMetric evaluates repository health across six distinct categories using
-            deterministic, arithmetic rules. Every deduction links to concrete, inspectable
+          <p className="text-xs sm:text-sm text-ink-muted mt-2 leading-relaxed">
+            RepoMetric evaluates repository engineering health across six weighted dimensions using
+            deterministic rules. Every point gained or deducted maps directly to inspectable AST
             evidence with zero subjective AI hallucination.
           </p>
         </div>
 
-        <div className="space-y-6 pt-2">
+        <div className="space-y-6 pt-1">
           {mockReport.categories.map((category) => (
             <section
               key={category.id}
-              className="p-6 rounded-card border-2 border-ink bg-card shadow-card space-y-4"
+              className="gh-box overflow-hidden shadow-sm"
             >
-              <div className="flex items-center justify-between border-b-2 border-ink/10 pb-3">
-                <div className="flex items-center gap-2.5">
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                  <h2 className="text-lg font-display font-bold text-ink">{category.label}</h2>
+              <div className="gh-box-header flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  <h2 className="text-sm font-semibold text-ink">{category.label}</h2>
                 </div>
-                <StickerBadge variant="sky" size="sm" rotate="none">
+                <span className="gh-counter font-mono">
                   Weight: {category.weight}%
-                </StickerBadge>
+                </span>
               </div>
 
-              <div className="space-y-2.5 pt-1">
+              <div className="divide-y divide-[var(--border-color)] bg-[var(--card)]">
                 {category.signals.map((signal) => (
                   <div
                     key={signal.id}
-                    className="flex items-start space-x-3 text-xs p-3 rounded-control bg-paper-2 border-2 border-ink shadow-card-sm"
+                    className="flex items-start space-x-3 text-xs p-3.5 hover:bg-slate-50/50 dark:hover:bg-slate-900/30 transition-colors"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                     <div className="flex-1 min-w-0">
-                      <div className="font-bold text-ink">{signal.label}</div>
-                      <div className="text-ink-muted mt-0.5 leading-relaxed">{signal.evidence}</div>
+                      <div className="font-semibold text-ink">{signal.label}</div>
+                      <div className="text-ink-muted text-[11px] mt-0.5 leading-relaxed">{signal.evidence}</div>
                     </div>
-                    <div className="font-mono text-xs font-bold text-ink shrink-0">
+                    <div className="font-mono text-xs font-semibold text-ink shrink-0">
                       {signal.earned} / {signal.max} pts
                     </div>
                   </div>
@@ -72,8 +73,8 @@ export default function MethodologyPage() {
         </div>
       </main>
 
-      <footer className="py-8 px-4 bg-paper-2 text-ink text-xs border-t-2 border-ink text-center">
-        RepoMetric • Precision deterministic code intelligence
+      <footer className="py-6 px-4 bg-[var(--paper)] text-ink-muted text-xs border-t border-[var(--border-color)] text-center">
+        RepoMetric • Deterministic Code Intelligence &amp; Visualizers
       </footer>
     </div>
   );
