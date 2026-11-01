@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeToggle } from './ThemeToggle';
 import { ChunkyButton } from './ChunkyButton';
 import { RepoMetricLogo } from './RepoMetricLogo';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
 
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -39,6 +39,26 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
   const isHome = pathname === '/';
   const shouldShowCta = showCta !== undefined ? showCta : isHome;
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeEl = document.activeElement;
+      const isInput =
+        activeEl instanceof HTMLInputElement || activeEl instanceof HTMLTextAreaElement;
+      if (!isInput && (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'))) {
+        e.preventDefault();
+        const input = document.getElementById('repo-input-field') as HTMLInputElement | null;
+        if (input) {
+          input.focus();
+          input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          router.push('/#repo-input-field');
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [router]);
+
   const handleCtaClick = () => {
     if (isHome) {
       const el = document.getElementById('repo-input-field');
@@ -69,7 +89,24 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
               <span>{statusText}</span>
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div className="hidden md:flex items-center flex-1 max-w-xs mx-4">
+            <button
+              type="button"
+              onClick={handleCtaClick}
+              className="w-full flex items-center justify-between px-3 py-1 text-xs text-ink-muted bg-[var(--paper)] border border-[var(--border-color)] rounded-md hover:border-slate-400 dark:hover:border-slate-600 transition-colors cursor-pointer shadow-xs"
+              title="Type / or Ctrl+K to analyze a repository"
+            >
+              <div className="flex items-center space-x-2">
+                <Search className="w-3.5 h-3.5 text-ink-muted" />
+                <span>Type / or search repos...</span>
+              </div>
+              <kbd className="px-1.5 py-0.5 text-[10px] font-mono rounded bg-slate-200/60 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-ink-muted">
+                /
+              </kbd>
+            </button>
+          </div>
+        )}
 
         {/* Right side navigation & tools */}
         <div className="flex items-center space-x-3 sm:space-x-5 shrink-0">
