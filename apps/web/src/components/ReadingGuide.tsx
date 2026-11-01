@@ -69,7 +69,7 @@ export function ReadingGuide({ type, className = '' }: ReadingGuideProps) {
 
   return (
     <div
-      className={`rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card p-3 text-xs text-ink transition-all shadow-sm ${className}`}
+      className={`gh-box p-3 text-xs text-ink transition-all shadow-sm ${className}`}
     >
       <div
         className="flex items-center justify-between cursor-pointer"
@@ -97,12 +97,12 @@ export function ReadingGuide({ type, className = '' }: ReadingGuideProps) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-ink overflow-hidden"
+            className="mt-3 pt-3 border-t border-[var(--border-color)] grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-ink overflow-hidden"
           >
             {info.details.map((d, i) => (
               <div
                 key={i}
-                className="p-2.5 rounded-lg bg-paper-2 border border-slate-200/70 dark:border-slate-800/70"
+                className="p-2.5 rounded-md bg-[var(--paper)] border border-[var(--border-color)]"
               >
                 <span className="font-semibold block text-ink">{d.label}:</span>
                 <span className="text-ink-muted text-[11px] leading-relaxed block mt-0.5">
