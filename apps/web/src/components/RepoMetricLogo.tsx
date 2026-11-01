@@ -128,10 +128,10 @@ export function RepoMetricLogo({
 
       {/* Wordmark */}
       {showWordmark && (
-        <span className="font-display font-bold text-xl tracking-tight text-ink flex items-center">
-          <span>repo</span>
-          <span className="bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 bg-clip-text text-transparent">
-            metric
+        <span className="font-display font-semibold text-lg tracking-tight text-ink flex items-center space-x-1.5">
+          <span className="font-bold">repometric</span>
+          <span className="hidden sm:inline-block px-1.5 py-0.2 text-[10px] font-mono font-medium rounded-full border border-[var(--border-color)] bg-[var(--paper)] text-ink-muted leading-tight">
+            ast
           </span>
         </span>
       )}
