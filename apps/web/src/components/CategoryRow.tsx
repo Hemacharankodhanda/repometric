@@ -100,7 +100,7 @@ export function CategoryRow({ category }: { category: CategoryResult }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="rounded-xl border border-slate-200/90 dark:border-slate-800/90 bg-card shadow-sm hover:border-slate-300 dark:hover:border-slate-700 transition-all overflow-hidden"
+      className="gh-box hover:border-slate-400 dark:hover:border-slate-600 transition-colors overflow-hidden"
     >
       <div className="p-4 flex items-center justify-between gap-4">
         <div className="flex-1 min-w-0">
@@ -167,12 +167,12 @@ export function CategoryRow({ category }: { category: CategoryResult }) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-900/40 p-4 space-y-2 overflow-hidden"
+            className="border-t border-[var(--border-color)] bg-[var(--paper)] p-3 space-y-2 overflow-hidden"
           >
             {category.signals.map((signal: SignalResult) => (
               <div
                 key={signal.id}
-                className="flex items-start justify-between gap-3 text-xs p-3 rounded-lg bg-card border border-slate-200/70 dark:border-slate-800/70"
+                className="flex items-start justify-between gap-3 text-xs p-2.5 rounded-md bg-[var(--card)] border border-[var(--border-color)]"
               >
                 <div className="flex items-start space-x-2.5 min-w-0">
                   {getSignalIcon(signal.status)}
