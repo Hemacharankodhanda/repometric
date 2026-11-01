@@ -115,6 +115,7 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
   // Local Mark Done storage state for Fixes
   const [doneFixes, setDoneFixes] = useState<Record<string, boolean>>({});
+  const [fixFilter, setFixFilter] = useState<'all' | 'open' | 'done' | 'quick'>('all');
   const [templateCopied, setTemplateCopied] = useState<string | null>(null);
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
 
@@ -312,6 +313,16 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
     () => files.filter((f) => !f.isTest && f.language).length,
     [files],
   );
+
+  const filteredFixes = useMemo(() => {
+    return baseReport.fixes.filter((f) => {
+      const isDone = !!doneFixes[f.id];
+      if (fixFilter === 'open') return !isDone;
+      if (fixFilter === 'done') return isDone;
+      if (fixFilter === 'quick') return f.effort === 'S';
+      return true;
+    });
+  }, [baseReport.fixes, doneFixes, fixFilter]);
 
   // Confetti on 90+ score (never on reduced motion)
   useEffect(() => {
@@ -878,9 +889,53 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                 </div>
               </div>
 
+              {/* GitHub Issues Filter Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="flex items-center space-x-1.5 overflow-x-auto">
+                  <button
+                    type="button"
+                    onClick={() => setFixFilter('all')}
+                    className={`gh-btn cursor-pointer ${fixFilter === 'all' ? 'bg-slate-200 dark:bg-slate-800 font-semibold' : ''}`}
+                  >
+                    <span>All</span>
+                    <span className="gh-counter">{baseReport.fixes.length}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFixFilter('open')}
+                    className={`gh-btn cursor-pointer ${fixFilter === 'open' ? 'bg-slate-200 dark:bg-slate-800 font-semibold' : ''}`}
+                  >
+                    <span>Open</span>
+                    <span className="gh-counter">
+                      {baseReport.fixes.filter((f) => !doneFixes[f.id]).length}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFixFilter('quick')}
+                    className={`gh-btn cursor-pointer ${fixFilter === 'quick' ? 'bg-slate-200 dark:bg-slate-800 font-semibold' : ''}`}
+                  >
+                    <span>Quick wins</span>
+                    <span className="gh-counter">
+                      {baseReport.fixes.filter((f) => f.effort === 'S').length}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFixFilter('done')}
+                    className={`gh-btn cursor-pointer ${fixFilter === 'done' ? 'bg-slate-200 dark:bg-slate-800 font-semibold' : ''}`}
+                  >
+                    <span>Resolved</span>
+                    <span className="gh-counter">
+                      {baseReport.fixes.filter((f) => !!doneFixes[f.id]).length}
+                    </span>
+                  </button>
+                </div>
+              </div>
+
               {/* Fix Cards List */}
               <div className="space-y-3">
-                {baseReport.fixes.map((fix) => (
+                {filteredFixes.map((fix) => (
                   <FixCard
                     key={fix.id}
                     fix={fix}
