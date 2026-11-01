@@ -95,7 +95,7 @@ export function ScoreSummary({
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className={`rounded-card border border-slate-200/90 dark:border-slate-800/90 bg-card p-6 sm:p-8 shadow-sm dark:shadow-xl dark:shadow-indigo-950/10 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 relative overflow-hidden ${className}`}
+      className={`rounded-md border border-[var(--border-color)] bg-[var(--card)] p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center md:items-start justify-between gap-8 relative overflow-hidden ${className}`}
     >
       {/* Subtle ambient glow */}
       <div className="pointer-events-none absolute -top-24 -left-24 w-80 h-80 rounded-full bg-primary/5 dark:bg-primary/10 blur-3xl" />
@@ -163,6 +163,32 @@ export function ScoreSummary({
         <p className="text-sm sm:text-base font-normal text-ink-muted max-w-xl leading-relaxed">
           {finalVerdict}
         </p>
+
+        {/* GitHub-style Contribution Blocks Meter */}
+        <div className="pt-1">
+          <div className="flex items-center gap-1.5 justify-center md:justify-start">
+            {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((tier) => (
+              <div
+                key={tier}
+                className={`w-3.5 h-3.5 rounded-[2px] transition-colors duration-300 ${
+                  displayScore >= tier
+                    ? score >= 90
+                      ? 'bg-[#39d353]'
+                      : score >= 75
+                        ? 'bg-[#26a641]'
+                        : score >= 55
+                          ? 'bg-[#d29922]'
+                          : 'bg-[#cf222e]'
+                    : 'bg-slate-200 dark:bg-slate-800'
+                }`}
+                title={`Health level: ${tier}%`}
+              />
+            ))}
+            <span className="text-[11px] font-mono text-ink-muted ml-1.5">
+              {displayScore}% telemetry
+            </span>
+          </div>
+        </div>
 
         {/* Projected score progress bar */}
         {targetProjected && (
