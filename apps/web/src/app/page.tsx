@@ -482,7 +482,10 @@ export default function HomePage() {
                   score: 88,
                   grade: 'Good',
                   variant: 'sky' as const,
-                  desc: 'Component library hub',
+                  desc: 'The library for web and native user interfaces.',
+                  lang: 'JavaScript',
+                  langColor: '#f1e05a',
+                  license: 'MIT',
                 },
                 {
                   owner: 'expressjs',
@@ -490,7 +493,10 @@ export default function HomePage() {
                   score: 78,
                   grade: 'Good',
                   variant: 'sky' as const,
-                  desc: 'Fast, unopinionated web framework',
+                  desc: 'Fast, unopinionated, minimalist web framework for node.',
+                  lang: 'JavaScript',
+                  langColor: '#f1e05a',
+                  license: 'MIT',
                 },
                 {
                   owner: 'pallets',
@@ -498,7 +504,10 @@ export default function HomePage() {
                   score: 82,
                   grade: 'Good',
                   variant: 'sky' as const,
-                  desc: 'Python micro web framework',
+                  desc: 'The Python micro framework for building web applications.',
+                  lang: 'Python',
+                  langColor: '#3572a5',
+                  license: 'BSD-3',
                 },
                 {
                   owner: 'vercel',
@@ -506,7 +515,10 @@ export default function HomePage() {
                   score: 91,
                   grade: 'Excellent',
                   variant: 'lime' as const,
-                  desc: 'React framework for the web',
+                  desc: 'The React Framework for the Web created by Vercel.',
+                  lang: 'TypeScript',
+                  langColor: '#3178c6',
+                  license: 'MIT',
                 },
                 {
                   owner: 'tailwindlabs',
@@ -514,7 +526,10 @@ export default function HomePage() {
                   score: 85,
                   grade: 'Good',
                   variant: 'sky' as const,
-                  desc: 'Utility-first CSS framework',
+                  desc: 'A utility-first CSS framework for rapid UI development.',
+                  lang: 'TypeScript',
+                  langColor: '#3178c6',
+                  license: 'MIT',
                 },
                 {
                   owner: 'torvalds',
@@ -522,40 +537,49 @@ export default function HomePage() {
                   score: 72,
                   grade: 'Needs work',
                   variant: 'sun' as const,
-                  desc: 'Linux kernel tree',
+                  desc: 'Linux kernel source tree maintained by Linus Torvalds.',
+                  lang: 'C',
+                  langColor: '#555555',
+                  license: 'GPL-2.0',
                 },
               ].map((r) => (
                 <div key={`${r.owner}/${r.repo}`} className="h-full">
                   <Link
                     href={`/r/${r.owner}/${r.repo}`}
-                    className="p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4 group block h-full"
+                    className="gh-box p-4 hover:border-slate-400 dark:hover:border-slate-600 transition-colors flex flex-col justify-between space-y-3 group block h-full"
                   >
                     <div className="space-y-2">
-                      <div className="flex items-start justify-between">
-                        <span className="font-mono text-xs font-medium text-ink-muted truncate">
-                          {r.owner}/
-                        </span>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-1.5 truncate">
+                          <span className="font-semibold text-sm text-primary group-hover:underline truncate">
+                            {r.owner}/{r.repo}
+                          </span>
+                          <span className="px-1.5 py-0.2 rounded-full border border-[var(--border-color)] text-[10px] text-ink-muted">
+                            Public
+                          </span>
+                        </div>
                         <StickerBadge variant={r.variant} size="sm">
                           {r.grade}
                         </StickerBadge>
                       </div>
-                      <div className="font-display font-semibold text-xl text-ink truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                        {r.repo}
-                      </div>
                       <p className="text-xs text-ink-muted line-clamp-2 leading-relaxed">{r.desc}</p>
                     </div>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-800/80">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="font-display font-bold text-2xl text-ink leading-none">
-                          {r.score}
-                        </span>
-                        <span className="text-[11px] font-mono text-ink-muted">/100</span>
+                    <div className="flex items-center justify-between pt-2.5 border-t border-[var(--border-color)] text-xs text-ink-muted">
+                      <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-1">
+                          <span
+                            className="w-2.5 h-2.5 rounded-full shrink-0"
+                            style={{ backgroundColor: r.langColor }}
+                          />
+                          <span className="font-mono text-[11px]">{r.lang}</span>
+                        </div>
+                        <span className="text-[11px] font-mono">{r.license}</span>
                       </div>
-                      <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                        <span>View report</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
+                      <div className="flex items-baseline space-x-1 font-mono">
+                        <span className="font-bold text-ink">{r.score}</span>
+                        <span className="text-[10px] text-ink-muted">/100</span>
+                      </div>
                     </div>
                   </Link>
                 </div>
