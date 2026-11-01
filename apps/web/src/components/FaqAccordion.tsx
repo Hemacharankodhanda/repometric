@@ -66,7 +66,7 @@ export function FaqAccordion({ className = '' }: { className?: string }) {
         return (
           <div
             key={idx}
-            className="rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm shadow-card overflow-hidden transition-all duration-200"
+            className="gh-box overflow-hidden transition-all duration-200"
           >
             <button
               type="button"
@@ -74,17 +74,15 @@ export function FaqAccordion({ className = '' }: { className?: string }) {
               aria-expanded={isOpen}
               aria-controls={`faq-answer-${idx}`}
               id={`faq-question-${idx}`}
-              className="w-full p-4 sm:p-5 flex items-center justify-between text-left font-display font-semibold text-base sm:text-lg text-ink hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer"
+              className="w-full p-3.5 sm:p-4 flex items-center justify-between text-left font-semibold text-sm text-ink hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
             >
               <span className="pr-4">{item.question}</span>
               <motion.div
                 animate={{ rotate: isOpen ? 180 : 0 }}
-                transition={{ duration: 0.2, ease: 'easeInOut' }}
-                className={`w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/80 flex items-center justify-center shrink-0 text-ink-muted ${
-                  isOpen ? 'text-indigo-600 dark:text-indigo-400 border-indigo-500/30' : ''
-                }`}
+                transition={{ duration: 0.15, ease: 'easeInOut' }}
+                className="w-6 h-6 rounded-md border border-[var(--border-color)] bg-[var(--paper)] flex items-center justify-center shrink-0 text-ink-muted"
               >
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-3.5 h-3.5" />
               </motion.div>
             </button>
 
@@ -97,10 +95,10 @@ export function FaqAccordion({ className = '' }: { className?: string }) {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                  transition={{ duration: 0.2, ease: 'easeInOut' }}
                   className="overflow-hidden"
                 >
-                  <div className="px-4 pb-5 sm:px-5 sm:pb-6 text-sm text-ink-muted leading-relaxed border-t border-slate-100 dark:border-slate-800/80 pt-3.5">
+                  <div className="px-4 pb-4 pt-2 text-xs text-ink-muted leading-relaxed border-t border-[var(--border-color)] bg-[var(--paper)]">
                     {item.answer}
                   </div>
                 </motion.div>
