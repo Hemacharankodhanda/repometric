@@ -21,6 +21,9 @@ import {
   GitBranch,
   Star,
   GitFork,
+  Layers,
+  GitMerge,
+  Workflow,
 } from 'lucide-react';
 
 import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
@@ -619,40 +622,49 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
           <ScoreSummary score={currentScore} projectedScore={projectedScore} className="w-full" />
         </div>
 
-        {/* 4. Tabs: Overview, Fixes, Map, Graph, Diagram */}
+        {/* 4. GitHub UnderlineNav: Overview, Fixes, Map, Graph, Diagram */}
         <div className="space-y-4">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full space-y-4">
             <div className="flex items-center justify-between overflow-x-auto no-scrollbar">
-              <TabsList>
-                <TabsTrigger value="overview" className="flex items-center space-x-1.5">
-                  <FileText className="w-4 h-4" />
+              <TabsList variant="underline">
+                <TabsTrigger variant="underline" value="overview" className="flex items-center space-x-1.5">
+                  <FileText className="w-4 h-4 text-ink-muted" />
                   <span>Overview</span>
                 </TabsTrigger>
 
                 <TabsTrigger
                   id="tour-fixes"
+                  variant="underline"
                   value="fixes"
                   className="flex items-center space-x-1.5"
                 >
-                  <Wrench className="w-4 h-4" />
-                  <span>Fixes ({baseReport.fixes.length})</span>
+                  <Wrench className="w-4 h-4 text-ink-muted" />
+                  <span>Fixes</span>
+                  <span className="gh-counter">{baseReport.fixes.length}</span>
                   {pointsGainedFromDone > 0 && (
-                    <span className="ml-1 px-2 py-0.5 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 rounded-full text-[10px] font-bold">
+                    <span className="ml-1 px-1.5 py-0.2 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 rounded-full text-[10px] font-semibold">
                       +{pointsGainedFromDone.toFixed(1)}
                     </span>
                   )}
                 </TabsTrigger>
 
-                <TabsTrigger id="tour-map" value="map" className="flex items-center space-x-1.5">
-                  <span>Map</span>
+                <TabsTrigger id="tour-map" variant="underline" value="map" className="flex items-center space-x-1.5">
+                  <Layers className="w-4 h-4 text-ink-muted" />
+                  <span>Repo Map</span>
+                  <span className="gh-counter">{files.length}</span>
                 </TabsTrigger>
 
-                <TabsTrigger value="graph" className="flex items-center space-x-1.5">
-                  <span>Graph</span>
+                <TabsTrigger variant="underline" value="graph" className="flex items-center space-x-1.5">
+                  <GitMerge className="w-4 h-4 text-ink-muted" />
+                  <span>Dependency Graph</span>
+                  {graph?.nodes?.length ? (
+                    <span className="gh-counter">{graph.nodes.length}</span>
+                  ) : null}
                 </TabsTrigger>
 
-                <TabsTrigger value="diagram" className="flex items-center space-x-1.5">
-                  <span>Diagram</span>
+                <TabsTrigger variant="underline" value="diagram" className="flex items-center space-x-1.5">
+                  <Workflow className="w-4 h-4 text-ink-muted" />
+                  <span>Architecture</span>
                 </TabsTrigger>
               </TabsList>
             </div>
