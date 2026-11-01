@@ -30,7 +30,6 @@ import type { AnalysisReport, FileNode, GraphData } from '@repometric/core';
 import { Header } from '../../../../components/Header';
 import { RepoInput } from '../../../../components/RepoInput';
 import { ChunkyButton } from '../../../../components/ChunkyButton';
-import { StickerBadge } from '../../../../components/StickerBadge';
 import { ScoreSummary } from '../../../../components/ScoreSummary';
 import { CategoryRow } from '../../../../components/CategoryRow';
 import { FixCard } from '../../../../components/FixCard';
@@ -1094,20 +1093,26 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
               <div
                 id="diagram-container"
-                className="relative rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-6 shadow-card space-y-4"
+                className="gh-box overflow-hidden shadow-sm space-y-0"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
-                      Architecture Layers
+                {/* GitHub Workflow/Mermaid Viewer Chrome Header */}
+                <div className="gh-box-header flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center space-x-2 text-xs">
+                    <span className="gh-btn px-2 py-0.5 font-mono text-[11px]">
+                      <Workflow className="w-3.5 h-3.5 text-primary" />
+                      <span>workflow</span>
                     </span>
-                    <StickerBadge variant="lime" size="sm" rotate="none">
-                      Deterministic flowchart
-                    </StickerBadge>
+                    <span className="font-semibold text-ink">
+                      Architecture Topology Diagram
+                    </span>
                   </div>
+
+                  <span className="gh-counter font-mono">
+                    mermaid AST
+                  </span>
                 </div>
 
-                <div className="w-full">
+                <div className="w-full p-3 sm:p-4 bg-[var(--card)]">
                   {graph && graph.nodes && graph.nodes.length > 0 ? (
                     <ArchitectureDiagram
                       files={files}
