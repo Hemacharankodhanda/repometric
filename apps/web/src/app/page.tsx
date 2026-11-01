@@ -270,7 +270,7 @@ export default function HomePage() {
             </div>
 
             {/* Block 6: Show it off */}
-            <div className="p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card">
+            <div className="p-6 sm:p-8 gh-box shadow-sm">
               <div className="max-w-2xl mx-auto space-y-5">
                 <div className="text-center space-y-2">
                   <StickerBadge variant="sun" size="sm">Deliverable 06</StickerBadge>
@@ -370,8 +370,12 @@ export default function HomePage() {
                     in GitHub Actions to stop hygiene rot.
                   </p>
                 </div>
-                <div className="font-mono text-xs bg-slate-900 dark:bg-black text-slate-100 p-3 rounded-xl border border-slate-800">
-                  repometric --min-score 85 --json
+                <div className="font-mono text-xs bg-[#0d1117] text-[#e6edf3] p-3 rounded-md border border-[#30363d] flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-[#7ee787]">$</span>
+                    <span>npx repometric --min-score 85 --json</span>
+                  </div>
+                  <span className="text-[10px] text-[#8d96a0] font-sans">GitHub Actions</span>
                 </div>
               </div>
             </div>
