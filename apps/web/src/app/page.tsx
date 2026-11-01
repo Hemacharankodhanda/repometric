@@ -691,29 +691,27 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* ─── 1.11 Footer ─── */}
-      <footer className="py-10 px-4 bg-slate-50 dark:bg-slate-950 text-ink text-xs border-t border-slate-200/80 dark:border-slate-800/80">
+      {/* ─── 1.11 GitHub-style Footer ─── */}
+      <footer className="py-8 px-4 bg-[var(--paper)] text-ink-muted text-xs border-t border-[var(--border-color)]">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
-            <Tilly mood="idle" size={24} />
-            <span className="font-display font-semibold text-sm tracking-tight text-ink">
-              repometric
-            </span>
-            <span className="text-ink-muted">• Precision code intelligence</span>
+          <div className="flex items-center gap-2">
+            <Tilly mood="idle" size={20} />
+            <span className="font-semibold text-ink">RepoMetric</span>
+            <span>© 2026 Hemacharan Kodhanda</span>
           </div>
 
-          <div className="flex items-center gap-6 font-medium text-ink-muted">
-            <Link href="/methodology" className="hover:text-ink transition-colors">
+          <div className="flex flex-wrap items-center justify-center gap-5 font-normal text-xs">
+            <Link href="/methodology" className="hover:text-primary transition-colors">
               Methodology
             </Link>
-            <Link href="/kit" className="hover:text-ink transition-colors">
-              Design kit
+            <Link href="/kit" className="hover:text-primary transition-colors">
+              Design Kit
             </Link>
             <a
               href="https://github.com/Hemacharankodhanda/repometric"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-ink transition-colors"
+              className="hover:text-primary transition-colors"
             >
               GitHub
             </a>
@@ -721,23 +719,15 @@ export default function HomePage() {
               href="https://npmjs.com/package/repometric"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-ink transition-colors"
+              className="hover:text-primary transition-colors"
             >
               npm
             </a>
           </div>
 
-          <div className="text-ink-muted text-center sm:text-right">
-            Built by{' '}
-            <a
-              href="https://github.com/Hemacharankodhanda"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-ink underline"
-            >
-              Hemacharan Kodhanda
-            </a>
-            . $0 cost, free tiers, zero AI APIs.
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#2da44e] animate-pulse" />
+            <span className="text-[11px] font-mono">100% Free &amp; Open Source</span>
           </div>
         </div>
       </footer>
