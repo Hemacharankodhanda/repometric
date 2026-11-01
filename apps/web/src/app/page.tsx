@@ -112,56 +112,59 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Step 1 */}
-              <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-5">
-                <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-display font-bold text-base">
-                    1
+              <div className="gh-box p-5 flex flex-col justify-between space-y-4 hover:border-slate-400 dark:hover:border-slate-600 transition-colors">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-primary">step: 1/3</span>
+                    <span className="gh-counter font-mono">input</span>
                   </div>
-                  <h3 className="font-display font-semibold text-xl text-ink">Paste a link</h3>
-                  <p className="text-sm text-ink-muted leading-relaxed">
+                  <h3 className="font-display font-semibold text-lg text-ink">Paste a repository link</h3>
+                  <p className="text-xs text-ink-muted leading-relaxed">
                     Any public GitHub repo. No sign-up, no OAuth permissions, and zero API tokens
                     required.
                   </p>
                 </div>
-                <div className="p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50 dark:bg-slate-950 font-mono text-xs text-ink truncate">
+                <div className="p-2.5 rounded-md border border-[var(--border-color)] bg-[var(--paper)] font-mono text-xs text-ink truncate">
                   github.com/expressjs/express
                 </div>
               </div>
 
               {/* Step 2 */}
-              <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-5">
-                <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 flex items-center justify-center font-display font-bold text-base">
-                    2
+              <div className="gh-box p-5 flex flex-col justify-between space-y-4 hover:border-slate-400 dark:hover:border-slate-600 transition-colors">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-primary">step: 2/3</span>
+                    <span className="gh-counter font-mono">ast-parse</span>
                   </div>
-                  <h3 className="font-display font-semibold text-xl text-ink">
-                    We read the public data
+                  <h3 className="font-display font-semibold text-lg text-ink">
+                    Parse public data
                   </h3>
-                  <p className="text-sm text-ink-muted leading-relaxed">
+                  <p className="text-xs text-ink-muted leading-relaxed">
                     Commits, issues, files and imports. Nothing is cloned or run on our servers.
                   </p>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 p-2.5 rounded-xl border border-emerald-200/70 dark:border-emerald-800/70">
-                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 p-2 rounded-md border border-emerald-300 dark:border-emerald-800">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
                   <span>Public AST &amp; REST metadata</span>
                 </div>
               </div>
 
               {/* Step 3 */}
-              <div className="p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-5">
-                <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 flex items-center justify-center font-display font-bold text-base">
-                    3
+              <div className="gh-box p-5 flex flex-col justify-between space-y-4 hover:border-slate-400 dark:hover:border-slate-600 transition-colors">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-primary">step: 3/3</span>
+                    <span className="gh-counter font-mono">~10s</span>
                   </div>
-                  <h3 className="font-display font-semibold text-xl text-ink">Get your report</h3>
-                  <p className="text-sm text-ink-muted leading-relaxed">
+                  <h3 className="font-display font-semibold text-lg text-ink">Get your report</h3>
+                  <p className="text-xs text-ink-muted leading-relaxed">
                     A 0–100 health score, a prioritized fix list, and interactive visualizers of
                     your code.
                   </p>
                 </div>
-                <div className="flex items-center justify-between text-xs font-semibold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 p-2.5 rounded-xl border border-amber-200/70 dark:border-amber-800/70">
-                  <span>Score + Map + Diagram</span>
-                  <span className="font-mono font-bold">~10 s</span>
+                <div className="flex items-center justify-between text-xs font-semibold text-ink bg-[var(--paper)] p-2 rounded-md border border-[var(--border-color)]">
+                  <span>Score + Map + Graph</span>
+                  <span className="font-mono text-[11px] text-ink-muted">Ready</span>
                 </div>
               </div>
             </div>
