@@ -1031,29 +1031,42 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
               <div
                 id="graph-container"
-                className="relative rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-6 shadow-card space-y-4"
+                className="gh-box overflow-hidden shadow-sm space-y-0"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
-                      Force-directed graph
+                {/* GitHub Network Graph Chrome Header */}
+                <div className="gh-box-header flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center space-x-2 text-xs">
+                    <span className="gh-btn px-2 py-0.5 font-mono text-[11px]">
+                      <GitMerge className="w-3.5 h-3.5 text-primary" />
+                      <span>network</span>
                     </span>
-                    {graph && graph.nodes && graph.nodes.length > 0 && (
-                      <>
-                        <StickerBadge variant="sky" size="sm" rotate="none">
-                          {graph.nodes.length} nodes • {graph.edges.length} imports
-                        </StickerBadge>
-                        {cycleCount > 0 && (
-                          <StickerBadge variant="coral" size="sm" rotate="none">
-                            {cycleCount} cycle{cycleCount === 1 ? '' : 's'} detected
-                          </StickerBadge>
-                        )}
-                      </>
-                    )}
+                    <span className="font-semibold text-ink">
+                      Import Dependency Graph
+                    </span>
                   </div>
+
+                  {graph && graph.nodes && graph.nodes.length > 0 && (
+                    <div className="flex items-center space-x-2">
+                      <span className="gh-counter">
+                        {graph.nodes.length} nodes
+                      </span>
+                      <span className="gh-counter">
+                        {graph.edges.length} edges
+                      </span>
+                      {cycleCount > 0 ? (
+                        <span className="px-2 py-0.5 rounded-full text-[11px] font-medium bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/30">
+                          {cycleCount} cycle{cycleCount === 1 ? '' : 's'}
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                          acyclic
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
 
-                <div className="w-full">
+                <div className="w-full p-3 sm:p-4 bg-[var(--card)]">
                   {graph && graph.nodes && graph.nodes.length > 0 ? (
                     <DependencyGraph
                       data={graph}
