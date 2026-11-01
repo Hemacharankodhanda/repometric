@@ -980,23 +980,27 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
 
               <div
                 id="map-container"
-                className="relative rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 sm:p-6 shadow-card space-y-4"
+                className="gh-box overflow-hidden shadow-sm space-y-0"
               >
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800/80">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
-                      Treemap zoom
+                {/* GitHub File Explorer Chrome Header */}
+                <div className="gh-box-header flex items-center justify-between gap-3">
+                  <div className="flex items-center space-x-2 text-xs">
+                    <span className="gh-btn px-2 py-0.5 font-mono text-[11px]">
+                      <GitBranch className="w-3.5 h-3.5 text-ink-muted" />
+                      <span>tree</span>
                     </span>
-                    <StickerBadge variant="sky" size="sm" rotate="none">
-                      {files.length} files mapped
-                    </StickerBadge>
+                    <span className="font-mono text-ink-muted truncate">
+                      {selectedPath || `${owner}/${repo}`}
+                    </span>
+                    <span className="gh-counter hidden sm:inline-flex">
+                      {files.length} files
+                    </span>
                   </div>
 
-                  <ChunkyButton
-                    variant="secondary"
-                    size="sm"
+                  <button
+                    type="button"
                     onClick={toggleFullscreen}
-                    className="flex items-center space-x-1"
+                    className="gh-btn cursor-pointer"
                     title={isFullscreen ? 'Exit full screen' : 'View full screen'}
                   >
                     {isFullscreen ? (
@@ -1007,10 +1011,10 @@ export default function ReportPage({ params }: { params: { owner: string; repo: 
                     <span className="hidden sm:inline">
                       {isFullscreen ? 'Exit full screen' : 'Full screen'}
                     </span>
-                  </ChunkyButton>
+                  </button>
                 </div>
 
-                <div className="w-full">
+                <div className="w-full p-3 sm:p-4 bg-[var(--card)]">
                   <RepoMap
                     files={files}
                     height={560}
