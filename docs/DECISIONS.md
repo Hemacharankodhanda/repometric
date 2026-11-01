@@ -32,4 +32,6 @@ Decisions already made. Do not reopen them without a reason. Add new entries at 
 
 **ADR-015: Complete UI Paradigm Shift to High-End Interactive Developer Intelligence with Motion Animations.** Shifted the UI factor completely from the playful cartoon style to a modern, high-precision engineering platform look (Linear/Vercel/Raycast grade). Introduces refined borders, multi-layered elevation, ambient luminous glows, frosted glass toolbars, and rich `motion/react` (Framer Motion) micro-interactions, layout transitions, and entrance animations, with strict reduced-motion accessibility support.
 
+**ADR-016: GitHub Primer Developer UI/UX Alignment.** Align RepoMetric's interface patterns with GitHub's developer-familiar Primer design principles (repository breadcrumb headers, Octicon styling, tab counters, file tree chrome, PR/Issue style checklist metrics, and dark/light canvas contrast) while maintaining RepoMetric's custom AST scoring engine and interactive visualizers (RepoMap treemap and DependencyGraph).
+
 
