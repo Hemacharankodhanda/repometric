@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ThemeToggle } from './ThemeToggle';
 import { ChunkyButton } from './ChunkyButton';
 import { RepoMetricLogo } from './RepoMetricLogo';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X, Search, Star, BookOpen } from 'lucide-react';
 
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -111,32 +111,34 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
         {/* Right side navigation & tools */}
         <div className="flex items-center space-x-3 sm:space-x-5 shrink-0">
           {!children && (
-            <nav className="hidden md:flex items-center space-x-5 text-sm font-medium text-ink-muted">
+            <nav className="hidden md:flex items-center space-x-4 text-xs font-semibold text-ink-muted">
               {isHome ? (
                 <>
-                  <a href="#how-it-works" className="hover:text-ink transition-colors">
+                  <a href="#how-it-works" className="hover:text-ink transition-colors px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                     How it works
                   </a>
-                  <a href="#what-you-get" className="hover:text-ink transition-colors">
+                  <a href="#what-you-get" className="hover:text-ink transition-colors px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                     What you get
                   </a>
-                  <a href="#faq" className="hover:text-ink transition-colors">
+                  <a href="#faq" className="hover:text-ink transition-colors px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                     FAQ
                   </a>
                 </>
               ) : null}
-              <Link href="/methodology" className="hover:text-ink transition-colors">
-                Methodology
+              <Link href="/methodology" className="hover:text-ink transition-colors flex items-center space-x-1 px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Methodology</span>
               </Link>
               <a
                 href="https://github.com/Hemacharankodhanda/repometric"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-ink transition-colors flex items-center space-x-1.5"
-                title="View on GitHub"
+                className="gh-btn flex items-center space-x-1.5"
+                title="Star RepoMetric on GitHub"
               >
-                <GithubIcon className="w-4 h-4" />
-                <span>GitHub</span>
+                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                <span>Star</span>
+                <span className="gh-counter">★</span>
               </a>
             </nav>
           )}
