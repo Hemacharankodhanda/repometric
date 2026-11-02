@@ -4,7 +4,6 @@ import { Header } from '../components/Header';
 import { RepoInput } from '../components/RepoInput';
 import { HeroPreview } from '../components/HeroPreview';
 import { Tilly } from '../components/Tilly';
-import { StickerBadge } from '../components/StickerBadge';
 import {
   DemoScoreReceipts,
   DemoFixList,
@@ -93,7 +92,9 @@ export default function HomePage() {
         >
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-3 max-w-xl mx-auto">
-              <StickerBadge variant="primary">Simple 3-step sequence</StickerBadge>
+              <span className="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--card)] text-ink border border-[var(--border-color)]">
+                Workflow steps
+              </span>
               <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink tracking-tight">
                 How it works
               </h2>
@@ -464,7 +465,9 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto space-y-10">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-2">
-                <StickerBadge variant="sun">Sample gallery</StickerBadge>
+                <span className="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--card)] text-ink border border-[var(--border-color)]">
+                  Sample repos
+                </span>
                 <h2 className="font-display font-bold text-3xl text-ink tracking-tight">
                   Try a pre-analyzed repo
                 </h2>
@@ -472,9 +475,9 @@ export default function HomePage() {
                   Click any card to open its instant report page with full visualizers.
                 </p>
               </div>
-              <StickerBadge variant="paper" size="sm" dot={false}>
-                Sample preview benchmarks
-              </StickerBadge>
+              <span className="gh-counter font-mono text-xs">
+                Benchmark repositories
+              </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -561,9 +564,9 @@ export default function HomePage() {
                             Public
                           </span>
                         </div>
-                        <StickerBadge variant={r.variant} size="sm">
-                          {r.grade}
-                        </StickerBadge>
+                        <span className="px-2 py-0.5 rounded-full border border-[var(--border-color)] bg-[var(--paper)] text-[11px] font-mono font-medium text-ink">
+                          {r.score}/100
+                        </span>
                       </div>
                       <p className="text-xs text-ink-muted line-clamp-2 leading-relaxed">{r.desc}</p>
                     </div>
@@ -650,11 +653,13 @@ export default function HomePage() {
         {/* ─── 1.9 FAQ ─── */}
         <section
           id="faq"
-          className="py-20 sm:py-24 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40"
+          className="py-20 sm:py-24 px-4 border-b border-[var(--border-color)] bg-[var(--paper)]"
         >
           <div className="max-w-4xl mx-auto space-y-10">
             <div className="text-center space-y-3">
-              <StickerBadge variant="primary">Frequently asked</StickerBadge>
+              <span className="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--card)] text-ink border border-[var(--border-color)]">
+                Documentation
+              </span>
               <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink tracking-tight">
                 Frequently asked questions
               </h2>
@@ -665,17 +670,13 @@ export default function HomePage() {
 
         {/* ─── 1.10 Final call to action ─── */}
         <section className="py-20 sm:py-28 px-4 bg-paper relative">
-          <div className="max-w-4xl mx-auto rounded-3xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-8 sm:p-14 shadow-card-lg flex flex-col items-center text-center space-y-6 relative overflow-hidden">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-indigo-500/10 blur-[80px] rounded-full -z-10"
-            />
+          <div className="max-w-4xl mx-auto gh-box p-8 sm:p-14 shadow-xs flex flex-col items-center text-center space-y-6">
             <Tilly mood="happy" size={72} />
             <div className="space-y-2 max-w-lg">
-              <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink tracking-tight">
+              <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
                 Ready? Paste a repo link.
               </h2>
-              <p className="text-sm text-ink-muted">
+              <p className="text-xs sm:text-sm text-ink-muted">
                 Inspect your score, get your prioritized fix list, and explore your interactive
                 treemap now.
               </p>
