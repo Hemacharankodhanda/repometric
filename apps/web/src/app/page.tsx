@@ -166,11 +166,13 @@ export default function HomePage() {
         {/* ─── 1.4 What you get ─── */}
         <section
           id="what-you-get"
-          className="py-20 sm:py-28 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper"
+          className="py-20 sm:py-28 px-4 border-b border-[var(--border-color)] bg-paper"
         >
           <div className="max-w-6xl mx-auto space-y-20">
             <div className="text-center space-y-3 max-w-xl mx-auto">
-              <StickerBadge variant="lime">Complete feature suite</StickerBadge>
+              <span className="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--card)] text-ink border border-[var(--border-color)]">
+                Feature deliverables
+              </span>
               <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink tracking-tight">
                 What you get
               </h2>
@@ -182,7 +184,7 @@ export default function HomePage() {
             {/* Block 1 */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-3">
-                <StickerBadge variant="primary" size="sm">Deliverable 01</StickerBadge>
+                <span className="gh-counter font-mono text-xs">01 / Scorecard</span>
                 <h3 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
                   A score with receipts
                 </h3>
@@ -202,7 +204,7 @@ export default function HomePage() {
                 <DemoFixList />
               </div>
               <div className="lg:col-span-5 space-y-3 order-1 lg:order-2">
-                <StickerBadge variant="sun" size="sm">Deliverable 02</StickerBadge>
+                <span className="gh-counter font-mono text-xs">02 / Fixes</span>
                 <h3 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
                   A to-do list, sorted by payoff
                 </h3>
@@ -216,7 +218,7 @@ export default function HomePage() {
             {/* Block 3 */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-3">
-                <StickerBadge variant="lime" size="sm">Deliverable 03</StickerBadge>
+                <span className="gh-counter font-mono text-xs">03 / Repo Map</span>
                 <h3 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
                   See the whole repo at a glance
                 </h3>
@@ -236,7 +238,7 @@ export default function HomePage() {
                 <DemoDependencyGraph />
               </div>
               <div className="lg:col-span-5 space-y-3 order-1 lg:order-2">
-                <StickerBadge variant="sky" size="sm">Deliverable 04</StickerBadge>
+                <span className="gh-counter font-mono text-xs">04 / Imports</span>
                 <h3 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
                   Who depends on whom
                 </h3>
@@ -250,7 +252,7 @@ export default function HomePage() {
             {/* Block 5 */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-3">
-                <StickerBadge variant="coral" size="sm">Deliverable 05</StickerBadge>
+                <span className="gh-counter font-mono text-xs">05 / Diagram</span>
                 <h3 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
                   The architecture, drawn for you
                 </h3>
@@ -268,7 +270,7 @@ export default function HomePage() {
             <div className="p-6 sm:p-8 gh-box shadow-sm">
               <div className="max-w-2xl mx-auto space-y-5">
                 <div className="text-center space-y-2">
-                  <StickerBadge variant="sun" size="sm">Deliverable 06</StickerBadge>
+                  <span className="gh-counter font-mono text-xs">06 / Badges</span>
                   <h3 className="font-display font-bold text-2xl text-ink tracking-tight">
                     Show it off
                   </h3>
@@ -284,10 +286,12 @@ export default function HomePage() {
         </section>
 
         {/* ─── 1.5 Who it's for ─── */}
-        <section className="py-20 sm:py-24 px-4 border-b border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40">
+        <section className="py-20 sm:py-24 px-4 border-b border-[var(--border-color)] bg-[var(--paper)]">
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-3 max-w-xl mx-auto">
-              <StickerBadge variant="sun">Target audience</StickerBadge>
+              <span className="px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--card)] text-ink border border-[var(--border-color)]">
+                Target workflows
+              </span>
               <h2 className="font-display font-bold text-3xl sm:text-4xl text-ink tracking-tight">
                 Who it&apos;s for
               </h2>
@@ -298,68 +302,68 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
               {/* Students — wide tile */}
-              <div className="md:col-span-7 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
+              <div className="md:col-span-7 gh-box p-6 sm:p-8 shadow-xs hover:border-slate-400 dark:hover:border-slate-600 transition-colors flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center">
+                    <GraduationCap className="w-4 h-4" />
                   </div>
-                  <h3 className="font-display font-semibold text-xl text-ink">Students</h3>
-                  <p className="text-sm text-ink-muted leading-relaxed">
+                  <h3 className="font-display font-semibold text-lg text-ink">Students</h3>
+                  <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
                     Polish your portfolio repos before placements. Turn vague project directories
                     into production-ready showcases with tests, licenses, and architecture docs.
                   </p>
                 </div>
-                <div className="p-3 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50 dark:bg-slate-950 text-xs font-mono text-ink">
+                <div className="p-2.5 rounded-md border border-[var(--border-color)] bg-[var(--paper)] text-xs font-mono text-ink">
                   &ldquo;Took my portfolio repo from 62 to 91 in one weekend.&rdquo;
-                  <span className="ml-2 text-ink-muted">(sample)</span>
+                  <span className="ml-2 text-ink-muted font-sans">(sample)</span>
                 </div>
               </div>
 
               {/* Open-source newcomers */}
-              <div className="md:col-span-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
+              <div className="md:col-span-5 gh-box p-6 sm:p-8 shadow-xs hover:border-slate-400 dark:hover:border-slate-600 transition-colors flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 flex items-center justify-center">
-                    <Compass className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-md bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 flex items-center justify-center">
+                    <Compass className="w-4 h-4" />
                   </div>
-                  <h3 className="font-display font-semibold text-xl text-ink">Open-source newcomers</h3>
-                  <p className="text-sm text-ink-muted leading-relaxed">
+                  <h3 className="font-display font-semibold text-lg text-ink">Open-source newcomers</h3>
+                  <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
                     Understand a new codebase in minutes before opening your first pull request.
                   </p>
                 </div>
-                <div className="p-2.5 rounded-xl border border-teal-200/70 dark:border-teal-800/70 bg-teal-50 dark:bg-teal-950/60 inline-block w-fit">
-                  <span className="text-xs font-mono font-semibold text-teal-700 dark:text-teal-300">
+                <div className="p-2 rounded-md border border-[var(--border-color)] bg-[var(--paper)] inline-block w-fit">
+                  <span className="text-xs font-mono font-medium text-primary">
                     Instant visual navigation →
                   </span>
                 </div>
               </div>
 
               {/* Recruiters */}
-              <div className="md:col-span-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
+              <div className="md:col-span-5 gh-box p-6 sm:p-8 shadow-xs hover:border-slate-400 dark:hover:border-slate-600 transition-colors flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
-                    <Briefcase className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+                    <Briefcase className="w-4 h-4" />
                   </div>
-                  <h3 className="font-display font-semibold text-xl text-ink">Recruiters &amp; leads</h3>
-                  <p className="text-sm text-ink-muted leading-relaxed">
+                  <h3 className="font-display font-semibold text-lg text-ink">Recruiters &amp; leads</h3>
+                  <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
                     Judge a repo in 30 seconds. Verify genuine engineering hygiene, CI test coverage,
                     and documentation.
                   </p>
                 </div>
-                <div className="p-2.5 rounded-xl border border-slate-200/70 dark:border-slate-800/70 bg-slate-50 dark:bg-slate-950 inline-block w-fit text-xs font-mono font-medium text-ink">
+                <div className="p-2 rounded-md border border-[var(--border-color)] bg-[var(--paper)] inline-block w-fit text-xs font-mono font-medium text-ink">
                   0–100 objective score benchmarks
                 </div>
               </div>
 
               {/* Maintainers — wide tile */}
-              <div className="md:col-span-7 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm p-6 sm:p-8 shadow-card hover:-translate-y-1 hover:shadow-card-lg transition-all duration-200 flex flex-col justify-between space-y-4">
+              <div className="md:col-span-7 gh-box p-6 sm:p-8 shadow-xs hover:border-slate-400 dark:hover:border-slate-600 transition-colors flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
-                    <Wrench className="w-5 h-5" />
+                  <div className="w-9 h-9 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 flex items-center justify-center">
+                    <Wrench className="w-4 h-4" />
                   </div>
-                  <h3 className="font-display font-semibold text-xl text-ink">Maintainers</h3>
-                  <p className="text-sm text-ink-muted leading-relaxed">
+                  <h3 className="font-display font-semibold text-lg text-ink">Maintainers</h3>
+                  <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
                     Fail CI when repository health drops. Run{' '}
-                    <code className="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded text-xs">
+                    <code className="font-mono bg-[var(--paper)] px-1 py-0.5 rounded text-xs border border-[var(--border-color)]">
                       npx repometric --min-score 80
                     </code>{' '}
                     in GitHub Actions to stop hygiene rot.
