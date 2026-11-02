@@ -1,5 +1,5 @@
 {
-  "name": "@repometric/cli",
+  "name": "repometric",
   "version": "0.1.0",
   "description": "Command-line interface for RepoMetric: analyze GitHub repositories for health, structure, and dependencies directly from your terminal.",
   "author": "Hemacharan Kodhanda",
@@ -39,10 +39,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@repometric/core": "workspace:*",
     "commander": "^12.1.0"
   },
   "devDependencies": {
+    "@repometric/core": "workspace:*",
     "@types/node": "^20.17.0",
     "tsup": "^9.0.0",
     "typescript": "^5.6.3",
