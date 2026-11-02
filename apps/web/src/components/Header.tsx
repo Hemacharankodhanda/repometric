@@ -72,7 +72,7 @@ export function Header({ children, showCta, statusText }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/80 dark:border-slate-800/80 bg-paper/85 dark:bg-paper/90 backdrop-blur-md transition-colors">
+    <header className="sticky top-0 z-40 border-b border-[var(--border-color)] bg-[var(--card)] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Wordmark with bespoke SVG logo */}
         <Link href="/" className="group shrink-0 inline-flex items-center" aria-label="RepoMetric Home">
