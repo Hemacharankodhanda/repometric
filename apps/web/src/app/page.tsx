@@ -30,42 +30,34 @@ import {
   Briefcase,
   Wrench,
   CheckCircle2,
-  Sparkles,
-  Zap,
 } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-paper text-ink font-body relative overflow-x-hidden selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:text-indigo-200">
-      {/* Background ambient mesh glows */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed -top-48 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-gradient-to-tr from-indigo-500/10 via-sky-500/10 to-emerald-500/10 blur-[130px] rounded-full -z-10 dark:from-indigo-600/15 dark:via-sky-600/10 dark:to-teal-500/10"
-      />
-
       {/* 1.1 Nav (sticky frosted glass) */}
       <Header />
 
       <main className="flex-1">
         {/* ─── 1.2 Hero ─── */}
-        <section className="relative px-4 pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-slate-200/80 dark:border-slate-800/80">
+        <section className="relative px-4 pt-16 pb-20 sm:pt-24 sm:pb-28 border-b border-[var(--border-color)]">
           <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left column */}
             <div className="lg:col-span-7 space-y-6 text-center sm:text-left">
               <div className="inline-flex items-center gap-2 flex-wrap justify-center sm:justify-start">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60 shadow-xs">
-                  <Zap className="w-3.5 h-3.5 text-indigo-500" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--card)] text-ink border border-[var(--border-color)] shadow-xs">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   Deterministic AST Engine
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60 shadow-xs">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--card)] text-ink-muted border border-[var(--border-color)] shadow-xs">
+                  <ShieldCheck className="w-3.5 h-3.5 text-primary" />
                   100% Free &amp; Open Source
                 </span>
               </div>
 
               <h1 className="font-display font-extrabold text-hero text-ink tracking-tight leading-[1.08]">
                 Is your repo any good?{' '}
-                <span className="bg-gradient-to-r from-indigo-600 via-sky-600 to-teal-600 dark:from-indigo-400 dark:via-sky-400 dark:to-teal-300 bg-clip-text text-transparent">
+                <span className="text-primary font-bold">
                   Find out in 10 seconds.
                 </span>
               </h1>
