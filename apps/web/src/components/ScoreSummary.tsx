@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { Tilly } from './Tilly';
 import { StickerBadge, type StickerVariant } from './StickerBadge';
 import type { Grade } from '@repometric/core';
-import { ShieldCheck, Sparkles } from 'lucide-react';
+import { ShieldCheck, TrendingUp } from 'lucide-react';
 
 export interface ScoreSummaryProps {
   score: number;
@@ -199,7 +199,7 @@ export function ScoreSummary({
                 Current: <span className="font-bold">{score}</span>
               </span>
               <span className="text-primary-text flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
                 Projected: <span className="font-bold text-primary">{targetProjected}</span>
                 <span className="text-emerald-600 dark:text-emerald-400 font-bold">
                   (+{targetProjected - score} pts)

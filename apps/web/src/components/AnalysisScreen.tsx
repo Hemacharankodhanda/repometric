@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Tilly } from './Tilly';
 import { Stepper, type StepItem } from './Stepper';
-import { Lightbulb, Sparkles } from 'lucide-react';
+import { Lightbulb, Activity } from 'lucide-react';
 
 const TRUE_TIPS = [
   'A good README has install steps, usage and a screenshot.',
@@ -97,9 +97,9 @@ export function AnalysisScreen({ repoName, onComplete, speedMultiplier = 1 }: An
 
       {/* Heading */}
       <div className="space-y-2">
-        <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-850">
-          <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-          <span>Automated Telemetry Scanner</span>
+        <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium bg-[var(--paper)] text-ink border border-[var(--border-color)]">
+          <Activity className="w-3.5 h-3.5 text-primary" />
+          <span>Automated AST Scanner</span>
         </div>
         <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink tracking-tight">
           Analyzing {repoName}
